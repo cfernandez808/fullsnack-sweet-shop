@@ -9,7 +9,7 @@ module.exports = db.define('candy', {
       notEmpty: true
     }
   },
-  decription: {
+  description: {
     type: Sequelize.TEXT,
     allowNull: false,
     validate: {
@@ -24,7 +24,8 @@ module.exports = db.define('candy', {
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue: '../../../public/candies'
+    defaultValue:
+      '../../../public/candies/photo-1484979045040-0ab3854b6acb.jpeg'
   },
   quantity: {
     type: Sequelize.INTEGER,
