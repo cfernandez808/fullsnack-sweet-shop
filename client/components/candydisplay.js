@@ -12,7 +12,7 @@ const StudentDisplay = props => {
         <div className="candyInfo">
           <div>
             {/* <Link to={`/candy/${id}`}> */}
-            <h3>{name}</h3>
+            <h2>{name}</h2>
             {/* </Link> */}
             <hr />
           </div>
@@ -20,7 +20,7 @@ const StudentDisplay = props => {
           <hr />
           Price: ${price}
           <hr />
-          In-Stock: {quantity}
+          In Stock: {quantity}
         </div>
         <div className="candyButtons">
           <div className="buyButton">Buy Here!</div>
