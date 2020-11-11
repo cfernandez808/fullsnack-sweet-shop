@@ -1,5 +1,7 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import axios from 'axios'
 
 const StudentDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
@@ -23,11 +25,25 @@ const StudentDisplay = props => {
           In Stock: {quantity}
         </div>
         <div className="candyButtons">
-          <div className="buyButton">Buy Here!</div>
+          <div
+            className="buyButton"
+            onClick={async () => {
+              await axios.post(`/api/cart/${props.user.id}`, {
+                quantity: 1,
+                candyId: id
+              })
+            }}
+          >
+            Buy Here!
+          </div>
         </div>
       </div>
     </>
   )
 }
 
-export default withRouter(StudentDisplay)
+const mapState = state => ({
+  user: state.user
+})
+
+export default withRouter(connect(mapState)(StudentDisplay))

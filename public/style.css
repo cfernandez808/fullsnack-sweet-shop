@@ -8,6 +8,7 @@ body {
   background: url(candyshop1.jpg);
   background-size: cover;
   background-blend-mode: darken;
+  background-attachment: fixed;
 }
 
 a {
@@ -114,6 +115,7 @@ nav {
   border: 2px solid white;
   border-radius: 20px;
   color: white;
+  min-height: 400px;
 }
 
 .candyContainer img {
