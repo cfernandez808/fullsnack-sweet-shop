@@ -12,21 +12,17 @@ async function seed() {
       email: 'cody@email.com',
       password: '123',
       firstName: 'Cody',
-      lastName: 'Puppy',
+      lastName: 'Puppy'
     }),
     User.create({
       email: 'murphy@email.com',
       password: '123',
       firstName: 'Murphy',
-      lastName: 'Kitty',
-    }),
+      lastName: 'Kitty'
+    })
   ])
 
-  
-
-  const candies = await Promise.all(
-    candyList.map((candy) => Candy.create(candy))
-  )
+  const candies = await Promise.all(candyList.map(candy => Candy.create(candy)))
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${candies.length} candies`)
