@@ -42,12 +42,16 @@ const candyImages = [
   'worms.jpeg',
 ]
 
+const candyCategories = ['Hard Candy', 'Chocolate', 'Fruity', 'Gummy']
+
 let candyList = []
 
 for (let i = 0; i < 60; i++) {
   let name = candyNames[Math.floor(Math.random() * candyNames.length)]
   let description =
     candyDescriptions[Math.floor(Math.random() * candyDescriptions.length)]
+  let category =
+    candyCategories[Math.floor(Math.random() * candyCategories.length)]
   let quantity = Math.floor(Math.random() * 100)
   let price = candyPrices[Math.floor(Math.random() * candyPrices.length)]
   let image = `/candies/${
@@ -56,6 +60,7 @@ for (let i = 0; i < 60; i++) {
   candyList.push({
     name,
     description,
+    category,
     quantity,
     price,
     image,

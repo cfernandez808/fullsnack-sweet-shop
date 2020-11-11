@@ -16,6 +16,13 @@ module.exports = db.define('candy', {
       notEmpty: true,
     },
   },
+  category: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
   price: {
     type: Sequelize.INTEGER,
     validate: {
@@ -24,7 +31,7 @@ module.exports = db.define('candy', {
   },
   image: {
     type: Sequelize.TEXT,
-    defaultValue: '../../../public/candies/hearts.jpeg',
+    defaultValue: '/candies/hearts.jpeg',
   },
   quantity: {
     type: Sequelize.INTEGER,
