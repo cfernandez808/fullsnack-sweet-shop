@@ -1,6 +1,7 @@
 'use strict'
 const db = require('../server/db')
 const {User, Candy} = require('../server/db/models')
+const candyList = require('./candyseed')
 
 async function seed() {
   await db.sync({force: true})
@@ -11,49 +12,19 @@ async function seed() {
       email: 'cody@email.com',
       password: '123',
       firstName: 'Cody',
-      lastName: 'Puppy'
+      lastName: 'Puppy',
     }),
     User.create({
       email: 'murphy@email.com',
       password: '123',
       firstName: 'Murphy',
-      lastName: 'Kitty'
-    })
+      lastName: 'Kitty',
+    }),
   ])
 
-  const candies = await Promise.all([
-    Candy.create({
-      name: 'Gummy bears',
-      description: 'fruits flavor gummy bears',
-      quantity: 100,
-      price: 1.0,
-      image: '../public/candies/photo-1582058091505-f87a2e55a40f.jpeg'
-    }),
-    Candy.create({
-      name: 'lollipop',
-      description:
-        'Lollipop candy tiramisu dragée marshmallow gummies toffee sugar plum.',
-      quantity: 80,
-      price: 1.55,
-      image: '../public/candies/photo-1575224300306-1b8da36134ec.jpeg'
-    }),
-    Candy.create({
-      name: 'linquorice',
-      description:
-        'Liquorice (British English) or licorice (American English) (/ˈlɪkərɪʃ, -ɪs/ LIK-ər-is(h)) is a confection usually flavoured and coloured black with the extract of the roots of the liquorice plant Glycyrrhiza glabra.',
-      quantity: 20,
-      price: 1.99,
-      image: '../public/candies/photo-1499195333224-3ce974eecb47.jpeg'
-    }),
-    Candy.create({
-      name: 'Jelly Beans',
-      description:
-        'Jelly beans are small bean-shaped sugar candies with soft candy shells and thick gel interiors',
-      quantity: 50,
-      price: 1.0,
-      image: '../public/candies/photo-1581798269145-7512508289b9.jpeg'
-    })
-  ])
+  const candies = await Promise.all(
+    candyList.map((candy) => Candy.create(candy))
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${candies.length} candies`)
