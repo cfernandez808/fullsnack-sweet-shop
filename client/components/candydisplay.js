@@ -3,7 +3,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import axios from 'axios'
 
-const StudentDisplay = props => {
+const CandyDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
   return (
     <>
@@ -41,6 +41,7 @@ const StudentDisplay = props => {
     </>
   )
 }
+
 
 const mapState = state => ({
   user: state.user
