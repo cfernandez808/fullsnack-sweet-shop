@@ -8,14 +8,14 @@ const CandyDisplay = (props) => {
   return (
     <>
       <div key={id} className="candyContainer">
-        {/* <Link to={`/candy/${id}`}> */}
-        <img src={image} />
-        {/* </Link> */}
+        <Link to={`/candy/${id}`}>
+          <img src={image} />
+        </Link>
         <div className="candyInfo">
           <div>
-            {/* <Link to={`/candy/${id}`}> */}
-            <h2>{name}</h2>
-            {/* </Link> */}
+            <Link to={`/candy/${id}`}>
+              <h2>{name}</h2>
+            </Link>
             <hr />
           </div>
           {description}
