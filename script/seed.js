@@ -22,6 +22,8 @@ async function seed() {
     }),
   ])
 
+  
+
   const candies = await Promise.all(
     candyList.map((candy) => Candy.create(candy))
   )

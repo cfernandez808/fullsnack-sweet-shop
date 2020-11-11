@@ -3,6 +3,7 @@ const Cart = require('./cart')
 const Candy = require('./candy')
 const User = require('./user')
 
+
 Candy.belongsToMany(Cart, {through: 'cart_candy'})
 Cart.belongsToMany(Candy, {through: 'cart_candy'})
 

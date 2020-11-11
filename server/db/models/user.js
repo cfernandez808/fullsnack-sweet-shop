@@ -49,6 +49,10 @@ const User = db.define('user', {
   },
   billingAddress: {
     type: Sequelize.TEXT
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
