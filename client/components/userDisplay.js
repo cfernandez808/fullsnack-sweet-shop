@@ -1,30 +1,39 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import axios from 'axios'
 
-const CandyDisplay = props => {
-  const {id, name, description, price, image, quantity} = props.candy
+const UserDisplay = props => {
+  const {
+    firstName,
+    lastName,
+    email,
+    admin,
+    shippingAddress,
+    billingAddress,
+    id
+  } = props.user
+
   return (
     <>
       <div key={id} className="candyContainer">
         {/* <Link to={`/candy/${id}`}> */}
-        <img src={image} />
+        {/* <img src={image} /> */}
         {/* </Link> */}
         <div className="candyInfo">
           <div>
             {/* <Link to={`/candy/${id}`}> */}
-            <h2>{name}</h2>
+            <h2>{firstName + ' ' + lastName}</h2>
             {/* </Link> */}
             <hr />
           </div>
-          {description}
+          {email}
           <hr />
-          Price: ${price}
+          Admin: {admin ? 'TRUE' : 'FALSE'}
           <hr />
-          In Stock: {quantity}
+          Shipping Address: {shippingAddress}
+          <hr />
+          billingAddress: {billingAddress}
         </div>
-        <div className="candyButtons">
+        {/* <div className="candyButtons">
           <div
             className="buyButton"
             onClick={async () => {
@@ -36,14 +45,10 @@ const CandyDisplay = props => {
           >
             Buy Here!
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   )
 }
 
-const mapState = state => ({
-  user: state.user
-})
-
-export default withRouter(connect(mapState)(CandyDisplay))
+export default withRouter(UserDisplay)
