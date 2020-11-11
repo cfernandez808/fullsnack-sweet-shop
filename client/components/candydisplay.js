@@ -3,7 +3,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import axios from 'axios'
 
-const CandyDisplay = props => {
+const CandyDisplay = (props) => {
   const {id, name, description, price, image, quantity} = props.candy
   return (
     <>
@@ -30,7 +30,7 @@ const CandyDisplay = props => {
             onClick={async () => {
               await axios.post(`/api/cart/${props.user.id}`, {
                 quantity: 1,
-                candyId: id
+                candyId: id,
               })
             }}
           >
@@ -42,9 +42,8 @@ const CandyDisplay = props => {
   )
 }
 
-
-const mapState = state => ({
-  user: state.user
+const mapState = (state) => ({
+  user: state.user,
 })
 
-export default withRouter(connect(mapState)(StudentDisplay))
+export default withRouter(connect(mapState)(CandyDisplay))
