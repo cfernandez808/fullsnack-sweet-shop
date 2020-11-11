@@ -9,17 +9,23 @@ export class SingleProduct extends React.Component {
   }
   render() {
     const {singleCandy} = this.props
-    console.log('CANDY', singleCandy)
-    return <div className="allProductsContainer" />
+    return (
+      <div className="allProductsContainer">
+        <h1>{singleCandy.name}</h1>
+        {/* <img src={singleCandy.image} /> */}
+        <h3>{singleCandy.description}</h3>
+        <h1>${singleCandy.price}</h1>
+      </div>
+    )
   }
 }
 
-const mapState = state => ({
-  singleCandy: state.singleCandy
+const mapState = (state) => ({
+  singleCandy: state.singleCandy,
 })
 
-const mapDispatch = dispatch => ({
-  getSingleCandy: id => dispatch(getSingleCandyThunk(id))
+const mapDispatch = (dispatch) => ({
+  getSingleCandy: (id) => dispatch(getSingleCandyThunk(id)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))
