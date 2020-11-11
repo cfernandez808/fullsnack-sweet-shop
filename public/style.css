@@ -80,12 +80,12 @@ nav {
 .buttonNav:hover {
   background-color: white;
   cursor: pointer;
-  transition: ease 0.5s;
+  transition: ease 0.4s;
 }
 
 .buttonNav:hover a {
   color: cornflowerblue;
-  transition: ease 0.5s;
+  transition: ease 0.4s;
 }
 
 .buttonNav a {
@@ -150,4 +150,10 @@ nav {
   border-radius: 20px;
   border: 2px solid white;
   cursor: pointer;
+}
+
+.buyButton:hover {
+  filter: contrast(160%);
+  box-shadow: inset 3px 3px 5px 5px rgba(0, 0, 0, 0.25);
+  transition: 0.4s ease;
 }

@@ -18,12 +18,12 @@ const StudentDisplay = props => {
           </div>
           {description}
           <hr />
-          {price}
+          Price: ${price}
           <hr />
-          {quantity}
-          <div className="candyButtons">
-            <div className="buyButton">Buy Here!</div>
-          </div>
+          In-Stock: {quantity}
+        </div>
+        <div className="candyButtons">
+          <div className="buyButton">Buy Here!</div>
         </div>
       </div>
     </>
