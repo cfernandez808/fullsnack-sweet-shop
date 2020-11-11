@@ -10,11 +10,32 @@ export class SingleProduct extends React.Component {
   render() {
     const {singleCandy} = this.props
     return (
-      <div className="allProductsContainer">
-        <h1>{singleCandy.name}</h1>
-        {/* <img src={singleCandy.image} /> */}
-        <h3>{singleCandy.description}</h3>
-        <h1>${singleCandy.price}</h1>
+      <div className="singleCandyContainer">
+        <div className="singleCandyImg">
+          <img src={singleCandy.image} />
+        </div>
+        <div className="singleCandyRight">
+          <div className="singleCandyTopInfo">
+            <h1>{singleCandy.name}</h1>
+            <hr />
+            <h3>Description:</h3>
+            <p>{singleCandy.description}</p>
+            <hr />
+            <h4>Price:</h4>
+            <h4>{singleCandy.price / 100}</h4>
+          </div>
+          <div className="singleCandyButtons">
+            <div className="singleCandyMinusButton">-</div>
+            <div>Quantity</div>
+            <div className="singleCandyPlusButton">+</div>
+            <div
+              className="singleCandyAddToCartButton"
+              // onClick={() => setShowEdit(!showEdit)}
+            >
+              Add to Cart
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
