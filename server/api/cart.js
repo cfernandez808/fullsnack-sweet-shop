@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {Cart, User, Candy} = require('../db/models')
 module.exports = router
-const axios = require('axios')
 
 router.get('/test', (req, res, next) => {
   console.log('Current logged in user is:', req.user.dataValues.id)
@@ -14,7 +13,7 @@ router.get('/:id', async (req, res, next) => {
       where: {
         id: req.params.id
       },
-      include: [{model: Cart, include: [{model: Candy}]}]
+      include: {model: Cart, include: {model: Candy}}
     })
     res.json(cart)
   } catch (err) {
