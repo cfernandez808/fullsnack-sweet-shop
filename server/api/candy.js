@@ -10,3 +10,12 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:candyId', async (req, res, next) => {
+  try {
+    const candy = await Candy.findByPk(req.params.candyId)
+    res.json(candy)
+  } catch (err) {
+    next(err)
+  }
+})

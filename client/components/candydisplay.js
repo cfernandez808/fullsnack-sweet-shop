@@ -1,7 +1,7 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 
-const StudentDisplay = props => {
+const CandyDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
   return (
     <>
@@ -30,4 +30,4 @@ const StudentDisplay = props => {
   )
 }
 
-export default withRouter(StudentDisplay)
+export default withRouter(CandyDisplay)
