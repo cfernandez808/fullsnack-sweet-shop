@@ -1,10 +1,10 @@
-
 const Order = require('./order')
 const Cart = require('./cart')
 const Candy = require('./candy')
 const User = require('./user')
-// Cart.hasMany(Product)
-// Product.belongsTo(Cart)
+
+Cart.hasMany(Candy)
+Candy.belongsTo(Cart)
 
 Cart.belongsTo(User)
 User.hasOne(Cart)

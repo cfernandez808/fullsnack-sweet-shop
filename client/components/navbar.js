@@ -5,26 +5,61 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>BOILERMAKER</h1>
+  <div className="navbar">
     <nav>
+      <div className="title">
+        <h1>FullSnack Sweet Shop</h1>
+      </div>
       {isLoggedIn ? (
-        <div>
+        <div className="navInfo">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <div
+            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
+          >
+            <div className="buttonNav">
+              <Link to="/home">Home</Link>
+            </div>
+          </div>
+          {/* <div
+            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
+          /> */}
+          <div
+            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
+          >
+            <div className="buttonNav">
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+            </div>
+          </div>
         </div>
       ) : (
-        <div>
+        <div className="navInfo">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <div
+            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
+          >
+            <div className="buttonNav">
+              <Link to="/">Home</Link>
+            </div>
+          </div>
+          <div
+            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
+          />
+          <div
+            className="buttonsRight"
+            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
+          >
+            <div className="buttonNav">
+              <Link to="/login">Login</Link>
+            </div>
+            <div className="buttonNav">
+              <Link to="/signup">Sign Up</Link>
+            </div>
+          </div>
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 
