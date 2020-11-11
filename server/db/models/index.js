@@ -3,8 +3,12 @@ const Cart = require('./cart')
 const Candy = require('./candy')
 const User = require('./user')
 
-Cart.hasMany(Candy)
-Candy.belongsTo(Cart)
+
+Candy.belongsToMany(Cart, {through: 'cart_candy'})
+Cart.belongsToMany(Candy, {through: 'cart_candy'})
+
+Candy.belongsToMany(Order, {through: 'order_candy'})
+Order.belongsToMany(Candy, {through: 'order_candy'})
 
 Cart.belongsTo(User)
 User.hasOne(Cart)
@@ -16,5 +20,5 @@ module.exports = {
   User,
   Order,
   Cart,
-  Candy
+  Candy,
 }
