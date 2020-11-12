@@ -1,8 +1,9 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 
-const SingleCandyCart = props => {
-  const {id, name, description, price, image, quantity} = props.candy
+const SingleCandyCart = (props) => {
+  const {id, name, description, price, image} = props.candy
+  const {quantity} = props
   return (
     <div className="singleCandyCart">
       <div className="candyImage">
