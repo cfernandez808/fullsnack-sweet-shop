@@ -37,3 +37,20 @@ router.delete('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    res.json(await Candy.create(req.body))
+  } catch (err) {
+    next(err)
+  }
+})
+router.put('/:id', async (req, res, next) => {
+  try {
+    const candy = await Candy.findByPk(req.params.id)
+    const updatedCandy = await candy.update(req.body)
+    res.json(updatedCandy)
+  } catch (err) {
+    next(err)
+  }
+})
