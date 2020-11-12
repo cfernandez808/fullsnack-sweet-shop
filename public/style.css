@@ -162,6 +162,103 @@ nav {
   transition: 0.4s ease;
 }
 
+
+.loginForm {
+  width: 20%;
+  margin: auto;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid white;
+  margin-top: 150px;
+}
+
+.loginForm label {
+  font-size: 20px;
+}
+
+.loginForm input {
+  border-radius: 5px;
+}
+
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm button {
+  background: white;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.loginForm a {
+  color: white;
+}
+
+.welcome,
+.total {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 25%;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  border: 2px solid white;
+}
+
+.singleCandyCart {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.singleCandyCart img {
+  height: 200px;
+  width: 200px;
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.candyImage {
+  padding: 0;
+  margin: 0;
+}
+
+.candyRight {
+  text-align: center;
+  width: 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.singleCandyCartRemove {
+  margin: auto;
+  width: 60%;
+  background-color: #f54343;
+
 .singleCandyContainer {
   margin-top: 30px;
   margin: auto;
@@ -207,12 +304,48 @@ nav {
 .singleCandyAddToCartButton {
   margin: auto;
   background-color: #97dc47;
+
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 15px;
   border: 2px solid white;
+
+  cursor: pointer;
+}
+
+.totalDisplay {
+  display: flex;
+  justify-content: center;
+}
+
+.proceedToCheckout {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 15%;
+  background: cornflowerblue;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border: 2px solid white;
+  margin: 0;
+  border-left: none;
+  cursor: pointer;
+  min-width: 285px;
+}
+
+.total {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  margin: 0;
+
   color: black;
   cursor: pointer;
 }
@@ -235,4 +368,5 @@ nav {
   filter: contrast(160%);
   box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
   transition: 0.5s ease;
+
 }
