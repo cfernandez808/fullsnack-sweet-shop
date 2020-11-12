@@ -162,6 +162,7 @@ nav {
   transition: 0.4s ease;
 }
 
+
 .loginForm {
   width: 20%;
   margin: auto;
@@ -257,12 +258,60 @@ nav {
   margin: auto;
   width: 60%;
   background-color: #f54343;
+
+.singleCandyContainer {
+  margin-top: 30px;
+  margin: auto;
+  width: 70%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid white;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.singleCandyImg {
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
+}
+
+.singleCandyContainer img {
+  height: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.singleCandyContainer h1 {
+  color: pink;
+}
+
+.singleCandyRight {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.singleCandyMinusButton,
+.singleCandyPlusButton,
+.singleCandyAddToCartButton {
+  margin: auto;
+  background-color: #97dc47;
+
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 15px;
   border: 2px solid white;
+
   cursor: pointer;
 }
 
@@ -296,4 +345,28 @@ nav {
   border-bottom-right-radius: 0;
   border-right: none;
   margin: 0;
+
+  color: black;
+  cursor: pointer;
+}
+
+.singleCandyButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.singleCandyContainer {
+  min-width: 700px;
+}
+
+.singleCandyPlusButton:hover,
+.singleCandyMinusButton:hover,
+.singleCandyAddToCartButton:hover {
+  filter: contrast(160%);
+  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
+  transition: 0.5s ease;
+
 }

@@ -11,7 +11,7 @@ const candyNames = [
   'Gumballs',
   'Jujubes',
   'Lemon Drops',
-  'Taffy'
+  'Taffy',
 ]
 
 const candyDescriptions = [
@@ -25,10 +25,10 @@ const candyDescriptions = [
   'Donut topping ice cream candy canes apple pie.',
   'Chupa chups chocolate bar lemon drops.',
   'Topping candy canes brownie lollipop gummi bears caramels sweet sweet.',
-  'Cookie sugar plum chupa chups cheesecake chupa chups.'
+  'Cookie sugar plum chupa chups cheesecake chupa chups.',
 ]
 
-const candyPrices = [0.99, 1.99, 2.99, 3.99, 4.99]
+const candyPrices = [99, 199, 299, 399, 499]
 
 const candyImages = [
   'beans.jpeg',
@@ -39,7 +39,7 @@ const candyImages = [
   'hearts.jpeg',
   'lollipop.jpeg',
   'slices.jpeg',
-  'worms.jpeg'
+  'worms.jpeg',
 ]
 
 let candyList = []
@@ -50,7 +50,7 @@ for (let i = 0; i < 60; i++) {
     candyDescriptions[Math.floor(Math.random() * candyDescriptions.length)]
   let quantity = Math.floor(Math.random() * 100)
   let price = candyPrices[Math.floor(Math.random() * candyPrices.length)]
-  let image = `./candies/${
+  let image = `/candies/${
     candyImages[Math.floor(Math.random() * candyImages.length)]
   }`
   candyList.push({
@@ -58,7 +58,7 @@ for (let i = 0; i < 60; i++) {
     description,
     quantity,
     price,
-    image
+    image,
   })
 }
 
