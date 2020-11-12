@@ -10,7 +10,6 @@ export class AdminDash extends React.Component {
   }
   render() {
     const {user, history, users} = this.props
-    console.log(users)
     if (!user.admin) {
       return <div>{history.push('/')}</div>
     }
