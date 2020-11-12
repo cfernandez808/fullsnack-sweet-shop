@@ -1,10 +1,19 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import axios from 'axios'
+import {addCandyToCart} from '../store/cart'
 
-const CandyDisplay = (props) => {
+const CandyDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
+
+  function handleClick() {
+    let userId = props.user.id
+    let candyObj = {
+      quantity: 1,
+      candyId: id
+    }
+    props.addCandyToCart(userId, candyObj)
+  }
   return (
     <>
       <div key={id} className="candyContainer">
@@ -20,20 +29,12 @@ const CandyDisplay = (props) => {
           </div>
           {description}
           <hr />
-          Price: ${price}
+          Price: ${price / 100}
           <hr />
           In Stock: {quantity}
         </div>
         <div className="candyButtons">
-          <div
-            className="buyButton"
-            onClick={async () => {
-              await axios.post(`/api/cart/${props.user.id}`, {
-                quantity: 1,
-                candyId: id,
-              })
-            }}
-          >
+          <div className="buyButton" onClick={handleClick}>
             Buy Here!
           </div>
         </div>
@@ -42,9 +43,11 @@ const CandyDisplay = (props) => {
   )
 }
 
-
 const mapState = state => ({
   user: state.user
 })
-
-export default withRouter(connect(mapState)(CandyDisplay))
+const mapDispatch = dispatch => ({
+  addCandyToCart: (userId, candyObj) =>
+    dispatch(addCandyToCart(userId, candyObj))
+})
+export default withRouter(connect(mapState, mapDispatch)(CandyDisplay))
