@@ -1,14 +1,31 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleCandyThunk} from '../store/singleCandy'
+import {addCandyToCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 
 export class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   componentDidMount() {
     this.props.getSingleCandy(this.props.match.params.candyId)
   }
+
+  handleClick() {
+    let userId = this.props.user.id
+    let candyObj = {
+      quantity: 1,
+      candyId: this.props.singleCandy.id,
+    }
+    this.props.addCandyToCart(userId, candyObj)
+  }
+
   render() {
     const {singleCandy} = this.props
+    console.log('props?', this.props)
     return (
       <div className="singleCandyContainer">
         <div className="singleCandyImg">
@@ -30,7 +47,7 @@ export class SingleProduct extends React.Component {
             <div className="singleCandyPlusButton">+</div>
             <div
               className="singleCandyAddToCartButton"
-              // onClick={() => setShowEdit(!showEdit)}
+              onClick={this.handleClick}
             >
               Add to Cart
             </div>
@@ -43,10 +60,13 @@ export class SingleProduct extends React.Component {
 
 const mapState = (state) => ({
   singleCandy: state.singleCandy,
+  user: state.user,
 })
 
 const mapDispatch = (dispatch) => ({
   getSingleCandy: (id) => dispatch(getSingleCandyThunk(id)),
+  addCandyToCart: (userId, candyObj) =>
+    dispatch(addCandyToCart(userId, candyObj)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))

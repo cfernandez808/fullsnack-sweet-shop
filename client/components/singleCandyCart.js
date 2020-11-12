@@ -14,7 +14,7 @@ const SingleCandyCart = props => {
           <hr />
         </div>
         <div>
-          <small>Price: ${price}</small>
+          <small>Price: ${price / 100}</small>
           <br />
           <br />
           <small>Quantity: {quantity}</small>
