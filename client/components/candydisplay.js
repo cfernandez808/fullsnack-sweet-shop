@@ -3,12 +3,9 @@ import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {addCandyToCart} from '../store/cart'
 import {removeCandyThunk} from '../store/candy'
-import axios from 'axios'
-
 
 const CandyDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
-
 
   function handleClick() {
     let userId = props.user.id
@@ -41,18 +38,24 @@ const CandyDisplay = props => {
           In Stock: {quantity}
         </div>
         <div className="candyButtons">
-
           <div className="buyButton" onClick={handleClick}>
-
             Buy Here!
           </div>
           {props.user.admin && (
-            <div
-              className="singleCandyCartRemove"
-              onClick={() => removeCandy(id)}
-            >
-              Remove
-            </div>
+            <>
+              <div
+                className="singleCandyCartRemove"
+                onClick={() => removeCandy(id)}
+              >
+                Remove
+              </div>
+              <div
+                className="singleCandyCartRemove"
+                onClick={() => props.history.push(`/candy/${id}`)}
+              >
+                Edit
+              </div>
+            </>
           )}
         </div>
       </div>
