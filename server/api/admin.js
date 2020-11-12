@@ -11,3 +11,25 @@ router.get('/users', async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/users/:id', async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/candy', async (req, res, next) => {
+  try {
+    const candies = await Candy.findAll()
+    res.json(candies)
+  } catch (err) {
+    next(err)
+  }
+})
