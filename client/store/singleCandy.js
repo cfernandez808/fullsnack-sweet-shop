@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const GET_SINGLE_CANDY = 'GET_SINGLE_CANDY'
+const UPDATE_CANDY = 'UPDATE_CANDY'
 
 const defaultSingleCandy = {}
 
@@ -18,6 +19,9 @@ export const getSingleCandyThunk = id => async dispatch => {
 export default function(state = defaultSingleCandy, action) {
   switch (action.type) {
     case GET_SINGLE_CANDY:
+      return action.candy
+    case UPDATE_CANDY:
+      //If we put form somewhere else this might not work
       return action.candy
     default:
       return state

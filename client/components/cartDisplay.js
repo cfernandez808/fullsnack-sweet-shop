@@ -68,7 +68,9 @@ export class CartDisplay extends React.Component {
     return (
       <div>
         <div className="totalDisplay">
-          <div className="total">Cart Total: ${totalPrice / 100}</div>
+          <div className="total">
+            Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
+          </div>
           <div className="proceedToCheckout">Proceed To Checkout</div>
         </div>
         <div className="allProductsContainer">

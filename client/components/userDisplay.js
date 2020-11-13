@@ -18,7 +18,7 @@ const UserDisplay = props => {
 
   return (
     <>
-      <div key={id} className="candyContainer">
+      <div key={id} className="userContainer">
         {/* <Link to={`/candy/${id}`}> */}
         {/* <img src={image} /> */}
         {/* </Link> */}
