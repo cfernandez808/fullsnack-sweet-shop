@@ -148,11 +148,36 @@ nav {
 .buyButton {
   padding-top: 5px;
   padding-bottom: 5px;
-  margin: auto;
+  margin: 0;
   width: 100px;
   background: #2196f3;
   border-radius: 20px;
   border: 2px solid white;
+  cursor: pointer;
+}
+
+.singleCandyCartEdit {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #97dc47;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  cursor: pointer;
+}
+
+.sinCandyCartRemove {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #e91e63;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   cursor: pointer;
 }
 
@@ -302,17 +327,21 @@ nav {
 .singleCandyMinusButton,
 .singleCandyPlusButton,
 .singleCandyAddToCartButton {
+  text-align: center;
   margin: auto;
   background-color: #97dc47;
-
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 15px;
   border: 2px solid white;
-
   cursor: pointer;
+}
+
+.singleCandyMinusButton,
+.singleCandyPlusButton {
+  width: 32px;
 }
 
 .totalDisplay {
@@ -345,9 +374,6 @@ nav {
   border-bottom-right-radius: 0;
   border-right: none;
   margin: 0;
-
-  color: black;
-  cursor: pointer;
 }
 
 .singleCandyButtons {
@@ -372,4 +398,125 @@ nav {
 
 a {
   color: white;
+}
+
+.candyEditContainer {
+  width: 70%;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: auto;
+  min-width: 700px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.candyEditContainer label {
+  margin: 10px;
+  width: 70%;
+}
+
+.candyEditContainer input {
+  width: 90%;
+  border: 2px solid white;
+  border-radius: 5px;
+  /* border-top-left-radius: 5px;
+  border-top-right-radius: 5px; */
+}
+
+.candySubmitBox {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  margin: 0;
+}
+
+.submitEditCandy {
+  margin: auto;
+  width: 80px;
+  padding: 5px 0px 5px 0px;
+  background-color: #7cb838;
+  color: white;
+  border: 2px solid white;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 0px;
+}
+
+img {
+  border: 2px solid white;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.singleCandyImg img {
+  width: 312px;
+  height: 312px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.centerSubmit {
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
+
+.singleCandyTopInfo {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addCandySubmitBox {
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.addCandySubmit {
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 15px;
+}
+
+.submitNewCandy {
+  width: 130px;
+  padding: 5px 0px 5px 0px;
+  background-color: #7cb838;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.addCandySubmitBox input {
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.candyButtons {
+  display: flex;
+  justify-content: center;
 }

@@ -26,22 +26,37 @@ export class SingleProduct extends React.Component {
 
   render() {
     const {singleCandy, user} = this.props
-    console.log(singleCandy)
     return (
       <>
-        <div className="singleCandyContainer">
+        <div
+          className="singleCandyContainer"
+          style={
+            user.admin
+              ? {}
+              : {
+                  borderBottomRightRadius: '20px',
+                  borderBottomLeftRadius: '20px'
+                }
+          }
+        >
           <div className="singleCandyImg">
             <img src={singleCandy.image} />
           </div>
           <div className="singleCandyRight">
             <div className="singleCandyTopInfo">
-              <h1>{singleCandy.name}</h1>
+              <div>
+                <h1>{singleCandy.name}</h1>
+              </div>
               <hr />
-              <h3>Description:</h3>
-              <p>{singleCandy.description}</p>
+              <div>
+                <h3>Description:</h3>
+                <p>{singleCandy.description}</p>
+              </div>
               <hr />
-              <h4>Price:</h4>
-              <h4>{singleCandy.price / 100}</h4>
+              <div>
+                <h4>Price:</h4>
+                <h4>{String(singleCandy.price / 100)}</h4>
+              </div>
             </div>
             <div className="singleCandyButtons">
               <div className="singleCandyMinusButton">-</div>
@@ -57,8 +72,11 @@ export class SingleProduct extends React.Component {
           </div>
         </div>
         {user.admin &&
-          singleCandy.id && (
-            <div>
+          singleCandy.id ===
+            +this.props.location.pathname.split('/')[
+              this.props.location.pathname.split('/').length - 1
+            ] && (
+            <div className="candyEditContainer">
               <EditCandyForm singleCandy={singleCandy} />
             </div>
           )}
