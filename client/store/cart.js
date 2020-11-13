@@ -21,6 +21,7 @@ export const getCartThunk = (id) => async (dispatch) => {
     data = data.carts.map((candy) => {
       candy.candies[0].quantity = candy.quantity
       candy.candies[0].id = candy.id
+      candy.candies[0].completed = candy.completed
       return candy.candies[0]
     })
     dispatch(getCart(data))
@@ -29,7 +30,16 @@ export const getCartThunk = (id) => async (dispatch) => {
   }
 }
 
-export const addCandyToCart = (userId, candyObj) => async () => {
+
+export const checkoutThunk = (cartArr) => async (dispatch) => {
+  try {
+    await axios.put('/api/cart/checkout', {cart: cartArr})
+    dispatch(getCart({}))
+  } catch (err) {
+    console.error(err)
+  }
+}
+export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
   try {
     await axios.post(`/api/cart/${userId}`, candyObj)
     getCartThunk(userId)
