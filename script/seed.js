@@ -1,32 +1,31 @@
 'use strict'
 const db = require('../server/db')
-const {User, Candy} = require('../server/db/models')
+const {User, Candy, Cart, CartCandy} = require('../server/db/models')
 const candyList = require('./candyseed')
+const userList = require('./userseed')
+const cartList = require('./cartseed')
+const cartCandyList = require('./cart_candyseed')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({
-      email: 'cody@email.com',
-      password: '123',
-      firstName: 'Cody',
-      lastName: 'Puppy',
-      admin: 'true'
-    }),
-    User.create({
-      email: 'murphy@email.com',
-      password: '123',
-      firstName: 'Murphy',
-      lastName: 'Kitty'
-    })
-  ])
+  const users = await Promise.all(userList.map((user) => User.create(user)))
 
-  const candies = await Promise.all(candyList.map(candy => Candy.create(candy)))
+  const candies = await Promise.all(
+    candyList.map((candy) => Candy.create(candy))
+  )
+
+  const carts = await Promise.all(cartList.map((cart) => Cart.create(cart)))
+
+  const cartCandies = await Promise.all(
+    cartCandyList.map((element) => CartCandy.create(element))
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${candies.length} candies`)
+  console.log(`seeded ${carts.length} carts`)
+  console.log(`seeded ${cartCandies.length} cart_candies`)
   console.log(`seeded successfully`)
 }
 
