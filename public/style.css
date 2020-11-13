@@ -189,7 +189,7 @@ nav {
 .sinCandyCartRemove:hover,
 .singleCandyCartRemove:hover {
   filter: contrast(160%);
-  box-shadow: inset 3px 3px 5px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
   transition: 0.4s ease;
 }
 
@@ -444,9 +444,10 @@ a {
   margin: 0;
 }
 
-.submitEditCandy {
+.submitEditCandy,
+.submitNewCandy {
   margin: auto;
-  width: 80px;
+  width: 10%;
   padding: 5px 0px 5px 0px;
   background-color: #7cb838;
   color: white;
@@ -509,16 +510,6 @@ img {
   display: flex;
   justify-content: space-around;
   padding-bottom: 15px;
-}
-
-.submitNewCandy {
-  width: 130px;
-  padding: 5px 0px 5px 0px;
-  background-color: #7cb838;
-  color: white;
-  border: 2px solid white;
-  border-radius: 10px;
-  cursor: pointer;
 }
 
 .addCandySubmitBox input {

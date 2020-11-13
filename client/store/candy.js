@@ -61,7 +61,7 @@ export default function(state = defaultCandy, action) {
       const updateState = state.filter(candy => candy.id !== action.candy.id)
       return [...updateState, action.candy]
     case ADD_CANDY:
-      return [...state, action.candy]
+      return [action.candy, ...state]
     default:
       return state
   }

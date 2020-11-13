@@ -102,7 +102,7 @@ class CandyEditForm extends React.Component {
         </div>
         <div className="centerSubmit">
           <button type="submit" className="submitEditCandy">
-            Edit
+            Submit Edit
           </button>
         </div>
       </form>
