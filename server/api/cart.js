@@ -40,6 +40,21 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
+
+router.delete('/:cartId', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        id: req.params.cartId,
+      },
+    })
+    res.sendStatus(204)
+     } catch (err) {
+    next(err)
+  }
+})
+
+
 router.put('/checkout', async (req, res, next) => {
   try {
     let completedCart = []
