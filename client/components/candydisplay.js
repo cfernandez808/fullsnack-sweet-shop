@@ -4,17 +4,8 @@ import {connect} from 'react-redux'
 import {addCandyToCart} from '../store/cart'
 import {removeCandyThunk} from '../store/candy'
 
-const CandyDisplay = props => {
+const CandyDisplay = (props) => {
   const {id, name, description, price, image, quantity} = props.candy
-
-  // function handleClick() {
-  //   let userId = props.user.id
-  //   let candyObj = {
-  //     quantity: 1,
-  //     candyId: id
-  //   }
-  //   props.addCandyToCart(userId, candyObj)
-  // }
 
   const {removeCandy, user} = props
 
@@ -45,7 +36,7 @@ const CandyDisplay = props => {
                 ? {
                     borderTopRightRadius: '0',
                     borderBottomRightRadius: '0',
-                    borderRight: 'none'
+                    borderRight: 'none',
                   }
                 : {}
             }
@@ -75,14 +66,14 @@ const CandyDisplay = props => {
   )
 }
 
-const mapState = state => ({
-  user: state.user
+const mapState = (state) => ({
+  user: state.user,
 })
 
-const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch) => ({
   addCandyToCart: (userId, candyObj) =>
     dispatch(addCandyToCart(userId, candyObj)),
-  removeCandy: id => dispatch(removeCandyThunk(id))
+  removeCandy: (id) => dispatch(removeCandyThunk(id)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(CandyDisplay))

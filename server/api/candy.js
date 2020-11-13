@@ -22,17 +22,18 @@ router.get('/:candyId', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const test = await Candy.destroy({
-      where: {
-        id: req.params.id
+    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+      const test = await Candy.destroy({
+        where: {
+          id: req.params.id,
+        },
+      })
+      if (test > 0) {
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(500)
       }
-    })
-    console.log(test)
-    if (test > 0) {
-      res.sendStatus(200)
-    } else {
-      res.sendStatus(500)
-    }
+    } else res.send('Admin access only.')
   } catch (err) {
     next(err)
   }
@@ -40,16 +41,20 @@ router.delete('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    res.json(await Candy.create(req.body))
+    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+      res.json(await Candy.create(req.body))
+    } else res.send('Admin access only.')
   } catch (err) {
     next(err)
   }
 })
 router.put('/:id', async (req, res, next) => {
   try {
-    const candy = await Candy.findByPk(req.params.id)
-    const updatedCandy = await candy.update(req.body)
-    res.json(updatedCandy)
+    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+      const candy = await Candy.findByPk(req.params.id)
+      const updatedCandy = await candy.update(req.body)
+      res.json(updatedCandy)
+    } else res.send('Admin access only.')
   } catch (err) {
     next(err)
   }
