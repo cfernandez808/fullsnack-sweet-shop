@@ -7,16 +7,16 @@ import {removeCandyThunk} from '../store/candy'
 const CandyDisplay = props => {
   const {id, name, description, price, image, quantity} = props.candy
 
-  function handleClick() {
-    let userId = props.user.id
-    let candyObj = {
-      quantity: 1,
-      candyId: id
-    }
-    props.addCandyToCart(userId, candyObj)
-  }
+  // function handleClick() {
+  //   let userId = props.user.id
+  //   let candyObj = {
+  //     quantity: 1,
+  //     candyId: id
+  //   }
+  //   props.addCandyToCart(userId, candyObj)
+  // }
 
-  const {removeCandy} = props
+  const {removeCandy, user} = props
 
   return (
     <>
@@ -38,22 +38,34 @@ const CandyDisplay = props => {
           In Stock: {quantity}
         </div>
         <div className="candyButtons">
-          <div className="buyButton" onClick={handleClick}>
-            Buy Here!
+          <div
+            className="buyButton"
+            style={
+              user.admin
+                ? {
+                    borderTopRightRadius: '0',
+                    borderBottomRightRadius: '0',
+                    borderRight: 'none'
+                  }
+                : {}
+            }
+            onClick={() => props.history.push(`/candy/${id}`)}
+          >
+            {user.admin ? 'Buy' : 'Buy Here!'}
           </div>
           {props.user.admin && (
             <>
               <div
-                className="singleCandyCartRemove"
-                onClick={() => removeCandy(id)}
-              >
-                Remove
-              </div>
-              <div
-                className="singleCandyCartRemove"
+                className="singleCandyCartEdit"
                 onClick={() => props.history.push(`/candy/${id}`)}
               >
                 Edit
+              </div>
+              <div
+                className="sinCandyCartRemove"
+                onClick={() => removeCandy(id)}
+              >
+                Remove
               </div>
             </>
           )}
