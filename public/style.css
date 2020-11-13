@@ -105,7 +105,8 @@ nav {
   text-shadow: 2px 2px 2px black;
 }
 
-.candyContainer {
+.candyContainer,
+.userContainer {
   background: rgba(0, 0, 0, 0.6);
   text-align: center;
   overflow-wrap: break-word;
@@ -126,7 +127,8 @@ nav {
   margin: auto;
 }
 
-.candyInfo {
+.candyInfo,
+.userInfo {
   display: flex;
   height: 50%;
   flex-direction: column;
@@ -181,7 +183,11 @@ nav {
   cursor: pointer;
 }
 
-.buyButton:hover {
+.buyButton:hover,
+.submitNewCandy:hover,
+.singleCandyCartEdit:hover,
+.sinCandyCartRemove:hover,
+.singleCandyCartRemove:hover {
   filter: contrast(160%);
   box-shadow: inset 3px 3px 5px 5px rgba(0, 0, 0, 0.25);
   transition: 0.4s ease;
@@ -282,6 +288,10 @@ nav {
   margin: auto;
   width: 60%;
   background-color: #f54343;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
 }
 
 .singleCandyContainer {
