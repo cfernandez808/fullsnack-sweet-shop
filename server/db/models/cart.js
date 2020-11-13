@@ -3,8 +3,12 @@ const db = require('../db')
 
 const Cart = db.define('cart', {
   quantity: {
-    type: Sequelize.INTEGER
-  }
+    type: Sequelize.INTEGER,
+  },
+  completed: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 })
 
 module.exports = Cart

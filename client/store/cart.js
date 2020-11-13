@@ -5,9 +5,9 @@ const GET_CART = 'GET_CART'
 
 const defaultCart = {}
 
-const getCart = cart => ({
+const getCart = (cart) => ({
   type: GET_CART,
-  cart
+  cart,
 })
 
 // const addToCart = (candy) => ({
@@ -15,12 +15,13 @@ const getCart = cart => ({
 //   candy,
 // })
 
-export const getCartThunk = id => async dispatch => {
+export const getCartThunk = (id) => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/${id}`)
-    data = data.carts.map(candy => {
+    data = data.carts.map((candy) => {
       candy.candies[0].quantity = candy.quantity
       candy.candies[0].id = candy.id
+      candy.candies[0].completed = candy.completed
       return candy.candies[0]
     })
     dispatch(getCart(data))
@@ -29,7 +30,15 @@ export const getCartThunk = id => async dispatch => {
   }
 }
 
-export const addCandyToCart = (userId, candyObj) => async dispatch => {
+export const checkoutThunk = (cartArr) => async (dispatch) => {
+  try {
+    await axios.put('/api/cart/checkout', {cart: cartArr})
+    dispatch(getCart({}))
+  } catch (err) {
+    console.error(err)
+  }
+}
+export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
   try {
     await axios.post(`/api/cart/${userId}`, candyObj)
     getCartThunk(userId)
@@ -46,7 +55,7 @@ export const addCandyToCart = (userId, candyObj) => async dispatch => {
   }
 }
 
-export default function(state = defaultCart, action) {
+export default function (state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk} from '../store/cart'
-import {withRouter} from 'react-router-dom'
+import {getCartThunk, checkoutThunk} from '../store/cart'
+import {withRouter, Link} from 'react-router-dom'
 import {SingleCandyCart} from './'
 import {me} from '../store/user'
 
@@ -17,7 +17,10 @@ export class CartDisplay extends React.Component {
   }
 
   cartReducer() {
-    const {cart} = this.props
+    let {cart} = this.props
+    if (cart.length > 0) {
+      cart = cart.filter((item) => !item.completed)
+    }
     const reducedCart = []
     const idTracker = []
     for (let i = 0; i < cart.length; i++) {
@@ -31,7 +34,10 @@ export class CartDisplay extends React.Component {
   }
 
   quantityFinder() {
-    const {cart} = this.props
+    let {cart} = this.props
+    if (cart.length > 0) {
+      cart = cart.filter((item) => !item.completed)
+    }
     const quantities = {}
     cart.forEach((element) => {
       if (quantities[element.cart_candy.candyId]) {
@@ -45,7 +51,11 @@ export class CartDisplay extends React.Component {
   }
 
   render() {
-    const {cart, user} = this.props
+    const {user, checkout} = this.props
+    let {cart} = this.props
+    if (cart.length > 0) {
+      cart = cart.filter((item) => !item.completed)
+    }
 
     let reducedCart
     let quantities
@@ -65,13 +75,22 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
+    console.log(cart)
     return (
       <div>
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
           </div>
-          <div className="proceedToCheckout">Proceed To Checkout</div>
+          <div
+            className="proceedToCheckout"
+            onClick={async () => {
+              await checkout(cart)
+              this.props.history.push('/confirmation')
+            }}
+          >
+            Proceed To Checkout
+          </div>
         </div>
         <div className="allProductsContainer">
           {cart.length > 0 ? (
@@ -113,6 +132,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   getCart: (id) => dispatch(getCartThunk(id)),
   getUser: () => dispatch(me()),
+  checkout: (cart) => dispatch(checkoutThunk(cart)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(CartDisplay))
