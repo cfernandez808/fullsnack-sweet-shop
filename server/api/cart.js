@@ -11,9 +11,9 @@ router.get('/:id', async (req, res, next) => {
   try {
     const cart = await User.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
-      include: {model: Cart, include: {model: Candy}}
+      include: {model: Cart, include: {model: Candy}},
     })
     res.json(cart)
   } catch (err) {
@@ -31,10 +31,23 @@ router.post('/:id', async (req, res, next) => {
   try {
     const makeCart = await Cart.create({
       quantity: req.body.quantity,
-      userId: req.params.id
+      userId: req.params.id,
     })
     await makeCart.setCandies(req.body.candyId)
     res.send(makeCart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:cartId', async (req, res, next) => {
+  try {
+    await Cart.destroy({
+      where: {
+        id: req.params.cartId,
+      },
+    })
+    res.sendStatus(204)
   } catch (err) {
     next(err)
   }

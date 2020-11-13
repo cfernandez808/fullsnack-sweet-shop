@@ -1,5 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {removeCart} from '../store/cart'
 
 const SingleCandyCart = (props) => {
   const {id, name, description, price, image} = props.candy
@@ -24,7 +26,7 @@ const SingleCandyCart = (props) => {
           <div>
             <div
               className="singleCandyCartRemove"
-              onClick={() => console.log('This removes')}
+              onClick={() => props.deleteCandy(id)}
             >
               Remove
             </div>
@@ -34,5 +36,10 @@ const SingleCandyCart = (props) => {
     </div>
   )
 }
+const mapDispatch = (dispatch) => {
+  return {
+    deleteCandy: (cartId) => dispatch(removeCart(cartId)),
+  }
+}
 
-export default withRouter(SingleCandyCart)
+export default withRouter(connect(null, mapDispatch)(SingleCandyCart))
