@@ -25,7 +25,9 @@ export class SingleProduct extends React.Component {
   }
 
   render() {
+
     const {singleCandy, user} = this.props
+
     return (
       <>
         <div
