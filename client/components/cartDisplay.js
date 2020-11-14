@@ -75,7 +75,6 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
-    console.log(cart)
     return (
       <div>
         <div className="totalDisplay">
