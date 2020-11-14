@@ -151,19 +151,30 @@ class NewCandyForm extends React.Component {
             </div>
             <div className="addCandySubmit">
               {this.state.name.length > 0 &&
-                this.state.description.length > 0 &&
-                this.state.category.length > 0 &&
-                !isNaN(this.state.price) &&
-                this.state.price % 1 === 0 &&
-                this.state.price > 0 &&
-                !isNaN(this.state.quantity) &&
-                this.state.quantity % 1 === 0 &&
-                this.state.quantity > 0 &&
-                this.state.quantity < 101 && (
-                  <button type="submit" className="submitNewCandy">
-                    Add Candy
-                  </button>
-                )}
+              this.state.description.length > 0 &&
+              this.state.category.length > 0 &&
+              !isNaN(this.state.price) &&
+              this.state.price % 1 === 0 &&
+              this.state.price > 0 &&
+              !isNaN(this.state.quantity) &&
+              this.state.quantity % 1 === 0 &&
+              this.state.quantity > 0 &&
+              this.state.quantity < 101 ? (
+                <button type="submit" className="submitNewCandy">
+                  Add Candy
+                </button>
+              ) : (
+                <div
+                  className="submitNewCandy"
+                  style={{
+                    background: 'gray',
+                    fontSize: '13.4px',
+                    cursor: 'default',
+                  }}
+                >
+                  Add Candy
+                </div>
+              )}
             </div>
           </div>
         </form>
