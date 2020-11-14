@@ -75,22 +75,30 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
-    console.log(cart)
     return (
       <div>
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
           </div>
-          <div
-            className="proceedToCheckout"
-            onClick={async () => {
-              await checkout(cart)
-              this.props.history.push('/confirmation')
-            }}
-          >
-            Proceed To Checkout
-          </div>
+          {cart.length > 0 ? (
+            <div
+              className="proceedToCheckout"
+              onClick={async () => {
+                await checkout(cart)
+                this.props.history.push('/confirmation')
+              }}
+            >
+              Proceed To Checkout
+            </div>
+          ) : (
+            <div
+              className="proceedToCheckout"
+              style={{background: 'gray', cursor: 'default'}}
+            >
+              Cart Empty
+            </div>
+          )}
         </div>
         <div className="allProductsContainer">
           {cart.length > 0 ? (
@@ -111,11 +119,11 @@ export class CartDisplay extends React.Component {
                 color: 'white',
                 padding: '20px',
                 marginTop: '100px',
-                borderRadius: '35px',
+                borderRadius: '40px',
                 border: '2px solid white',
               }}
             >
-              Nothing in Cart!
+              View Selection on Home Page!
             </div>
           )}
         </div>
