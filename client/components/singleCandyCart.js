@@ -4,8 +4,9 @@ import {connect} from 'react-redux'
 import {removeCart} from '../store/cart'
 
 const SingleCandyCart = (props) => {
-  const {id, name, description, price, image} = props.candy
-  const {quantity} = props
+  const {id, name, price, image} = props.candy
+  const {quantity, increment, decrement} = props
+  const {candyId} = props.candy.cart_candy
   return (
     <div className="singleCandyCart">
       <div className="candyImage">
@@ -18,12 +19,26 @@ const SingleCandyCart = (props) => {
         </div>
         <div>
           <small>Price: ${price / 100}</small>
-          <br />
-          <br />
-          <small>Quantity: {quantity}</small>
         </div>
         <div className="singleCandyCartButtons">
+          <div
+            className="singleCandyMinusButton"
+            onClick={() => decrement(candyId)}
+          >
+            -
+          </div>
           <div>
+            Quantity
+            <br />
+            {quantity}
+          </div>
+          <div>
+            <div
+              className="singleCandyPlusButton"
+              onClick={() => increment(candyId)}
+            >
+              +
+            </div>
             <div
               className="singleCandyCartRemove"
               onClick={() => props.deleteCandy(id)}
