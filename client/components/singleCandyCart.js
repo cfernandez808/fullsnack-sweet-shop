@@ -9,7 +9,7 @@ const SingleCandyCart = (props) => {
   const {candyId} = props.candy.cart_candy
   return (
     <div className="singleCandyCart">
-      <div className="candyImage">
+      <div className="imageDiv">
         <img src={image} />
       </div>
       <div className="candyRight">
