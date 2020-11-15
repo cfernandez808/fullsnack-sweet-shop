@@ -1,12 +1,12 @@
 import axios from 'axios'
 import history from '../history'
+import {UPDATE_USER} from './editUser'
 
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-const UPDATE_USER = 'UPDATE_USER'
 
 /**
  * INITIAL STATE
@@ -18,7 +18,6 @@ const defaultUser = {}
  */
 const getUser = (user) => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const updateUser = (user) => ({type: UPDATE_USER, user})
 
 /**
  * THUNK CREATORS
@@ -29,15 +28,6 @@ export const me = () => async (dispatch) => {
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
-  }
-}
-
-export const updateUserThunk = (user) => async (dispatch) => {
-  try {
-    const {data} = await axios.put(`api/users/${user.id}`, user)
-    dispatch(updateUser(data))
-  } catch (err) {
-    console.log(err)
   }
 }
 
@@ -88,7 +78,7 @@ export default function (state = defaultUser, action) {
     case REMOVE_USER:
       return defaultUser
     case UPDATE_USER:
-      return action.user
+      return state.id === action.user.id ? action.user : state
     default:
       return state
   }

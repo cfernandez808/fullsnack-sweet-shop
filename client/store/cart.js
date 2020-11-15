@@ -30,7 +30,6 @@ export const getCartThunk = (id) => async (dispatch) => {
   }
 }
 
-
 export const checkoutThunk = (cartArr) => async (dispatch) => {
   try {
     await axios.put('/api/cart/checkout', {cart: cartArr})
@@ -42,7 +41,7 @@ export const checkoutThunk = (cartArr) => async (dispatch) => {
 export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
   try {
     await axios.post(`/api/cart/${userId}`, candyObj)
-    getCartThunk(userId)
+    dispatch(getCartThunk(userId))
   } catch (err) {
     console.log(err)
   }

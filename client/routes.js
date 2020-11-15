@@ -12,6 +12,7 @@ import {
   CartDisplay,
   OrderConfirm,
   CartHistory,
+  EditUserForm,
 } from './components'
 import {me} from './store'
 
@@ -42,6 +43,7 @@ class Routes extends Component {
             <Route exact path="/admin" component={AdminDash} />
             <Route path="/admin/candy" component={AllProducts} />
             <Route path="/history/:id" component={CartHistory} />
+            <Route path="/editUser/:id" component={EditUserForm} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

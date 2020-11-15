@@ -12,7 +12,7 @@ class CandyEditForm extends React.Component {
       category: '',
       price: '',
       image: '',
-      quantity: ''
+      quantity: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,13 +22,15 @@ class CandyEditForm extends React.Component {
   }
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
   handleSubmit(e) {
     e.preventDefault()
     this.props.updateCandy(this.state)
   }
+
+  // eslint-disable-next-line complexity
   render() {
     return (
       <form onSubmit={this.handleSubmit} autoComplete="off">
@@ -43,6 +45,11 @@ class CandyEditForm extends React.Component {
               value={this.state.name}
               onChange={this.handleChange}
             />
+            {this.state.name.length > 0 ? (
+              <div className="accepted">Accepted</div>
+            ) : (
+              <div className="warning">Name Required</div>
+            )}
           </label>
           <label htmlFor="description">
             Description: <br />
@@ -54,6 +61,11 @@ class CandyEditForm extends React.Component {
               value={this.state.description}
               onChange={this.handleChange}
             />
+            {this.state.description.length > 0 ? (
+              <div className="accepted">Accepted</div>
+            ) : (
+              <div className="warning">Description Required</div>
+            )}
           </label>
           <label htmlFor="category">
             Category: <br />
@@ -65,6 +77,11 @@ class CandyEditForm extends React.Component {
               value={this.state.category}
               onChange={this.handleChange}
             />
+            {this.state.category.length > 0 ? (
+              <div className="accepted">Accepted</div>
+            ) : (
+              <div className="warning">Category Required</div>
+            )}
           </label>
           <label htmlFor="price">
             Price: <br />
@@ -76,6 +93,13 @@ class CandyEditForm extends React.Component {
               value={this.state.price}
               onChange={this.handleChange}
             />
+            {!isNaN(this.state.price) &&
+            this.state.price % 1 === 0 &&
+            this.state.price > 0 ? (
+              <div className="accepted">Accepted</div>
+            ) : (
+              <div className="warning">Must be an integer</div>
+            )}
           </label>
           <label htmlFor="image">
             Image: <br />
@@ -87,6 +111,7 @@ class CandyEditForm extends React.Component {
               value={this.state.image}
               onChange={this.handleChange}
             />
+            <div className="accepted">Default used if blank</div>
           </label>
           <label htmlFor="quantity">
             Quantity: <br />
@@ -98,23 +123,42 @@ class CandyEditForm extends React.Component {
               value={this.state.quantity}
               onChange={this.handleChange}
             />
+            {!isNaN(this.state.quantity) &&
+            this.state.quantity % 1 === 0 &&
+            this.state.quantity > 0 &&
+            this.state.quantity < 101 ? (
+              <div className="accepted">Accepted</div>
+            ) : (
+              <div className="warning">Integer. Max 100.</div>
+            )}
           </label>
         </div>
         <div className="centerSubmit">
-          <button type="submit" className="submitEditCandy">
-            Submit Edit
-          </button>
+          {this.state.name.length > 0 &&
+            this.state.description.length > 0 &&
+            this.state.category.length > 0 &&
+            !isNaN(this.state.price) &&
+            this.state.price % 1 === 0 &&
+            this.state.price > 0 &&
+            !isNaN(this.state.quantity) &&
+            this.state.quantity % 1 === 0 &&
+            this.state.quantity > 0 &&
+            this.state.quantity < 101 && (
+              <button type="submit" className="submitEditCandy">
+                Submit Edit
+              </button>
+            )}
         </div>
       </form>
     )
   }
 }
 
-const mapState = state => ({
-  singleCandy: state.singleCandy
+const mapState = (state) => ({
+  singleCandy: state.singleCandy,
 })
-const mapDispatch = dispatch => ({
-  updateCandy: candy => dispatch(updateCandyThunk(candy))
+const mapDispatch = (dispatch) => ({
+  updateCandy: (candy) => dispatch(updateCandyThunk(candy)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(CandyEditForm))

@@ -17,19 +17,32 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:userId', async (req, res, next) => {
+  try {
+    if (!req.user || (!req.user.admin && req.params.userId != req.user.id)) {
+      return res.sendStatus(401)
+    }
+    const user = await User.findByPk(req.params.userId)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //updating the user info (firstName, lastname, email)
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    const [numberAffectedRow, user] = await User.update(req.body, {
-      where: {
-        id: req.params.userId,
-      },
-      returning: true, //needed for affectedRows to be populated
-      plain: true, //makes sure that the returned instances are just plain objects
+    if (!req.user || (!req.user.admin && req.params.userId != req.user.id)) {
+      return res.sendStatus(401)
+    }
+    const user = await User.findByPk(req.params.userId)
+    await user.update({
+      firstName: req.body.firstName || user.firstName,
+      lastName: req.body.lastName || user.lastName,
+      email: req.body.email || user.email,
     })
-    console.log('DATA', user.dataValues)
-    res.send(user.dataValues)
+    res.send(user)
   } catch (err) {
     next(err)
   }

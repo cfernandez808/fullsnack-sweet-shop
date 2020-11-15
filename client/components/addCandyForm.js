@@ -12,27 +12,36 @@ class NewCandyForm extends React.Component {
       category: '',
       price: '',
       image: '',
-      quantity: ''
+      quantity: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
   handleSubmit(e) {
     e.preventDefault()
-
-    this.props.candyAdd(this.state)
+    if (this.state.image.length > 0) {
+      this.props.candyAdd(this.state)
+    } else {
+      this.props.candyAdd({
+        name: this.state.name,
+        description: this.state.description,
+        category: this.state.category,
+        price: this.state.price,
+        quantity: this.state.quantity,
+      })
+    }
     this.setState({
       name: '',
       description: '',
       category: '',
       price: '',
       image: '',
-      quantity: ''
+      quantity: '',
     })
   }
   // eslint-disable-next-line complexity
@@ -52,6 +61,11 @@ class NewCandyForm extends React.Component {
                   value={this.state.name}
                   onChange={this.handleChange}
                 />
+                {this.state.name.length > 0 ? (
+                  <div className="accepted">Accepted</div>
+                ) : (
+                  <div className="warning">Name Required</div>
+                )}
               </label>
               <label htmlFor="description">
                 Description: <br />
@@ -63,6 +77,11 @@ class NewCandyForm extends React.Component {
                   value={this.state.description}
                   onChange={this.handleChange}
                 />
+                {this.state.description.length > 0 ? (
+                  <div className="accepted">Accepted</div>
+                ) : (
+                  <div className="warning">Description Required</div>
+                )}
               </label>
               <label htmlFor="category">
                 Category: <br />
@@ -74,6 +93,11 @@ class NewCandyForm extends React.Component {
                   value={this.state.category}
                   onChange={this.handleChange}
                 />
+                {this.state.category.length > 0 ? (
+                  <div className="accepted">Accepted</div>
+                ) : (
+                  <div className="warning">Category Required</div>
+                )}
               </label>
               <label htmlFor="price">
                 Price: <br />
@@ -85,6 +109,13 @@ class NewCandyForm extends React.Component {
                   value={this.state.price}
                   onChange={this.handleChange}
                 />
+                {!isNaN(this.state.price) &&
+                this.state.price % 1 === 0 &&
+                this.state.price > 0 ? (
+                  <div className="accepted">Accepted</div>
+                ) : (
+                  <div className="warning">Must be an integer</div>
+                )}
               </label>
               <label htmlFor="image">
                 Image: <br />
@@ -96,6 +127,7 @@ class NewCandyForm extends React.Component {
                   value={this.state.image}
                   onChange={this.handleChange}
                 />
+                <div className="accepted">Default used if blank</div>
               </label>
               <label htmlFor="quantity">
                 Quantity: <br />
@@ -107,12 +139,42 @@ class NewCandyForm extends React.Component {
                   value={this.state.quantity}
                   onChange={this.handleChange}
                 />
+                {!isNaN(this.state.quantity) &&
+                this.state.quantity % 1 === 0 &&
+                this.state.quantity > 0 &&
+                this.state.quantity < 101 ? (
+                  <div className="accepted">Accepted</div>
+                ) : (
+                  <div className="warning">Integer. Max 100.</div>
+                )}
               </label>
             </div>
             <div className="addCandySubmit">
-              <button type="submit" className="submitNewCandy">
-                Add Candy
-              </button>
+              {this.state.name.length > 0 &&
+              this.state.description.length > 0 &&
+              this.state.category.length > 0 &&
+              !isNaN(this.state.price) &&
+              this.state.price % 1 === 0 &&
+              this.state.price > 0 &&
+              !isNaN(this.state.quantity) &&
+              this.state.quantity % 1 === 0 &&
+              this.state.quantity > 0 &&
+              this.state.quantity < 101 ? (
+                <button type="submit" className="submitNewCandy">
+                  Add Candy
+                </button>
+              ) : (
+                <div
+                  className="submitNewCandy"
+                  style={{
+                    background: 'gray',
+                    fontSize: '13.4px',
+                    cursor: 'default',
+                  }}
+                >
+                  Add Candy
+                </div>
+              )}
             </div>
           </div>
         </form>
@@ -121,8 +183,8 @@ class NewCandyForm extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  candyAdd: candy => dispatch(addCandyThunk(candy))
+const mapDispatch = (dispatch) => ({
+  candyAdd: (candy) => dispatch(addCandyThunk(candy)),
 })
 
 export default withRouter(connect(null, mapDispatch)(NewCandyForm))

@@ -8,6 +8,7 @@ import singleCandy from './singleCandy'
 import users from './adminUsers'
 import cart from './cart'
 import cartHistory from './cartHistory'
+import editUser from './editUser'
 
 const reducer = combineReducers({
   user,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   users,
   cart,
   cartHistory,
+  editUser,
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -29,3 +31,4 @@ export * from './singleCandy'
 export * from './adminUsers'
 export * from './cart'
 export * from './cartHistory'
+export * from './editUser'

@@ -22,6 +22,10 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
             <div className="buttonNav">
               <Link to={`/history/${userId}`}>My Order History</Link>
             </div>
+            <div className="buttonNav">
+              <Link to={`/editUser/${userId}`}>Edit Profile</Link>
+            </div>
+
             {admin && (
               <div className="buttonNav">
                 <Link to="/admin">Admin</Link>
