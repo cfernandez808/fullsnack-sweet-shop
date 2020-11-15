@@ -9,14 +9,19 @@ export class AllProducts extends React.Component {
     super()
     this.state = {
       category: 'All',
+      price: 'All',
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChangeCategory = this.handleChangeCategory.bind(this)
+    this.handleChangePrice = this.handleChangePrice.bind(this)
   }
   componentDidMount() {
     this.props.getCandy()
   }
-  handleChange(event) {
+  handleChangeCategory(event) {
     this.setState({category: event.target.value})
+  }
+  handleChangePrice(event) {
+    this.setState({price: event.target.value})
   }
   render() {
     const {candy, admin} = this.props
@@ -25,29 +30,35 @@ export class AllProducts extends React.Component {
         {admin && <AddCandyForm />}
         {
           <Filter
-            handleChange={this.handleChange}
+            handleChangeCategory={this.handleChangeCategory}
+            handleChangePrice={this.handleChangePrice}
             currentCategory={this.state.category}
+            currentPrice={this.state.category}
           />
         }
         <div className="allProductsContainer">
           {candy ? (
-            this.state.category === 'All' ? (
-              <>
-                {candy.map((x) => (
-                  <CandyDisplay key={x.id} candy={x} />
-                ))}
-              </>
-            ) : (
-              <>
-                {candy
-                  .filter((y) => y.category === this.state.category)
-                  .map((x) => (
-                    <CandyDisplay key={x.id} candy={x} />
-                  ))}
-              </>
-            )
+            candy
+              .filter((y) => {
+                if (
+                  this.state.category !== 'All' &&
+                  this.state.price !== 'All'
+                ) {
+                  return (
+                    y.category === this.state.category &&
+                    y.price === +this.state.price
+                  )
+                } else if (this.state.category !== 'All') {
+                  return y.category === this.state.category
+                } else if (this.state.price !== 'All') {
+                  return y.price === +this.state.price
+                } else {
+                  return y
+                }
+              })
+              .map((x) => <CandyDisplay key={x.id} candy={x} />)
           ) : (
-            'Loading!'
+            <>'Loading!'</>
           )}
         </div>
       </>
