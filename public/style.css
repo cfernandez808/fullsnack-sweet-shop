@@ -585,3 +585,13 @@ img {
   border-right: 2px solid white;
   border-left: 2px solid white;
 }
+
+.singleCandyCartQuantityButtons {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.singleCandyCartQuantity {
+  margin: 0px 10px 0px;
+}

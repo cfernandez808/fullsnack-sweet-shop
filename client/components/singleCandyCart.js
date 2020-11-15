@@ -20,14 +20,14 @@ const SingleCandyCart = (props) => {
         <div>
           <small>Price: ${price / 100}</small>
         </div>
-        <div className="singleCandyCartButtons">
+        <div className="singleCandyCartQuantityButtons">
           <div
             className="singleCandyMinusButton"
             onClick={() => decrement(candyId)}
           >
             -
           </div>
-          <div>
+          <div className="singleCandyCartQuantity">
             Quantity
             <br />
             {quantity}
@@ -39,12 +39,14 @@ const SingleCandyCart = (props) => {
             >
               +
             </div>
-            <div
-              className="singleCandyCartRemove"
-              onClick={() => props.deleteCandy(id)}
-            >
-              Remove
-            </div>
+          </div>
+        </div>
+        <div className="singleCandyCartButtons">
+          <div
+            className="singleCandyCartRemove"
+            onClick={() => props.deleteCandy(id)}
+          >
+            Remove
           </div>
         </div>
       </div>
