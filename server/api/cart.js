@@ -33,7 +33,9 @@ router.post('/:id', async (req, res, next) => {
       quantity: req.body.quantity,
       userId: req.params.id,
     })
-    await makeCart.setCandies(req.body.candyId)
+    await makeCart.setCandies(req.body.candyId, {
+      through: {quantity: req.body.quantity},
+    })
     res.send(makeCart)
   } catch (err) {
     next(err)
