@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,3 +16,23 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+//updating the user info (firstName, lastname, email)
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    const [numberAffectedRow, user] = await User.update(req.body, {
+      where: {
+        id: req.params.userId,
+      },
+      returning: true, //needed for affectedRows to be populated
+      plain: true, //makes sure that the returned instances are just plain objects
+    })
+    console.log('DATA', user.dataValues)
+    res.send(user.dataValues)
+  } catch (err) {
+    next(err)
+  }
+})
+
+module.exports = router

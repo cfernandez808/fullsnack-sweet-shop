@@ -11,6 +11,7 @@ import {
   AdminDash,
   CartDisplay,
   OrderConfirm,
+  CartHistory,
 } from './components'
 import {me} from './store'
 
@@ -40,6 +41,7 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route exact path="/admin" component={AdminDash} />
             <Route path="/admin/candy" component={AllProducts} />
+            <Route path="/history/:id" component={CartHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

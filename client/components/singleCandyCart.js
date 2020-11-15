@@ -5,7 +5,7 @@ import {removeCart} from '../store/cart'
 
 const SingleCandyCart = (props) => {
   const {id, name, description, price, image} = props.candy
-  const {quantity} = props
+  const {quantity, history} = props
   return (
     <div className="singleCandyCart">
       <div className="candyImage">
@@ -24,12 +24,16 @@ const SingleCandyCart = (props) => {
         </div>
         <div className="singleCandyCartButtons">
           <div>
-            <div
-              className="singleCandyCartRemove"
-              onClick={() => props.deleteCandy(id)}
-            >
-              Remove
-            </div>
+            {history ? (
+              ''
+            ) : (
+              <div
+                className="singleCandyCartRemove"
+                onClick={() => props.deleteCandy(id)}
+              >
+                Remove
+              </div>
+            )}
           </div>
         </div>
       </div>

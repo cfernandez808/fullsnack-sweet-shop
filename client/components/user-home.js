@@ -6,7 +6,7 @@ import {AllProducts} from './'
 /**
  * COMPONENT
  */
-export const UserHome = props => {
+export const UserHome = (props) => {
   const {firstName} = props.user
 
   return (
@@ -22,9 +22,9 @@ export const UserHome = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
@@ -34,5 +34,5 @@ export default connect(mapState)(UserHome)
  * PROP TYPES
  */
 UserHome.propTypes = {
-  email: PropTypes.string
+  email: PropTypes.string,
 }

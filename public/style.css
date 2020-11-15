@@ -522,3 +522,14 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.cartHistory {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
