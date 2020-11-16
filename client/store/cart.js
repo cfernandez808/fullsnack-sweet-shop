@@ -67,7 +67,6 @@ export const updateQuantity = (cartId, updatedCart) => {
   return async (dispatch) => {
     try {
       const {data} = await axios.put(`/api/cart/${cartId}`, updatedCart)
-      console.log('data', data)
       dispatch(updateCart(data))
     } catch (err) {
       console.log(err)

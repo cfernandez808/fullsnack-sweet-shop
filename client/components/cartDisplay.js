@@ -16,7 +16,6 @@ export class CartDisplay extends React.Component {
     this.quantityFinder = this.quantityFinder.bind(this)
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   async componentDidMount() {
