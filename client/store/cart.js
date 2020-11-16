@@ -68,8 +68,6 @@ export const removeCart = (cartId, userId) => {
 export const updateQuantity = (cartId, updatedCart, userId) => {
   return async (dispatch) => {
     try {
-      console.log('IN STORE User Id', userId)
-      console.log('IN STORE CART ID', cartId)
       const {data} = await axios.put(`/api/cart/${cartId}`, updatedCart)
       console.log('AFTER PUT', data)
       dispatch(getCartThunk(userId))
