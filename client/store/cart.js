@@ -39,7 +39,6 @@ export const getCartThunk = (id) => async (dispatch) => {
 
 export const checkoutThunk = (cartArr) => async (dispatch) => {
   try {
-    console.log('HERE IS WHAT GOES TO CHECKOUT API', cartArr)
     await axios.put('/api/cart/checkout', {cart: cartArr})
     dispatch(getCart({}))
   } catch (err) {
@@ -54,22 +53,26 @@ export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
     console.log(err)
   }
 }
-export const removeCart = (cartId) => {
+export const removeCart = (cartId, userId) => {
   return async (dispatch) => {
     try {
+      console.log('IN THUNK', userId)
       await axios.delete(`/api/cart/${cartId}`)
-      dispatch(deletedCart(cartId))
+      dispatch(getCartThunk(userId))
     } catch (err) {
       console.log(err)
     }
   }
 }
 
-export const updateQuantity = (cartId, updatedCart) => {
+export const updateQuantity = (cartId, updatedCart, userId) => {
   return async (dispatch) => {
     try {
+      console.log('IN STORE User Id', userId)
+      console.log('IN STORE CART ID', cartId)
       const {data} = await axios.put(`/api/cart/${cartId}`, updatedCart)
-      dispatch(updateCart(data))
+      console.log('AFTER PUT', data)
+      dispatch(getCartThunk(userId))
     } catch (err) {
       console.log(err)
     }
@@ -80,14 +83,17 @@ export default function (state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart
-    case DELETED_CART:
-      return action.cart
+    // case DELETED_CART:
+    //   console.log('IN DELETED', state, action.cartId)
+    //   let newState = state.filter((cart) => cart.id !== action.cartId)
+    //   console.log('NEW STATE', newState)
+    //   return newState
     case UPDATE_CART:
       // eslint-disable-next-line no-case-declarations
       return [
         ...state.map((cart) => {
           if (cart.id === action.cart.id) {
-            cart.quantity = action.cart.quantity
+            cart = action.cart
           }
           return cart
         }),

@@ -89,6 +89,7 @@ export class CartDisplay extends React.Component {
 
     let totalPrice
     if (cart.length > 0) {
+      console.log('CART IN TOTAL', cart)
       totalPrice = cart
         .reduce((total, singleCandy) => {
           total += singleCandy.quantity * +singleCandy.price
@@ -98,7 +99,7 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
-    console.log('HELLO', cart)
+    console.log('REDUCED CART', this.state.reducedCart)
     return (
       <div>
         <div className="totalDisplay">
@@ -134,7 +135,8 @@ export class CartDisplay extends React.Component {
                   quantity={this.state.quantity[candy.cart_candy.candyId]}
                   increment={this.increment}
                   decrement={this.decrement}
-                  handleUpdate={this.handleUpdate}
+                  user={user}
+                  // handleUpdate={this.handleUpdate}
                 />
               ))}
             </>

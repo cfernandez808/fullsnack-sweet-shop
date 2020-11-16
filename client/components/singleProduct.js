@@ -77,6 +77,7 @@ export class SingleProduct extends React.Component {
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
       )
     }
+
     return (
       <>
         <div className="singleCandyContainer">
@@ -142,12 +143,23 @@ export class SingleProduct extends React.Component {
               >
                 +
               </div>
-              <div
-                className="singleCandyAddToCartButton"
-                onClick={this.handleClick}
-              >
-                Add to Cart
-              </div>
+              {reducedCart &&
+              reducedCart.filter((x) => x.name === singleCandy.name).length >
+                0 ? (
+                <div
+                  className="singleCandyAddToCartButton"
+                  style={{backgroundColor: 'gray'}}
+                >
+                  Item in cart
+                </div>
+              ) : (
+                <div
+                  className="singleCandyAddToCartButton"
+                  onClick={this.handleClick}
+                >
+                  Add to Cart
+                </div>
+              )}
             </div>
           </div>
         </div>
