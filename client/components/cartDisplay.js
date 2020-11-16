@@ -98,6 +98,7 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
+    console.log('HELLO', cart)
     return (
       <div>
         <div className="totalDisplay">
@@ -126,11 +127,11 @@ export class CartDisplay extends React.Component {
         <div className="allProductsContainer">
           {cart.length > 0 ? (
             <>
-              {this.state.reducedCart.map((indivCart) => (
+              {this.state.reducedCart.map((candy) => (
                 <SingleCandyCart
-                  key={indivCart.id}
-                  indivCart={indivCart}
-                  quantity={this.state.quantity[indivCart.cart_candy.candyId]}
+                  key={candy.id}
+                  candy={candy}
+                  quantity={this.state.quantity[candy.cart_candy.candyId]}
                   increment={this.increment}
                   decrement={this.decrement}
                   handleUpdate={this.handleUpdate}
