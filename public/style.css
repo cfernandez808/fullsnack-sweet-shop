@@ -1,3 +1,5 @@
+/* BODY -------------------------- */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,14 +22,19 @@ label {
   display: block;
 }
 
+/* NAVBAR -------------------------- */
+
+.title {
+  text-align: center;
+  font-family: Pacifico;
+  font-size: 25px;
+  font-weight: 900;
+  text-shadow: 2px 2px 2px black;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
 }
 
 nav {
@@ -45,10 +52,6 @@ nav {
   border-left: 2px solid black;
   border-right: 2px solid black;
   margin-bottom: 60px;
-}
-
-.buttonsRight {
-  display: flex;
 }
 
 .navInfo {
@@ -98,13 +101,24 @@ nav {
   margin-bottom: 5px;
 }
 
-.title {
-  text-align: center;
-  font-family: Pacifico;
-  font-size: 25px;
-  font-weight: 900;
-  text-shadow: 2px 2px 2px black;
+/* BUTTONS -------------------------- */
+
+.buttonsRight {
+  display: flex;
 }
+
+.buyButton:hover,
+.submitNewCandy:hover,
+.singleCandyCartEdit:hover,
+.sinCandyCartRemove:hover,
+.singleCandyCartRemove:hover,
+.submitEditCandy:hover {
+  filter: contrast(160%);
+  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
+  transition: 0.4s ease;
+}
+
+/* ALL CANDY & USERS (ADMIN) VIEW -------------------- */
 
 .candyContainer,
 .userContainer {
@@ -135,7 +149,6 @@ nav {
 .candyImage {
   height: 150px;
   width: 150px;
-  border: 2px solid white;
   border-radius: 15px;
   margin: auto;
   display: flex;
@@ -179,155 +192,7 @@ nav {
   cursor: pointer;
 }
 
-.singleCandyCartEdit {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 0;
-  width: 100px;
-  background: #97dc47;
-  border-top: 2px solid white;
-  border-bottom: 2px solid white;
-  cursor: pointer;
-}
-
-.sinCandyCartRemove {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 0;
-  width: 100px;
-  background: #e91e63;
-  border-top: 2px solid white;
-  border-bottom: 2px solid white;
-  border-right: 2px solid white;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  cursor: pointer;
-}
-
-.singleCandyCartButtons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.singleCandyCartUpdate {
-  margin: auto;
-  width: 60%;
-  background-color: #97dc47;
-  border: 2px solid white;
-  border-radius: 15px;
-  padding: 5px 0px 5px 0px;
-  cursor: pointer;
-  margin: 0px 3px 0px 3px;
-}
-
-.buyButton:hover,
-.submitNewCandy:hover,
-.singleCandyCartEdit:hover,
-.sinCandyCartRemove:hover,
-.singleCandyCartRemove:hover,
-.submitEditCandy:hover {
-  filter: contrast(160%);
-  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
-  transition: 0.4s ease;
-}
-
-.loginForm {
-  width: 20%;
-  margin: auto;
-  color: white;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 30px;
-  border-radius: 20px;
-  border: 2px solid white;
-  margin-top: 150px;
-}
-
-.loginForm label {
-  font-size: 20px;
-}
-
-.loginForm input {
-  border-radius: 5px;
-}
-
-.loginForm form {
-  display: flex;
-  flex-direction: column;
-}
-
-.loginForm button {
-  background: white;
-  border-radius: 5px;
-  padding-left: 8px;
-  padding-right: 8px;
-  cursor: pointer;
-}
-
-.loginForm a {
-  color: white;
-}
-
-.welcome,
-.total {
-  text-align: center;
-  font-size: 25px;
-  color: white;
-  margin: auto;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  width: 25%;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 25px;
-  border: 2px solid white;
-}
-
-.singleCandyCart {
-  border: 2px solid white;
-  border-radius: 20px;
-  min-width: 450px;
-  padding: 10px;
-  display: flex;
-  justify-content: space-around;
-  margin: 15px;
-  background: rgba(0, 0, 0, 0.6);
-  overflow-wrap: break-word;
-  color: white;
-}
-
-.singleCandyCart img {
-  height: 250px;
-}
-
-.candyImage {
-  padding: 0;
-  margin: 0;
-}
-
-.candyRight {
-  text-align: center;
-  width: 44%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.singleCandyCartRemove {
-  margin: auto;
-  width: 60%;
-  background-color: #f54343;
-  border: 2px solid white;
-  border-radius: 15px;
-  padding: 5px 0px 5px 0px;
-  cursor: pointer;
-  margin: 0px 3px 0px 3px;
-}
+/* SINGLE CANDY VIEW -------------------------- */
 
 .singleCandyContainer {
   margin-top: 30px;
@@ -383,6 +248,58 @@ nav {
   width: 32px;
 }
 
+.candyImage {
+  padding: 0;
+  margin: 0;
+}
+
+.candyRight {
+  text-align: center;
+  width: 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.singleCandyButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.singleCandyContainer {
+  min-width: 700px;
+}
+
+.singleCandyPlusButton:hover,
+.singleCandyMinusButton:hover,
+.singleCandyAddToCartButton:hover {
+  filter: contrast(160%);
+  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
+  transition: 0.5s ease;
+}
+
+/* CART VIEW -------------------------- */
+
+.welcome,
+.total {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 25%;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  border: 2px solid white;
+}
+
 .totalDisplay {
   display: flex;
   justify-content: center;
@@ -415,24 +332,123 @@ nav {
   margin: 0;
 }
 
-.singleCandyButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 20px;
+.singleCandyCartEdit {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #97dc47;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
   cursor: pointer;
 }
 
-.singleCandyContainer {
-  min-width: 700px;
+.sinCandyCartRemove {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #e91e63;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
 }
 
-.singleCandyPlusButton:hover,
-.singleCandyMinusButton:hover,
-.singleCandyAddToCartButton:hover {
-  filter: contrast(160%);
-  box-shadow: inset 2px 2px 50px 50px rgba(0, 0, 0, 0.25);
-  transition: 0.5s ease;
+.singleCandyCartButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleCandyCartUpdate {
+  margin: auto;
+  width: 60%;
+  background-color: #97dc47;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  margin: 0px 3px 0px 3px;
+}
+
+.singleCandyCart {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.singleCandyCart img {
+  height: 250px;
+}
+
+.singleCandyCartRemove {
+  margin: auto;
+  width: 60%;
+  background-color: #f54343;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  margin: 0px 3px 0px 3px;
+}
+
+/* ADMIN PANEL -------------------------- */
+/* FORMS -------------------------- */
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+/* LOGIN -------------------------- */
+
+.loginForm {
+  width: 20%;
+  margin: auto;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid white;
+  margin-top: 150px;
+}
+
+.loginForm label {
+  font-size: 20px;
+}
+
+.loginForm input {
+  border-radius: 5px;
+}
+
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm button {
+  background: white;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.loginForm a {
+  color: white;
 }
 
 a {
@@ -652,7 +668,6 @@ a {
   margin: auto;
 }
 
-
 .editUser {
   border: 2px solid white;
   border-radius: 20px;
@@ -708,5 +723,3 @@ select {
   border-radius: 5px;
   margin: 2px;
 }
-
-
