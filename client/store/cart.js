@@ -4,7 +4,7 @@ const GET_CART = 'GET_CART'
 const DELETED_CART = 'DELETED_CART'
 const UPDATE_CART = 'UPDATE_CART'
 
-const defaultCart = {}
+const defaultCart = []
 
 const getCart = (cart) => ({
   type: GET_CART,
@@ -24,7 +24,9 @@ const updateCart = (cart) => ({
 export const getCartThunk = (id) => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/${id}`)
-    data = data.carts.map((candy) => {
+    data = data.carts.filter((x) => x.candies.length)
+    console.log(data)
+    data = data.map((candy) => {
       candy.candies[0].quantity = candy.quantity
       candy.candies[0].id = candy.id
       candy.candies[0].completed = candy.completed

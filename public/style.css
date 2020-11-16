@@ -368,7 +368,7 @@ nav {
 .singleCandyAddToCartButton {
   text-align: center;
   margin: auto;
-  background-color: #97dc47;
+  background-color: #2196f3;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
@@ -613,7 +613,27 @@ a {
   color: white;
   border-right: 2px solid white;
   border-left: 2px solid white;
+  padding-top: 10px;
 }
+
+/* ::-webkit-scrollbar {
+  background-color: black;
+}
+
+::-webkit-scrollbar:horizontal {
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+} */
+
+/* ::-webkit-scrollbar {
+  width: 100px;
+} */
 
 .singleCandyCartQuantityButtons {
   display: flex;
@@ -654,3 +674,4 @@ select {
   border-radius: 5px;
   margin: 2px;
 }
+
