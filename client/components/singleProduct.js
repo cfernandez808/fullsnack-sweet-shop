@@ -100,11 +100,8 @@ export class SingleProduct extends React.Component {
   render() {
     const {singleCandy, user} = this.props
     let {cart} = this.props
-    let reducedCart, quantities
-    if (cart.length > 0) {
-      reducedCart = this.cartReducer()
-      quantities = this.quantityFinder()
-      reducedCart.sort((x, y) =>
+    if (this.state.reducedCart.length > 0) {
+      this.state.reducedCart.sort((x, y) =>
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
       )
     }
@@ -161,9 +158,9 @@ export class SingleProduct extends React.Component {
               <div className="singleCandyPlusButton" onClick={this.increment}>
                 +
               </div>
-              {reducedCart &&
-              reducedCart.filter((x) => x.name === singleCandy.name).length >
-                0 ? (
+              {this.state.reducedCart &&
+              this.state.reducedCart.filter((x) => x.name === singleCandy.name)
+                .length > 0 ? (
                 <div
                   className="singleCandyAddToCartButton"
                   style={{backgroundColor: 'gray'}}
