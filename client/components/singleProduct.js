@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleCandyThunk} from '../store/singleCandy'
-import {addCandyToCart, getCartThunk} from '../store/cart'
+import {addCandyToCart, getCartThunk, updateQuantity} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {EditCandyForm, SingleCandyCart} from './'
 import {me} from '../store/user'
@@ -10,26 +10,37 @@ export class SingleProduct extends React.Component {
   constructor() {
     super()
     this.state = {
-      quantity: 1,
+      quantity: {},
+      reducedCart: [],
     }
     this.handleClick = this.handleClick.bind(this)
     this.cartReducer = this.cartReducer.bind(this)
     this.quantityFinder = this.quantityFinder.bind(this)
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.handleUpdateQuantity = this.handleUpdateQuantity.bind(this)
   }
 
   async componentDidMount() {
     this.props.getSingleCandy(this.props.match.params.candyId)
     await this.props.getUser()
     this.props.getCart(this.props.user.id)
+    this.cartReducer()
+    this.quantityFinder()
   }
 
   handleClick() {
     let userId = this.props.user.id
     let candyObj = {
-      quantity: this.state.quantity,
+      quantity: this.state.startingQuantity,
       candyId: this.props.singleCandy.id,
     }
     this.props.addCandyToCart(userId, candyObj)
+  }
+
+  handleUpdateQuantity(cartId, newQuantity) {
+    const updatedCart = {quantity: newQuantity}
+    this.props.updateQuantity(cartId, updatedCart)
   }
 
   cartReducer() {
@@ -37,16 +48,16 @@ export class SingleProduct extends React.Component {
     if (cart.length > 0) {
       cart = cart.filter((item) => !item.completed)
     }
-    const reducedCart = []
+    const streamlinedCart = []
     const idTracker = []
     for (let i = 0; i < cart.length; i++) {
       let currentCandy = cart[i]
       if (!idTracker.includes(currentCandy.cart_candy.candyId)) {
-        reducedCart.push(currentCandy)
+        streamlinedCart.push(currentCandy)
         idTracker.push(currentCandy.cart_candy.candyId)
       }
     }
-    return reducedCart
+    this.setState({reducedCart: streamlinedCart})
   }
 
   quantityFinder() {
@@ -63,7 +74,27 @@ export class SingleProduct extends React.Component {
         quantities[element.cart_candy.candyId] = element.quantity
       }
     })
-    return quantities
+    this.setState({quantity: quantities})
+  }
+
+  increment(candyId) {
+    this.setState((prevState) => ({
+      quantity: {
+        ...prevState.quantity,
+        [candyId]: prevState.quantity[candyId] + 1,
+      },
+    }))
+  }
+
+  decrement(candyId) {
+    if (this.state.quantity[candyId] > 0) {
+      this.setState((prevState) => ({
+        quantity: {
+          ...prevState.quantity,
+          [candyId]: prevState.quantity[candyId] - 1,
+        },
+      }))
+    }
   }
 
   render() {
@@ -77,7 +108,6 @@ export class SingleProduct extends React.Component {
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
       )
     }
-
     return (
       <>
         <div className="singleCandyContainer">
@@ -118,29 +148,17 @@ export class SingleProduct extends React.Component {
               </div>
             </div>
             <div className="singleCandyButtons">
-              <div
-                className="singleCandyMinusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity - 1,
-                  }))
-                }
-              >
+              <div className="singleCandyMinusButton" onClick={this.decrement}>
                 -
               </div>
               <div>
                 Quantity
                 <br />
-                {this.state.quantity}
+                {this.state.quantity[singleCandy.id] >= 1
+                  ? this.state.quantity[singleCandy.id]
+                  : 1}
               </div>
-              <div
-                className="singleCandyPlusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity + 1,
-                  }))
-                }
-              >
+              <div className="singleCandyPlusButton" onClick={this.increment}>
                 +
               </div>
               {reducedCart &&
@@ -174,12 +192,14 @@ export class SingleProduct extends React.Component {
           )}
         <div className="singleCandyCartLabel">Cart View:</div>
         <div className="singleCandyCartDisplay">
-          {reducedCart && reducedCart.length > 0 ? (
-            reducedCart.map((candy) => (
+          {this.state.reducedCart && this.state.reducedCart.length > 0 ? (
+            this.state.reducedCart.map((candy) => (
               <SingleCandyCart
                 key={candy.id}
                 candy={candy}
-                quantity={quantities[candy.cart_candy.candyId]}
+                quantity={this.state.quantity[candy.cart_candy.candyId]}
+                increment={this.increment}
+                decrement={this.decrement}
               />
             ))
           ) : (
@@ -205,6 +225,8 @@ const mapDispatch = (dispatch) => ({
   addCandyToCart: (userId, candyObj) =>
     dispatch(addCandyToCart(userId, candyObj)),
   getCart: (id) => dispatch(getCartThunk(id)),
+  updateQuantity: (cartId, quantity) =>
+    dispatch(updateQuantity(cartId, quantity)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))

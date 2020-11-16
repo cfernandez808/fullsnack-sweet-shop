@@ -99,7 +99,7 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
-    console.log('REDUCED CART', this.state.reducedCart)
+
     return (
       <div>
         <div className="totalDisplay">
@@ -136,7 +136,7 @@ export class CartDisplay extends React.Component {
                   increment={this.increment}
                   decrement={this.decrement}
                   user={user}
-                  // handleUpdate={this.handleUpdate}
+                 
                 />
               ))}
             </>
