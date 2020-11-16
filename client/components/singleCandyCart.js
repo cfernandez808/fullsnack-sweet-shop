@@ -11,6 +11,7 @@ const SingleCandyCart = (props) => {
   function handleClick(cartId, newQuantity, userId) {
     const updatedCart = {quantity: newQuantity}
     props.updateQuantity(cartId, updatedCart, userId)
+    console.log('CARTID', cartId)
   }
 
   return (
@@ -66,7 +67,10 @@ const SingleCandyCart = (props) => {
           </div>
           <div
             className="singleCandyCartRemove"
-            onClick={() => props.deleteCandy(id, props.user.id)}
+            onClick={() => {
+              props.deleteCandy(id, props.user.id)
+              window.location.reload(false)
+            }}
           >
             Remove
           </div>

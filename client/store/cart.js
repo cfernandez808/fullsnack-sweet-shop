@@ -56,7 +56,6 @@ export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
 export const removeCart = (cartId, userId) => {
   return async (dispatch) => {
     try {
-      console.log('IN THUNK', userId)
       await axios.delete(`/api/cart/${cartId}`)
       dispatch(getCartThunk(userId))
     } catch (err) {
