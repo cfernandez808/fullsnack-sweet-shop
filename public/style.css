@@ -120,12 +120,32 @@ nav {
   min-height: 400px;
 }
 
-.candyContainer img {
+.imageDiv {
   height: 150px;
   width: 150px;
   border: 2px solid white;
   border-radius: 15px;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.candyImage {
+  height: 150px;
+  width: 150px;
+  border: 2px solid white;
+  border-radius: 15px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.candyContainer img {
+  height: 250px;
 }
 
 .candyInfo,
@@ -182,6 +202,23 @@ nav {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   cursor: pointer;
+}
+
+.singleCandyCartButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleCandyCartUpdate {
+  margin: auto;
+  width: 60%;
+  background-color: #97dc47;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  margin: 0px 3px 0px 3px;
 }
 
 .buyButton:hover,
@@ -264,12 +301,7 @@ nav {
 }
 
 .singleCandyCart img {
-  height: 200px;
-  width: 200px;
-  padding: 0;
-  border: 2px solid white;
-  border-radius: 15px;
-  margin: auto;
+  height: 250px;
 }
 
 .candyImage {
@@ -294,6 +326,7 @@ nav {
   border-radius: 15px;
   padding: 5px 0px 5px 0px;
   cursor: pointer;
+  margin: 0px 3px 0px 3px;
 }
 
 .singleCandyContainer {
@@ -310,12 +343,6 @@ nav {
   border: 2px solid white;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-}
-
-.singleCandyImg {
-  width: 350px;
-  height: 350px;
-  overflow: hidden;
 }
 
 .singleCandyContainer img {
@@ -458,18 +485,20 @@ a {
   margin-top: 0px;
 }
 
-img {
+.singleCandyImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 312px;
+  height: 312px;
+  margin: 30px 0px 30px 0px;
+  overflow: hidden;
   border: 2px solid white;
   border-radius: 15px;
-  margin: auto;
 }
 
 .singleCandyImg img {
-  width: 312px;
-  height: 312px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 15px;
+  height: 500px;
 }
 
 .centerSubmit {
@@ -596,6 +625,7 @@ img {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+
 ::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 10px;
@@ -604,3 +634,44 @@ img {
 /* ::-webkit-scrollbar {
   width: 100px;
 } */
+
+.singleCandyCartQuantityButtons {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.singleCandyCartQuantity {
+  margin: 0px 10px 0px;
+}
+
+.filterDiv {
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px auto auto auto;
+  width: 72%;
+}
+
+.filterDiv label {
+  margin: 5px;
+}
+
+.singleFilter {
+  display: flex;
+}
+
+select {
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: 2px;
+}
+
