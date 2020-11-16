@@ -25,7 +25,6 @@ export const getCartThunk = (id) => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/${id}`)
     data = data.carts.filter((x) => x.candies.length)
-    console.log(data)
     data = data.map((candy) => {
       candy.candies[0].quantity = candy.quantity
       candy.candies[0].id = candy.id
@@ -40,6 +39,7 @@ export const getCartThunk = (id) => async (dispatch) => {
 
 export const checkoutThunk = (cartArr) => async (dispatch) => {
   try {
+    console.log('HERE IS WHAT GOES TO CHECKOUT API', cartArr)
     await axios.put('/api/cart/checkout', {cart: cartArr})
     dispatch(getCart({}))
   } catch (err) {

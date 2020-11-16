@@ -7,6 +7,21 @@ router.get('/test', (req, res, next) => {
   res.send()
 })
 
+router.put('/checkout', async (req, res, next) => {
+  try {
+    let completedCart = []
+    for (let candy of req.body.cart) {
+      let item = await Cart.findByPk(candy.id)
+      item.completed = true
+      const updatedItem = await item.save()
+      completedCart.push(updatedItem)
+    }
+    res.json(completedCart)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     const cart = await User.findOne({
@@ -53,7 +68,6 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-
 router.delete('/:cartId', async (req, res, next) => {
   try {
     await Cart.destroy({
@@ -62,21 +76,6 @@ router.delete('/:cartId', async (req, res, next) => {
       },
     })
     res.sendStatus(204)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.put('/checkout', async (req, res, next) => {
-  try {
-    let completedCart = []
-    for (let candy of req.body.cart) {
-      let item = await Cart.findByPk(candy.id)
-      item.completed = true
-      const updatedItem = await item.save()
-      completedCart.push(updatedItem)
-    }
-    res.json(completedCart)
   } catch (err) {
     next(err)
   }
