@@ -136,6 +136,7 @@ export class CartDisplay extends React.Component {
                   increment={this.increment}
                   decrement={this.decrement}
                   user={user}
+                  getCart={this.props.getCart}
                   // handleUpdate={this.handleUpdate}
                 />
               ))}
