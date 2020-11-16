@@ -18,3 +18,5 @@ export {default as EditCandyForm} from './editCandyForm'
 export {default as OrderConfirm} from './orderConfirmation'
 export {default as CartHistory} from './cart-history'
 export {default as EditUserForm} from './editUserForm'
+export {default as Filter} from './filter'
+

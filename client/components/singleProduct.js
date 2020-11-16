@@ -160,7 +160,7 @@ export class SingleProduct extends React.Component {
               <EditCandyForm singleCandy={singleCandy} />
             </div>
           )}
-        <div className="singleCandyCartLabel">Cart Display:</div>
+        <div className="singleCandyCartLabel">Cart View:</div>
         <div className="singleCandyCartDisplay">
           {reducedCart && reducedCart.length > 0 ? (
             reducedCart.map((candy) => (

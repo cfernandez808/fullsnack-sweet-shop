@@ -2,8 +2,9 @@ import axios from 'axios'
 
 const GET_CART = 'GET_CART'
 const DELETED_CART = 'DELETED_CART'
+const UPDATE_CART = 'UPDATE_CART'
 
-const defaultCart = {}
+const defaultCart = []
 
 const getCart = (cart) => ({
   type: GET_CART,
@@ -15,10 +16,17 @@ export const deletedCart = (cartId) => ({
   cartId,
 })
 
+const updateCart = (cart) => ({
+  type: UPDATE_CART,
+  cart,
+})
+
 export const getCartThunk = (id) => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/${id}`)
-    data = data.carts.map((candy) => {
+    data = data.carts.filter((x) => x.candies.length)
+    console.log(data)
+    data = data.map((candy) => {
       candy.candies[0].quantity = candy.quantity
       candy.candies[0].id = candy.id
       candy.candies[0].completed = candy.completed
@@ -57,12 +65,33 @@ export const removeCart = (cartId) => {
   }
 }
 
+export const updateQuantity = (cartId, updatedCart) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.put(`/api/cart/${cartId}`, updatedCart)
+      dispatch(updateCart(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export default function (state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart
     case DELETED_CART:
-      return state.filter((cart) => cart.id !== action.cartId)
+      return action.cart
+    case UPDATE_CART:
+      // eslint-disable-next-line no-case-declarations
+      return [
+        ...state.map((cart) => {
+          if (cart.id === action.cart.id) {
+            cart.quantity = action.cart.quantity
+          }
+          return cart
+        }),
+      ]
     default:
       return state
   }

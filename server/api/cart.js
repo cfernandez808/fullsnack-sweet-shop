@@ -42,6 +42,18 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const cartToUpdate = await Cart.findByPk(req.params.id)
+    cartToUpdate.quantity = req.body.quantity
+    cartToUpdate.save()
+    res.json(cartToUpdate)
+  } catch (err) {
+    next(err)
+  }
+})
+
+
 router.delete('/:cartId', async (req, res, next) => {
   try {
     await Cart.destroy({

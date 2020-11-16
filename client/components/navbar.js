@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
+
+const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
   <div className="navbar">
     <nav>
       <div className="title">
@@ -16,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
           <div
             style={{width: '50%', display: 'flex', justifyContent: 'center'}}
           >
-            <div className="buttonNav">
+            <div className="buttonNav" onClick={() => history.push('/home')}>
               <Link to="/home">Home</Link>
             </div>
             <div className="buttonNav">
@@ -27,7 +28,7 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
             </div>
 
             {admin && (
-              <div className="buttonNav">
+              <div className="buttonNav" onClick={() => history.push('/admin')}>
                 <Link to="/admin">Admin</Link>
               </div>
             )}
@@ -38,12 +39,10 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
           <div
             style={{width: '50%', display: 'flex', justifyContent: 'center'}}
           >
-            <div className="buttonNav">
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+            <div className="buttonNav" onClick={handleClick}>
+              <a href="#">Logout</a>
             </div>
-            <div className="buttonNav">
+            <div className="buttonNav" onClick={() => history.push('/cart')}>
               <Link to="/cart">Cart</Link>
             </div>
           </div>
@@ -54,7 +53,7 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
           <div
             style={{width: '35%', display: 'flex', justifyContent: 'center'}}
           >
-            <div className="buttonNav">
+            <div className="buttonNav" onClick={() => history.push('/home')}>
               <Link to="/">Home</Link>
             </div>
           </div>
@@ -66,9 +65,11 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId}) => (
             style={{width: '35%', display: 'flex', justifyContent: 'center'}}
           >
             <div className="buttonNav">
-              <Link to="/login">Login</Link>
+              <Link to="/login" onClick={() => history.push('/login')}>
+                Login
+              </Link>
             </div>
-            <div className="buttonNav">
+            <div className="buttonNav" onClick={() => history.push('/cart')}>
               <Link to="/cart">Cart</Link>
             </div>
           </div>
@@ -86,6 +87,7 @@ const mapState = (state) => {
     isLoggedIn: !!state.user.id,
     admin: state.user.admin,
     userId: state.user.id,
+
   }
 }
 
@@ -97,7 +99,7 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default withRouter(connect(mapState, mapDispatch)(Navbar))
 
 /**
  * PROP TYPES
