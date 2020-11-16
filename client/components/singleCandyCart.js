@@ -1,12 +1,18 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {removeCart} from '../store/cart'
+import {removeCart, updateQuantity} from '../store/cart'
 
 const SingleCandyCart = (props) => {
-  const {id, name, price, image} = props.candy
+  const {id, name, price, image} = props.indivCart
   const {quantity, increment, decrement} = props
-  const {candyId} = props.candy.cart_candy
+  const {candyId} = props.indivCart.cart_candy
+
+  function handleClick(cartId, newQuantity) {
+    const updatedCart = {quantity: newQuantity}
+    props.updateQuantity(cartId, updatedCart)
+  }
+
   return (
     <div className="singleCandyCart">
       <div className="imageDiv">
@@ -43,6 +49,12 @@ const SingleCandyCart = (props) => {
         </div>
         <div className="singleCandyCartButtons">
           <div
+            className="singleCandyCartUpdate"
+            onClick={() => handleClick(id, quantity)}
+          >
+            Update
+          </div>
+          <div
             className="singleCandyCartRemove"
             onClick={() => props.deleteCandy(id)}
           >
@@ -56,6 +68,8 @@ const SingleCandyCart = (props) => {
 const mapDispatch = (dispatch) => {
   return {
     deleteCandy: (cartId) => dispatch(removeCart(cartId)),
+    updateQuantity: (cartId, quantity) =>
+      dispatch(updateQuantity(cartId, quantity)),
   }
 }
 

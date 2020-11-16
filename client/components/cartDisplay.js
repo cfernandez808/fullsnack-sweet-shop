@@ -16,7 +16,9 @@ export class CartDisplay extends React.Component {
     this.quantityFinder = this.quantityFinder.bind(this)
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
+
   async componentDidMount() {
     await this.props.getUser()
     await this.props.getCart(this.props.user.id)
@@ -125,13 +127,14 @@ export class CartDisplay extends React.Component {
         <div className="allProductsContainer">
           {cart.length > 0 ? (
             <>
-              {this.state.reducedCart.map((candy) => (
+              {this.state.reducedCart.map((indivCart) => (
                 <SingleCandyCart
-                  key={candy.id}
-                  candy={candy}
-                  quantity={this.state.quantity[candy.cart_candy.candyId]}
+                  key={indivCart.id}
+                  indivCart={indivCart}
+                  quantity={this.state.quantity[indivCart.cart_candy.candyId]}
                   increment={this.increment}
                   decrement={this.decrement}
+                  handleUpdate={this.handleUpdate}
                 />
               ))}
             </>
