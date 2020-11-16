@@ -8,9 +8,9 @@ const SingleCandyCart = (props) => {
   const {quantity, increment, decrement, history} = props
   const {candyId} = props.candy.cart_candy
 
-  function handleClick(cartId, newQuantity) {
+  function handleClick(cartId, newQuantity, userId) {
     const updatedCart = {quantity: newQuantity}
-    props.updateQuantity(cartId, updatedCart)
+    props.updateQuantity(cartId, updatedCart, userId)
   }
 
   return (
@@ -60,13 +60,13 @@ const SingleCandyCart = (props) => {
         <div className="singleCandyCartButtons">
           <div
             className="singleCandyCartUpdate"
-            onClick={() => handleClick(id, quantity)}
+            onClick={() => handleClick(id, quantity, props.user.id)}
           >
             Update
           </div>
           <div
             className="singleCandyCartRemove"
-            onClick={() => props.deleteCandy(id)}
+            onClick={() => props.deleteCandy(id, props.user.id)}
           >
             Remove
           </div>
@@ -75,11 +75,12 @@ const SingleCandyCart = (props) => {
     </div>
   )
 }
+
 const mapDispatch = (dispatch) => {
   return {
-    deleteCandy: (cartId) => dispatch(removeCart(cartId)),
-    updateQuantity: (cartId, quantity) =>
-      dispatch(updateQuantity(cartId, quantity)),
+    deleteCandy: (cartId, userId) => dispatch(removeCart(cartId, userId)),
+    updateQuantity: (cartId, quantity, userId) =>
+      dispatch(updateQuantity(cartId, quantity, userId)),
   }
 }
 
