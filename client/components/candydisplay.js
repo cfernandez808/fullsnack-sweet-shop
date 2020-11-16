@@ -12,9 +12,11 @@ const CandyDisplay = (props) => {
   return (
     <>
       <div key={id} className="candyContainer">
-        <Link to={`/candy/${id}`}>
-          <img src={image} />
-        </Link>
+        <div className="imageDiv">
+          <Link to={`/candy/${id}`}>
+            <img src={image} />
+          </Link>
+        </div>
         <div className="candyInfo">
           <div>
             <Link to={`/candy/${id}`}>

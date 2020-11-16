@@ -1,14 +1,21 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {removeCart} from '../store/cart'
+import {removeCart, updateQuantity} from '../store/cart'
 
 const SingleCandyCart = (props) => {
-  const {id, name, description, price, image} = props.candy
-  const {quantity} = props
+  const {id, name, price, image} = props.indivCart
+  const {quantity, increment, decrement} = props
+  const {candyId} = props.indivCart.cart_candy
+
+  function handleClick(cartId, newQuantity) {
+    const updatedCart = {quantity: newQuantity}
+    props.updateQuantity(cartId, updatedCart)
+  }
+
   return (
     <div className="singleCandyCart">
-      <div className="candyImage">
+      <div className="imageDiv">
         <img src={image} />
       </div>
       <div className="candyRight">
@@ -18,18 +25,40 @@ const SingleCandyCart = (props) => {
         </div>
         <div>
           <small>Price: ${price / 100}</small>
-          <br />
-          <br />
-          <small>Quantity: {quantity}</small>
         </div>
-        <div className="singleCandyCartButtons">
+        <div className="singleCandyCartQuantityButtons">
+          <div
+            className="singleCandyMinusButton"
+            onClick={() => decrement(candyId)}
+          >
+            -
+          </div>
+          <div className="singleCandyCartQuantity">
+            Quantity
+            <br />
+            {quantity}
+          </div>
           <div>
             <div
-              className="singleCandyCartRemove"
-              onClick={() => props.deleteCandy(id)}
+              className="singleCandyPlusButton"
+              onClick={() => increment(candyId)}
             >
-              Remove
+              +
             </div>
+          </div>
+        </div>
+        <div className="singleCandyCartButtons">
+          <div
+            className="singleCandyCartUpdate"
+            onClick={() => handleClick(id, quantity)}
+          >
+            Update
+          </div>
+          <div
+            className="singleCandyCartRemove"
+            onClick={() => props.deleteCandy(id)}
+          >
+            Remove
           </div>
         </div>
       </div>
@@ -39,6 +68,8 @@ const SingleCandyCart = (props) => {
 const mapDispatch = (dispatch) => {
   return {
     deleteCandy: (cartId) => dispatch(removeCart(cartId)),
+    updateQuantity: (cartId, quantity) =>
+      dispatch(updateQuantity(cartId, quantity)),
   }
 }
 

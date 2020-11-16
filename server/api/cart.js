@@ -40,6 +40,16 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const cartToUpdate = await Cart.findByPk(req.params.id)
+    cartToUpdate.quantity = req.body.quantity
+    cartToUpdate.save()
+    res.json(cartToUpdate)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.delete('/:cartId', async (req, res, next) => {
   try {
@@ -49,11 +59,10 @@ router.delete('/:cartId', async (req, res, next) => {
       },
     })
     res.sendStatus(204)
-     } catch (err) {
+  } catch (err) {
     next(err)
   }
 })
-
 
 router.put('/checkout', async (req, res, next) => {
   try {
