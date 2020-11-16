@@ -98,7 +98,6 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) return <div>Log in to view cart.</div>
-    console.log('HELLO', cart)
     return (
       <div>
         <div className="totalDisplay">
@@ -134,7 +133,6 @@ export class CartDisplay extends React.Component {
                   quantity={this.state.quantity[candy.cart_candy.candyId]}
                   increment={this.increment}
                   decrement={this.decrement}
-                  handleUpdate={this.handleUpdate}
                 />
               ))}
             </>

@@ -7,7 +7,6 @@ const SingleCandyCart = (props) => {
   const {id, name, price, image} = props.candy
   const {quantity, increment, decrement, history} = props
   const {candyId} = props.candy.cart_candy
-  console.log('WORLD', props.candy)
 
   function handleClick(cartId, newQuantity) {
     const updatedCart = {quantity: newQuantity}
