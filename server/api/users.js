@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
-module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,3 +16,36 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    if (!req.user || (!req.user.admin && req.params.userId != req.user.id)) {
+      return res.sendStatus(401)
+    }
+    const user = await User.findByPk(req.params.userId)
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//updating the user info (firstName, lastname, email)
+
+router.put('/:userId', async (req, res, next) => {
+  try {
+    if (!req.user || (!req.user.admin && req.params.userId != req.user.id)) {
+      return res.sendStatus(401)
+    }
+    const user = await User.findByPk(req.params.userId)
+    await user.update({
+      firstName: req.body.firstName || user.firstName,
+      lastName: req.body.lastName || user.lastName,
+      email: req.body.email || user.email,
+    })
+    res.send(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+module.exports = router

@@ -4,14 +4,16 @@ import {connect} from 'react-redux'
 import {removeCart, updateQuantity} from '../store/cart'
 
 const SingleCandyCart = (props) => {
-  const {id, name, price, image} = props.indivCart
-  const {quantity, increment, decrement} = props
+
+  const {id, name, price, image, description} = props.indivCart
+  const {quantity, increment, decrement, history} = props
   const {candyId} = props.indivCart.cart_candy
 
   function handleClick(cartId, newQuantity) {
     const updatedCart = {quantity: newQuantity}
     props.updateQuantity(cartId, updatedCart)
   }
+
 
   return (
     <div className="singleCandyCart">
@@ -38,13 +40,24 @@ const SingleCandyCart = (props) => {
             <br />
             {quantity}
           </div>
-          <div>
-            <div
+          <div
               className="singleCandyPlusButton"
               onClick={() => increment(candyId)}
             >
               +
             </div>
+          <div>
+            {history ? (
+              ''
+            ) : (
+              <div
+                className="singleCandyCartRemove"
+                onClick={() => props.deleteCandy(id)}
+              >
+                Remove
+              </div>
+            )}
+
           </div>
         </div>
         <div className="singleCandyCartButtons">

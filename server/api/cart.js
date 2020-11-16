@@ -33,7 +33,9 @@ router.post('/:id', async (req, res, next) => {
       quantity: req.body.quantity,
       userId: req.params.id,
     })
-    await makeCart.setCandies(req.body.candyId)
+    await makeCart.setCandies(req.body.candyId, {
+      through: {quantity: req.body.quantity},
+    })
     res.send(makeCart)
   } catch (err) {
     next(err)
@@ -50,6 +52,7 @@ router.put('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
 
 router.delete('/:cartId', async (req, res, next) => {
   try {
@@ -74,6 +77,24 @@ router.put('/checkout', async (req, res, next) => {
       completedCart.push(updatedItem)
     }
     res.json(completedCart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/byuser/:id', async (req, res, next) => {
+  try {
+    if (!req.user || (!req.user.admin && req.params.id != req.user.id)) {
+      return res.sendStatus(401)
+    }
+    const orders = await Cart.findAll({
+      where: {
+        completed: true,
+        userId: req.params.id,
+      },
+      include: [{model: Candy}],
+    })
+    res.json(orders)
   } catch (err) {
     next(err)
   }

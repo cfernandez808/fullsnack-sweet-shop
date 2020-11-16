@@ -553,6 +553,17 @@ a {
   justify-content: center;
 }
 
+.cartHistory {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
 .warning,
 .accepted {
   font-size: 12px;
@@ -641,6 +652,29 @@ a {
   margin: auto;
 }
 
+
+.editUser {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.fb-share-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: auto;
+  width: 100px;
+  background: #2196f3;
+  border-radius: 20px;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
 .singleCandyCartQuantity {
   margin: 0px 10px 0px;
 }
@@ -674,4 +708,5 @@ select {
   border-radius: 5px;
   margin: 2px;
 }
+
 

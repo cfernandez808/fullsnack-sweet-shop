@@ -88,6 +88,23 @@ export class SingleProduct extends React.Component {
               <div>
                 <h1>{singleCandy.name}</h1>
               </div>
+
+              <div>
+                <div
+                  className="fb-share-button"
+                  data-href={`https://fullsnack-sweet-shop.herokuapp.com/candy/${this.props.match.params.candyId}`}
+                  data-layout="button_count"
+                  data-size="large"
+                >
+                  <a
+                    target="_blank"
+                    href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffullsnack-sweet-shop.herokuapp.com%2Fcandy%2F${this.props.match.params.candyId}&amp;src=sdkpreparse`}
+                    className="fb-xfbml-parse-ignore"
+                  >
+                    Share
+                  </a>
+                </div>
+              </div>
               <hr />
               <div>
                 <h3>Description:</h3>
