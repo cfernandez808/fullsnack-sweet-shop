@@ -44,13 +44,21 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id', async (req, res, next) => {
   try {
-    const makeCart = await Cart.create({
-      quantity: req.body.quantity,
-      userId: req.params.id,
+    const makeCart = await Cart.findOrCreate({
+      where: {userId: req.params.id, completed: false},
+      include: {model: Candy, where: {id: req.body.candyId}},
+      defaults: {
+        quantity: req.body.quantity,
+      },
     })
-    await makeCart.setCandies(req.body.candyId, {
-      through: {quantity: req.body.quantity},
-    })
+    if (makeCart[1] === true) {
+      await makeCart[0].setCandies(req.body.candyId)
+      makeCart[0].quantity = req.body.quantity
+      makeCart[0].save()
+    } else {
+      makeCart[0].quantity = makeCart[0].quantity + req.body.quantity
+      makeCart[0].save()
+    }
     res.send(makeCart)
   } catch (err) {
     next(err)

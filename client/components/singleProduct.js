@@ -13,8 +13,6 @@ export class SingleProduct extends React.Component {
       quantity: 1,
     }
     this.handleClick = this.handleClick.bind(this)
-    this.cartReducer = this.cartReducer.bind(this)
-    this.quantityFinder = this.quantityFinder.bind(this)
   }
 
   async componentDidMount() {
@@ -32,52 +30,14 @@ export class SingleProduct extends React.Component {
     this.props.addCandyToCart(userId, candyObj)
   }
 
-  cartReducer() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const reducedCart = []
-    const idTracker = []
-    for (let i = 0; i < cart.length; i++) {
-      let currentCandy = cart[i]
-      if (!idTracker.includes(currentCandy.cart_candy.candyId)) {
-        reducedCart.push(currentCandy)
-        idTracker.push(currentCandy.cart_candy.candyId)
-      }
-    }
-    return reducedCart
-  }
-
-  quantityFinder() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const quantities = {}
-    cart.forEach((element) => {
-      if (quantities[element.cart_candy.candyId]) {
-        quantities[element.cart_candy.candyId] =
-          quantities[element.cart_candy.candyId] + element.quantity
-      } else {
-        quantities[element.cart_candy.candyId] = element.quantity
-      }
-    })
-    return quantities
-  }
-
   render() {
     const {singleCandy, user} = this.props
     let {cart} = this.props
-    let reducedCart, quantities
     if (cart.length > 0) {
-      reducedCart = this.cartReducer()
-      quantities = this.quantityFinder()
-      reducedCart.sort((x, y) =>
+      cart.sort((x, y) =>
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
       )
     }
-
     return (
       <>
         <div className="singleCandyContainer">
@@ -143,9 +103,10 @@ export class SingleProduct extends React.Component {
               >
                 +
               </div>
-              {reducedCart &&
-              reducedCart.filter((x) => x.name === singleCandy.name).length >
-                0 ? (
+              {cart.length &&
+              cart
+                .filter((x) => x.name === singleCandy.name)
+                .filter((x) => !x.completed).length > 0 ? (
                 <div
                   className="singleCandyAddToCartButton"
                   style={{backgroundColor: 'gray'}}
@@ -174,14 +135,18 @@ export class SingleProduct extends React.Component {
           )}
         <div className="singleCandyCartLabel">Cart View:</div>
         <div className="singleCandyCartDisplay">
-          {reducedCart && reducedCart.length > 0 ? (
-            reducedCart.map((candy) => (
-              <SingleCandyCart
-                key={candy.id}
-                candy={candy}
-                quantity={quantities[candy.cart_candy.candyId]}
-              />
-            ))
+          {cart.length && cart.filter((item) => !item.completed).length > 0 ? (
+            cart
+              .filter((item) => !item.completed)
+              .map((candy) => (
+                <SingleCandyCart
+                  key={candy.id}
+                  candy={candy}
+                  quantity={candy.quantity}
+                  user={user}
+                  getCart={this.props.getCart}
+                />
+              ))
           ) : (
             <div className="emptySingleCandyCart">
               <div className="welcome">Cart Empty</div>

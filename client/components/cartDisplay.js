@@ -6,77 +6,9 @@ import {SingleCandyCart} from './'
 import {me} from '../store/user'
 
 export class CartDisplay extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      quantity: {},
-      reducedCart: [],
-    }
-    this.cartReducer = this.cartReducer.bind(this)
-    this.quantityFinder = this.quantityFinder.bind(this)
-    this.increment = this.increment.bind(this)
-    this.decrement = this.decrement.bind(this)
-  }
-
   async componentDidMount() {
     await this.props.getUser()
     await this.props.getCart(this.props.user.id)
-    this.cartReducer()
-    this.quantityFinder()
-  }
-
-  cartReducer() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const streamlinedCart = []
-    const idTracker = []
-    for (let i = 0; i < cart.length; i++) {
-      let currentCandy = cart[i]
-      if (!idTracker.includes(currentCandy.cart_candy.candyId)) {
-        streamlinedCart.push(currentCandy)
-        idTracker.push(currentCandy.cart_candy.candyId)
-      }
-    }
-    this.setState({reducedCart: streamlinedCart})
-  }
-
-  quantityFinder() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const quantities = {}
-    cart.forEach((element) => {
-      if (quantities[element.cart_candy.candyId]) {
-        quantities[element.cart_candy.candyId] =
-          quantities[element.cart_candy.candyId] + element.quantity
-      } else {
-        quantities[element.cart_candy.candyId] = element.quantity
-      }
-    })
-    this.setState({quantity: quantities})
-  }
-
-  increment(candyId) {
-    this.setState((prevState) => ({
-      quantity: {
-        ...prevState.quantity,
-        [candyId]: prevState.quantity[candyId] + 1,
-      },
-    }))
-  }
-
-  decrement(candyId) {
-    if (this.state.quantity[candyId] > 0) {
-      this.setState((prevState) => ({
-        quantity: {
-          ...prevState.quantity,
-          [candyId]: prevState.quantity[candyId] - 1,
-        },
-      }))
-    }
   }
 
   render() {
@@ -85,11 +17,11 @@ export class CartDisplay extends React.Component {
 
     if (cart.length > 0) {
       cart = cart.filter((item) => !item.completed)
+      cart.sort((x, y) => x.id - y.id)
     }
 
     let totalPrice
     if (cart.length > 0) {
-      console.log('CART IN TOTAL', cart)
       totalPrice = cart
         .reduce((total, singleCandy) => {
           total += singleCandy.quantity * +singleCandy.price
@@ -128,17 +60,13 @@ export class CartDisplay extends React.Component {
         <div className="allProductsContainer">
           {cart.length > 0 ? (
             <>
-              {this.state.reducedCart.map((candy) => (
+              {cart.map((candy) => (
                 <SingleCandyCart
                   key={candy.id}
                   candy={candy}
-                  quantity={this.state.quantity[candy.cart_candy.candyId]}
-                  increment={this.increment}
-                  decrement={this.decrement}
+                  quantity={candy.quantity}
                   user={user}
                   getCart={this.props.getCart}
-                  // handleUpdate={this.handleUpdate}
-
                 />
               ))}
             </>

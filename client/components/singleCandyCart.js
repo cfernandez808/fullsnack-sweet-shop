@@ -3,77 +3,91 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {removeCart, updateQuantity} from '../store/cart'
 
-const SingleCandyCart = (props) => {
-  const {id, name, price, image} = props.candy
-  const {quantity, increment, decrement, history} = props
-  const {candyId} = props.candy.cart_candy
-
-  function handleClick(cartId, newQuantity, userId) {
-    const updatedCart = {quantity: newQuantity}
-    props.updateQuantity(cartId, updatedCart, userId)
+class SingleCandyCart extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      quantity: 0,
+    }
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  return (
-    <div className="singleCandyCart">
-      <div className="imageDiv">
-        <img src={image} />
-      </div>
-      <div className="candyRight">
-        <div>
-          <h2>{name}</h2>
-          <hr />
+  componentDidMount() {
+    this.setState({quantity: this.props.candy.quantity})
+  }
+
+  increment() {
+    this.setState((prevState) => ({
+      quantity: prevState.quantity + 1,
+    }))
+  }
+
+  decrement() {
+    this.setState((prevState) => ({
+      quantity: prevState.quantity - 1,
+    }))
+  }
+
+  handleClick(cartId, userId) {
+    const updatedCart = {quantity: this.state.quantity}
+    this.props.updateQuantity(cartId, updatedCart, userId)
+  }
+
+  render() {
+    const {id, name, price, image} = this.props.candy
+
+    return (
+      <div className="singleCandyCart">
+        <div className="imageDiv">
+          <img src={image} />
         </div>
-        <div>
-          <small>Price: ${price / 100}</small>
-        </div>
-        <div className="singleCandyCartQuantityButtons">
-          <div
-            className="singleCandyMinusButton"
-            onClick={() => decrement(candyId)}
-          >
-            -
-          </div>
-          <div className="singleCandyCartQuantity">
-            Quantity
-            <br />
-            {quantity}
-          </div>
-          <div
-            className="singleCandyPlusButton"
-            onClick={() => increment(candyId)}
-          >
-            +
+        <div className="candyRight">
+          <div>
+            <h2>{name}</h2>
+            <hr />
           </div>
           <div>
-            {history ? (
-              ''
-            ) : (
-              <div
-                className="singleCandyCartRemove"
-                onClick={() => props.deleteCandy(id)}
-              >
-                Remove
-              </div>
-            )}
+            <small>Price: ${price / 100}</small>
           </div>
-        </div>
-        <div className="singleCandyCartButtons">
-          <div
-            className="singleCandyCartUpdate"
-            onClick={() => handleClick(id, quantity, props.user.id)}
-          >
-            Update
+          <div className="singleCandyCartQuantityButtons">
+            <div
+              className="singleCandyMinusButton"
+              onClick={() => this.decrement()}
+            >
+              -
+            </div>
+            <div className="singleCandyCartQuantity">
+              Quantity
+              <br />
+              {this.state.quantity}
+            </div>
+            <div
+              className="singleCandyPlusButton"
+              onClick={() => this.increment()}
+            >
+              +
+            </div>
           </div>
-          <div
-            className="singleCandyCartRemove"
-            onClick={() => props.deleteCandy(id, props.user.id)}
-          >
-            Remove
+          <div className="singleCandyCartButtons">
+            <div
+              className="singleCandyCartUpdate"
+              onClick={() => this.handleClick(id, this.props.user.id)}
+            >
+              Update
+            </div>
+            <div
+              className="singleCandyCartRemove"
+              onClick={() => this.props.deleteCandy(id, this.props.user.id)}
+            >
+              Remove
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapDispatch = (dispatch) => {
