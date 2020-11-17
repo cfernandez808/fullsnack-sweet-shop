@@ -56,6 +56,7 @@ export class CartDisplay extends React.Component {
               Cart Empty
             </div>
           )}
+          <br />
         </div>
         <div className="allProductsContainer">
           {cart.length > 0 ? (
