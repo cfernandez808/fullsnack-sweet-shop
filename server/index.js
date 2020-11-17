@@ -10,6 +10,9 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const stripe = require('stripe')(
+  'sk_test_51HnybfFEiVZX0xQou7QCQc8tNJEk272pLdljS23niOHEhm3LUYvIvur9mKgqyogOrJIACMbrtdpNPfH3anfrVAk300emsOfJMg'
+)
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -57,7 +60,7 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
     })
   )
   app.use(passport.initialize())
@@ -67,9 +70,27 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
+  app.post('/create-checkout-session', async (req, res, next) => {
+    try {
+      const session = await stripe.checkout.sessions.create({
+        success_url: 'http://localhost:8080/confirmation',
+        cancel_url: 'https://www.google.com/',
+        payment_method_types: ['card'],
+        mode: 'payment',
+        line_items: [
+          {
+            price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
+            quantity: req.body.quantity,
+          },
+        ],
+      })
+      res.send({id: session.id})
+    } catch (err) {
+      next(err)
+    }
+  })
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')))
-
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
     if (path.extname(req.path).length) {
