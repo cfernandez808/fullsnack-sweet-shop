@@ -13,6 +13,7 @@ import {
   OrderConfirm,
   CartHistory,
   EditUserForm,
+  OrderFailure,
 } from './components'
 import {me} from './store'
 
@@ -36,6 +37,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/cart" component={CartDisplay} />
         <Route exact path="/confirmation" component={OrderConfirm} />
+        <Route exact path="/failure" component={OrderFailure} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
