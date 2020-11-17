@@ -53,7 +53,7 @@ export class SingleProduct extends React.Component {
         quantity: this.state.quantity,
         candyId: this.props.singleCandy.id,
       }
-      this.props.addCandyToCart(userId, candyObj)
+      this.props.addCandyToCart(candyObj)
     }
   }
 
@@ -206,8 +206,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   getSingleCandy: (id) => dispatch(getSingleCandyThunk(id)),
   getUser: () => dispatch(me()),
-  addCandyToCart: (userId, candyObj) =>
-    dispatch(addCandyToCart(userId, candyObj)),
+  addCandyToCart: (candyObj) => dispatch(addCandyToCart(candyObj)),
   getCart: (id) => dispatch(getCartThunk(id)),
   notLoggedIn: (cart) => dispatch(getCart(cart)),
 })

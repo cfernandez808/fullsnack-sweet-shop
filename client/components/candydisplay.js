@@ -1,7 +1,6 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {addCandyToCart} from '../store/cart'
 import {removeCandyThunk} from '../store/candy'
 
 const CandyDisplay = (props) => {
@@ -73,8 +72,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  addCandyToCart: (userId, candyObj) =>
-    dispatch(addCandyToCart(userId, candyObj)),
   removeCandy: (id) => dispatch(removeCandyThunk(id)),
 })
 

@@ -10,7 +10,6 @@
 @import './stylesheets/singleCandyView.css';
 @import './stylesheets/socialMedia.css';
 
-
 /* ::-webkit-scrollbar {
   background-color: black;
 }
@@ -28,3 +27,11 @@
 /* ::-webkit-scrollbar {
   width: 100px;
 } */
+
+.candyContainer {
+  min-width: 240px;
+}
+
+.emptySingleCandyCart {
+  max-height: 218px;
+}

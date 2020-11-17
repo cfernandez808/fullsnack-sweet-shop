@@ -16,14 +16,9 @@ export const deletedCart = (cartId) => ({
   cartId,
 })
 
-const updateCart = (cart) => ({
-  type: UPDATE_CART,
-  cart,
-})
-
-export const getCartThunk = (id) => async (dispatch) => {
+export const getCartThunk = () => async (dispatch) => {
   try {
-    let {data} = await axios.get(`/api/cart/${id}`)
+    let {data} = await axios.get(`/api/cart/`)
     data = data.carts.filter((x) => x.candies.length)
     data = data.map((candy) => {
       candy.candies[0].quantity = candy.quantity
@@ -45,30 +40,30 @@ export const checkoutThunk = (cartArr) => async (dispatch) => {
     console.error(err)
   }
 }
-export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
+export const addCandyToCart = (candyObj) => async (dispatch) => {
   try {
-    await axios.post(`/api/cart/${userId}`, candyObj)
-    dispatch(getCartThunk(userId))
+    await axios.post(`/api/cart`, candyObj)
+    dispatch(getCartThunk())
   } catch (err) {
     console.log(err)
   }
 }
-export const removeCart = (cartId, userId) => {
+export const removeCart = (cartId) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/api/cart/${cartId}`)
-      dispatch(getCartThunk(userId))
+      dispatch(getCartThunk())
     } catch (err) {
       console.log(err)
     }
   }
 }
 
-export const updateQuantity = (cartId, updatedCart, userId) => {
+export const updateQuantity = (cartId, updatedCart) => {
   return async (dispatch) => {
     try {
       await axios.put(`/api/cart/${cartId}`, updatedCart)
-      dispatch(getCartThunk(userId))
+      dispatch(getCartThunk())
     } catch (err) {
       console.log(err)
     }
@@ -79,11 +74,6 @@ export default function (state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart
-    // case DELETED_CART:
-    //   console.log('IN DELETED', state, action.cartId)
-    //   let newState = state.filter((cart) => cart.id !== action.cartId)
-    //   console.log('NEW STATE', newState)
-    //   return newState
     case UPDATE_CART:
       // eslint-disable-next-line no-case-declarations
       return [

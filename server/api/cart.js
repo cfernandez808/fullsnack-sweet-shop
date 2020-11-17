@@ -2,11 +2,6 @@ const router = require('express').Router()
 const {Cart, User, Candy} = require('../db/models')
 module.exports = router
 
-router.get('/test', (req, res, next) => {
-  console.log('Current logged in user is:', req.user.dataValues.id)
-  res.send()
-})
-
 router.put('/checkout', async (req, res, next) => {
   try {
     let completedCart = []
@@ -22,11 +17,11 @@ router.put('/checkout', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const cart = await User.findOne({
       where: {
-        id: req.params.id,
+        id: req.user.dataValues.id,
       },
       include: {model: Cart, include: {model: Candy}},
     })
@@ -42,24 +37,28 @@ router.get('/:id', async (req, res, next) => {
 
 //Needs quantity and candyId in req.body gets userId from req.params.id
 
-router.post('/:id', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const makeCart = await Cart.findOrCreate({
-      where: {userId: req.params.id, completed: false},
-      include: {model: Candy, where: {id: req.body.candyId}},
-      defaults: {
-        quantity: req.body.quantity,
-      },
-    })
-    if (makeCart[1] === true) {
-      await makeCart[0].setCandies(req.body.candyId)
-      makeCart[0].quantity = req.body.quantity
-      makeCart[0].save()
-    } else {
-      makeCart[0].quantity = makeCart[0].quantity + req.body.quantity
-      makeCart[0].save()
+    if (!req.user.dataValues.id)
+      res.send('Cannot access this route unless logged in')
+    else {
+      const makeCart = await Cart.findOrCreate({
+        where: {userId: req.user.dataValues.id, completed: false},
+        include: {model: Candy, where: {id: req.body.candyId}},
+        defaults: {
+          quantity: req.body.quantity,
+        },
+      })
+      if (makeCart[1] === true) {
+        await makeCart[0].setCandies(req.body.candyId)
+        makeCart[0].quantity = req.body.quantity
+        makeCart[0].save()
+      } else {
+        makeCart[0].quantity = makeCart[0].quantity + req.body.quantity
+        makeCart[0].save()
+      }
+      res.send(makeCart)
     }
-    res.send(makeCart)
   } catch (err) {
     next(err)
   }
@@ -68,9 +67,13 @@ router.post('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const cartToUpdate = await Cart.findByPk(req.params.id)
-    cartToUpdate.quantity = req.body.quantity
-    cartToUpdate.save()
-    res.json(cartToUpdate)
+    if (req.user.dataValues.id === cartToUpdate.dataValues.userId) {
+      cartToUpdate.quantity = req.body.quantity
+      cartToUpdate.save()
+      res.json(cartToUpdate)
+    } else {
+      res.send('Must be logged in to update this cart.')
+    }
   } catch (err) {
     next(err)
   }
@@ -78,12 +81,17 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:cartId', async (req, res, next) => {
   try {
-    await Cart.destroy({
+    let toDestroy = await Cart.findOne({
       where: {
         id: req.params.cartId,
       },
     })
-    res.sendStatus(204)
+    if (toDestroy.dataValues.userId === req.user.dataValues.id) {
+      await toDestroy.destroy()
+      res.sendStatus(204)
+    } else {
+      res.send('Must be logged in to remove from this cart.')
+    }
   } catch (err) {
     next(err)
   }

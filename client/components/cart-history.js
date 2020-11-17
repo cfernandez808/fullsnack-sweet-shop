@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCartHistory} from '../store'
 import {SingleCandyCart} from './'
+import {withRouter} from 'react-router-dom'
 
 class CartHistory extends React.Component {
   componentDidMount() {
@@ -21,7 +22,7 @@ class CartHistory extends React.Component {
                   <SingleCandyCart
                     key={candy.id}
                     candy={candy}
-                    quantity={candy.cart_candy.quantity}
+                    quantity={cart.quantity}
                     history={true}
                   />
                 ))}
@@ -42,4 +43,4 @@ const mapDispatch = (dispatch) => ({
   fetchCartHistory: (id) => dispatch(fetchCartHistory(id)),
 })
 
-export default connect(mapState, mapDispatch)(CartHistory)
+export default withRouter(connect(mapState, mapDispatch)(CartHistory))

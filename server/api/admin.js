@@ -5,7 +5,7 @@ module.exports = router
 //GET: /admin/users
 router.get('/users', async (req, res, next) => {
   try {
-    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+    if (req.admin) {
       const users = await User.findAll()
       res.json(users)
     } else res.send('Admin access only.')
@@ -16,7 +16,7 @@ router.get('/users', async (req, res, next) => {
 
 router.delete('/users/:id', async (req, res, next) => {
   try {
-    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+    if (req.admin) {
       await User.destroy({
         where: {
           id: req.params.id,
@@ -31,7 +31,7 @@ router.delete('/users/:id', async (req, res, next) => {
 
 router.get('/candy', async (req, res, next) => {
   try {
-    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+    if (req.admin) {
       const candies = await Candy.findAll()
       res.json(candies)
     } else res.send('Admin access only.')
