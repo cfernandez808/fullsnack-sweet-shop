@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk, checkoutThunk} from '../store/cart'
+import {getCartThunk, checkoutThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {SingleCandyCart} from './'
 import {me} from '../store/user'
@@ -8,7 +8,9 @@ import {me} from '../store/user'
 export class CartDisplay extends React.Component {
   async componentDidMount() {
     await this.props.getUser()
-    await this.props.getCart(this.props.user.id)
+    if (this.props.user.id) {
+      await this.props.getCart(this.props.user.id)
+    }
   }
 
   render() {
@@ -17,6 +19,11 @@ export class CartDisplay extends React.Component {
 
     if (cart.length > 0) {
       cart = cart.filter((item) => !item.completed)
+      cart.sort((x, y) => x.id - y.id)
+    }
+
+    if (!user.id) {
+      cart = JSON.parse(localStorage.getItem('cart'))
       cart.sort((x, y) => x.id - y.id)
     }
 
@@ -30,8 +37,6 @@ export class CartDisplay extends React.Component {
         .toFixed(2)
     }
 
-    if (!user.id) return <div>Log in to view cart.</div>
-
     return (
       <div>
         <div className="totalDisplay">
@@ -42,7 +47,11 @@ export class CartDisplay extends React.Component {
             <div
               className="proceedToCheckout"
               onClick={async () => {
-                await checkout(cart)
+                if (user.id) {
+                  await checkout(cart)
+                } else {
+                  localStorage.setItem('cart', JSON.stringify([]))
+                }
                 this.props.history.push('/confirmation')
               }}
             >
@@ -100,6 +109,7 @@ const mapDispatch = (dispatch) => ({
   getCart: (id) => dispatch(getCartThunk(id)),
   getUser: () => dispatch(me()),
   checkout: (cart) => dispatch(checkoutThunk(cart)),
+  notLoggedIn: (cart) => dispatch(getCart(cart)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(CartDisplay))

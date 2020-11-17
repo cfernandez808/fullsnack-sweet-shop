@@ -1,7 +1,8 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {removeCart, updateQuantity} from '../store/cart'
+import {removeCart, updateQuantity, getCart} from '../store/cart'
+import {me} from '../store/user'
 
 class SingleCandyCart extends React.Component {
   constructor() {
@@ -16,6 +17,7 @@ class SingleCandyCart extends React.Component {
 
   componentDidMount() {
     this.setState({quantity: this.props.candy.quantity})
+    this.props.getUser()
   }
 
   increment() {
@@ -73,13 +75,41 @@ class SingleCandyCart extends React.Component {
           <div className="singleCandyCartButtons">
             <div
               className="singleCandyCartUpdate"
-              onClick={() => this.handleClick(id, this.props.user.id)}
+              onClick={() => {
+                if (this.props.user.id) this.handleClick(id, this.props.user.id)
+                else {
+                  let newCart = JSON.parse(localStorage.getItem('cart')).map(
+                    (candy) => {
+                      if (candy.id === id) {
+                        candy.quantity = this.state.quantity
+                        return candy
+                      } else return candy
+                    }
+                  )
+                  localStorage.setItem('cart', JSON.stringify(newCart))
+                  this.props.notLoggedIn(
+                    JSON.parse(localStorage.getItem('cart'))
+                  )
+                }
+              }}
             >
               Update
             </div>
             <div
               className="singleCandyCartRemove"
-              onClick={() => this.props.deleteCandy(id, this.props.user.id)}
+              onClick={() => {
+                if (this.props.user.id)
+                  this.props.deleteCandy(id, this.props.user.id)
+                else {
+                  let newCart = JSON.parse(localStorage.getItem('cart')).filter(
+                    (x) => x.id !== id
+                  )
+                  localStorage.setItem('cart', JSON.stringify(newCart))
+                  this.props.notLoggedIn(
+                    JSON.parse(localStorage.getItem('cart'))
+                  )
+                }
+              }}
             >
               Remove
             </div>
@@ -90,12 +120,18 @@ class SingleCandyCart extends React.Component {
   }
 }
 
+const mapState = (state) => ({
+  user: state.user,
+})
+
 const mapDispatch = (dispatch) => {
   return {
     deleteCandy: (cartId, userId) => dispatch(removeCart(cartId, userId)),
     updateQuantity: (cartId, quantity, userId) =>
       dispatch(updateQuantity(cartId, quantity, userId)),
+    getUser: () => dispatch(me()),
+    notLoggedIn: (cart) => dispatch(getCart(cart)),
   }
 }
 
-export default withRouter(connect(null, mapDispatch)(SingleCandyCart))
+export default withRouter(connect(mapState, mapDispatch)(SingleCandyCart))

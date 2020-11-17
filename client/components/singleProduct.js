@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleCandyThunk} from '../store/singleCandy'
-import {addCandyToCart, getCartThunk} from '../store/cart'
+import {addCandyToCart, getCartThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {EditCandyForm, SingleCandyCart} from './'
 import {me} from '../store/user'
@@ -18,21 +18,57 @@ export class SingleProduct extends React.Component {
   async componentDidMount() {
     this.props.getSingleCandy(this.props.match.params.candyId)
     await this.props.getUser()
-    this.props.getCart(this.props.user.id)
-  }
-
-  handleClick() {
-    let userId = this.props.user.id
-    let candyObj = {
-      quantity: this.state.quantity,
-      candyId: this.props.singleCandy.id,
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
     }
-    this.props.addCandyToCart(userId, candyObj)
   }
 
+  handleClick(candy) {
+    if (!this.props.user.id) {
+      candy.quantity = this.state.quantity
+      let currentCart
+      if (JSON.parse(localStorage.getItem('cart')).length > 0) {
+        currentCart = JSON.parse(localStorage.getItem('cart'))
+      } else {
+        localStorage.setItem('cart', JSON.stringify([candy]))
+        this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
+        return
+      }
+      let notFound = true
+      for (let item of currentCart) {
+        if (item.id === candy.id) {
+          item.quantity = this.state.quantity
+          notFound = false
+        }
+      }
+      if (notFound) {
+        candy.quantity = this.state.quantity
+        currentCart.push(candy)
+      }
+      localStorage.setItem('cart', JSON.stringify(currentCart))
+      this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
+    } else {
+      let userId = this.props.user.id
+      let candyObj = {
+        quantity: this.state.quantity,
+        candyId: this.props.singleCandy.id,
+      }
+      this.props.addCandyToCart(userId, candyObj)
+    }
+  }
+
+  // eslint-disable-next-line complexity
   render() {
     const {singleCandy, user} = this.props
     let {cart} = this.props
+    if (!user.id) {
+      cart = JSON.parse(localStorage.getItem('cart'))
+      if (cart.length > 1) {
+        cart.sort((x, y) =>
+          x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
+        )
+      }
+    }
     if (cart.length > 0) {
       cart.sort((x, y) =>
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
@@ -116,7 +152,7 @@ export class SingleProduct extends React.Component {
               ) : (
                 <div
                   className="singleCandyAddToCartButton"
-                  onClick={this.handleClick}
+                  onClick={() => this.handleClick(singleCandy)}
                 >
                   Add to Cart
                 </div>
@@ -170,6 +206,7 @@ const mapDispatch = (dispatch) => ({
   addCandyToCart: (userId, candyObj) =>
     dispatch(addCandyToCart(userId, candyObj)),
   getCart: (id) => dispatch(getCartThunk(id)),
+  notLoggedIn: (cart) => dispatch(getCart(cart)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))

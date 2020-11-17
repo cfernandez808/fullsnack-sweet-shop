@@ -6,7 +6,7 @@ const UPDATE_CART = 'UPDATE_CART'
 
 const defaultCart = []
 
-const getCart = (cart) => ({
+export const getCart = (cart) => ({
   type: GET_CART,
   cart,
 })
