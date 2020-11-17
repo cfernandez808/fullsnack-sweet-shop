@@ -146,10 +146,7 @@ export class SingleProduct extends React.Component {
               cart
                 .filter((x) => x.name === singleCandy.name)
                 .filter((x) => !x.completed).length > 0 ? (
-                <div
-                  className="singleCandyAddToCartButton"
-                  style={{backgroundColor: 'gray'}}
-                >
+                <div className="singleCandyAddToCartButtonBlocked">
                   Item in cart
                 </div>
               ) : (

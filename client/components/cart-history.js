@@ -10,26 +10,22 @@ class CartHistory extends React.Component {
   }
   render() {
     const carts = this.props.carts || []
+    console.log('CARTS', carts)
     return (
       <div className="cartHistory">
         <h1>Cart History</h1>
-        <ul>
-          {carts.map((cart) => (
-            <li key={cart.id}>
-              <p>Total items ordered: {cart.quantity}</p>
-              <div className="allProductsContainer">
-                {cart.candies.map((candy) => (
-                  <SingleCandyCart
-                    key={candy.id}
-                    candy={candy}
-                    quantity={cart.quantity}
-                    history={true}
-                  />
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="allProductsContainer">
+          {carts.map((cart) =>
+            cart.candies.map((candy) => (
+              <SingleCandyCart
+                key={candy.id}
+                candy={candy}
+                quantity={cart.quantity}
+                history={true}
+              />
+            ))
+          )}
+        </div>
       </div>
     )
   }

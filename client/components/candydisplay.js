@@ -31,16 +31,7 @@ const CandyDisplay = (props) => {
         </div>
         <div className="candyButtons">
           <div
-            className="buyButton"
-            style={
-              user.admin
-                ? {
-                    borderTopRightRadius: '0',
-                    borderBottomRightRadius: '0',
-                    borderRight: 'none',
-                  }
-                : {}
-            }
+            className={user.admin ? 'buyButtonAdmin' : 'buyButton'}
             onClick={() => props.history.push(`/candy/${id}`)}
           >
             {user.admin ? 'Buy' : 'Buy Here!'}
