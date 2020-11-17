@@ -50,7 +50,9 @@ nav {
 .buttonsRight {
   display: flex;
 }
-
+.buttonsLeft {
+  display: flex;
+}
 .navInfo {
   display: flex;
   justify-content: space-between;
@@ -652,7 +654,6 @@ a {
   margin: auto;
 }
 
-
 .editUser {
   border: 2px solid white;
   border-radius: 20px;
@@ -708,5 +709,3 @@ select {
   border-radius: 5px;
   margin: 2px;
 }
-
-
