@@ -78,3 +78,7 @@ nav {
 .buttonsRight {
   display: flex;
 }
+
+.buttonLeft {
+  display: flex;
+}

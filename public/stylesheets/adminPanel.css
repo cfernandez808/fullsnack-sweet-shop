@@ -32,7 +32,8 @@
 }
 
 .submitEditCandy,
-.submitNewCandy {
+.submitNewCandy,
+.submitNewCandyGray {
   margin: auto;
   width: 10%;
   padding: 5px 0px 5px 0px;

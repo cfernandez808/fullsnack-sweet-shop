@@ -27,15 +27,13 @@ export class AllProducts extends React.Component {
     const {candy, admin} = this.props
     return (
       <>
+        <Filter
+          handleChangeCategory={this.handleChangeCategory}
+          handleChangePrice={this.handleChangePrice}
+          currentCategory={this.state.category}
+          currentPrice={this.state.category}
+        />
         {admin && <AddCandyForm />}
-        {
-          <Filter
-            handleChangeCategory={this.handleChangeCategory}
-            handleChangePrice={this.handleChangePrice}
-            currentCategory={this.state.category}
-            currentPrice={this.state.category}
-          />
-        }
         <div className="allProductsContainer">
           {candy ? (
             candy
