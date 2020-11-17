@@ -66,6 +66,15 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  const isAdmin = (req, res, next) => {
+    if (req.user && req.user.dataValues && req.user.dataValues.admin) {
+      req.admin = true
+    }
+    next()
+  }
+
+  app.use(isAdmin)
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))

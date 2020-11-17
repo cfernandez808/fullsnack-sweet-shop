@@ -24,7 +24,8 @@
   justify-content: center;
 }
 
-.proceedToCheckout {
+.proceedToCheckout,
+.proceedToCheckoutBlocked {
   text-align: center;
   font-size: 25px;
   color: white;

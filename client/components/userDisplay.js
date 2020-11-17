@@ -3,7 +3,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {removeUserThunk} from '../store/adminUsers'
 
-const UserDisplay = props => {
+const UserDisplay = (props) => {
   const {
     firstName,
     lastName,
@@ -11,7 +11,7 @@ const UserDisplay = props => {
     admin,
     shippingAddress,
     billingAddress,
-    id
+    id,
   } = props.user
 
   const {removeUser} = props
@@ -19,14 +19,9 @@ const UserDisplay = props => {
   return (
     <>
       <div key={id} className="userContainer">
-        {/* <Link to={`/candy/${id}`}> */}
-        {/* <img src={image} /> */}
-        {/* </Link> */}
         <div className="candyInfo">
           <div>
-            {/* <Link to={`/candy/${id}`}> */}
             <h2>{firstName + ' ' + lastName}</h2>
-            {/* </Link> */}
             <hr />
           </div>
           {email}
@@ -41,26 +36,13 @@ const UserDisplay = props => {
             Remove
           </div>
         </div>
-        {/* <div className="candyButtons">
-          <div
-            className="buyButton"
-            onClick={async () => {
-              await axios.post(`/api/cart/${props.user.id}`, {
-                quantity: 1,
-                candyId: id
-              })
-            }}
-          >
-            Buy Here!
-          </div>
-        </div> */}
       </div>
     </>
   )
 }
 
-const mapDispatch = dispatch => ({
-  removeUser: id => dispatch(removeUserThunk(id))
+const mapDispatch = (dispatch) => ({
+  removeUser: (id) => dispatch(removeUserThunk(id)),
 })
 
 export default withRouter(connect(null, mapDispatch)(UserDisplay))

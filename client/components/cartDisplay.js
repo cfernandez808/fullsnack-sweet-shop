@@ -83,12 +83,7 @@ export class CartDisplay extends React.Component {
               Proceed To Checkout
             </div>
           ) : (
-            <div
-              className="proceedToCheckout"
-              style={{background: 'gray', cursor: 'default'}}
-            >
-              Cart Empty
-            </div>
+            <div className="proceedToCheckoutBlocked">Cart Empty</div>
           )}
         </div>
         <div className="allProductsContainer">
@@ -105,19 +100,7 @@ export class CartDisplay extends React.Component {
               ))}
             </>
           ) : (
-            <div
-              style={{
-                background: 'rgba(0,0,0,0.6)',
-                fontSize: '30px',
-                color: 'white',
-                padding: '20px',
-                marginTop: '100px',
-                borderRadius: '40px',
-                border: '2px solid white',
-              }}
-            >
-              View Selection on Home Page!
-            </div>
+            <div className="viewOnHome">View Selection on Home Page!</div>
           )}
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {addCandyToCart} from '../store/cart'
 import {removeCandyThunk} from '../store/candy'
 
 const CandyDisplay = (props) => {
@@ -32,16 +31,7 @@ const CandyDisplay = (props) => {
         </div>
         <div className="candyButtons">
           <div
-            className="buyButton"
-            style={
-              user.admin
-                ? {
-                    borderTopRightRadius: '0',
-                    borderBottomRightRadius: '0',
-                    borderRight: 'none',
-                  }
-                : {}
-            }
+            className={user.admin ? 'buyButtonAdmin' : 'buyButton'}
             onClick={() => props.history.push(`/candy/${id}`)}
           >
             {user.admin ? 'Buy' : 'Buy Here!'}
@@ -73,8 +63,6 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch) => ({
-  addCandyToCart: (userId, candyObj) =>
-    dispatch(addCandyToCart(userId, candyObj)),
   removeCandy: (id) => dispatch(removeCandyThunk(id)),
 })
 

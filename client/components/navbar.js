@@ -13,9 +13,7 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
       {isLoggedIn ? (
         <div className="navInfo">
           {/* The navbar will show these links after you log in */}
-          <div
-            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
-          >
+          <div className="spacer1">
             <div className="buttonNav" onClick={() => history.push('/home')}>
               <Link to="/home">Home</Link>
             </div>
@@ -32,12 +30,7 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
               </div>
             )}
           </div>
-          {/* <div
-            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
-          /> */}
-          <div
-            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
-          >
+          <div className="spacer2">
             <div className="buttonNav" onClick={handleClick}>
               <a href="#">Logout</a>
             </div>
@@ -50,21 +43,13 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
         <div className="navInfo">
           {/* The navbar will show these links before you log in */}
 
-          <div
-            className="buttonLeft"
-            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-          >
-            <div
-              style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-            >
+          <div className="buttonLeft">
+            <div className="spacer3">
               <div className="buttonNav" onClick={() => history.push('/home')}>
                 <Link to="/">Home</Link>
               </div>
             </div>
-
-            <div
-              style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-            >
+            <div className="spacer4">
               <div
                 className="buttonNav"
                 onClick={() => history.push('/signup')}
@@ -74,14 +59,9 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
             </div>
           </div>
 
-          <div
-            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
-          />
+          <div className="spacer5" />
 
-          <div
-            className="buttonsRight"
-            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-          >
+          <div className="buttonsRight">
             <div className="buttonNav">
               <Link to="/login" onClick={() => history.push('/login')}>
                 Login

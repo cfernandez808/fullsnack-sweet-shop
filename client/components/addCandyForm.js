@@ -164,16 +164,7 @@ class NewCandyForm extends React.Component {
                   Add Candy
                 </button>
               ) : (
-                <div
-                  className="submitNewCandy"
-                  style={{
-                    background: 'gray',
-                    fontSize: '13.4px',
-                    cursor: 'default',
-                  }}
-                >
-                  Add Candy
-                </div>
+                <div className="submitNewCandyGray">Add Candy</div>
               )}
             </div>
           </div>
