@@ -12,7 +12,7 @@ nav a {
 }
 
 nav {
-  width: 70vw;
+  width: 100vw;
   margin: auto;
   display: block;
   color: white;
@@ -53,7 +53,7 @@ nav {
   top: -11px;
   margin-left: 13px;
   margin-right: 13px;
-  min-width: 90px;
+  min-width: 50px;
 }
 
 .buttonNav:hover {

@@ -10,7 +10,6 @@
 @import './stylesheets/singleCandyView.css';
 @import './stylesheets/socialMedia.css';
 
-
 /* ::-webkit-scrollbar {
   background-color: black;
 }
@@ -28,3 +27,81 @@
 /* ::-webkit-scrollbar {
   width: 100px;
 } */
+
+.nav {
+  min-width: 400px;
+}
+.candyContainer {
+  min-width: 240px;
+}
+
+.buttonNav {
+  min-width: 50px;
+  box-shadow: 0 7px 14px purple, 0 3px 6px rgb(14, 223, 94);
+  text-shadow: 2px 2px 2px rgb(221, 20, 211);
+}
+
+.loginForm {
+  min-width: 400px;
+}
+
+.buttonNav {
+  min-width: 70px;
+}
+
+.filterDiv {
+  min-width: 300px;
+}
+
+.welcome {
+  min-width: 200px;
+}
+
+.singleCandyDisplay {
+  min-width: 400px;
+}
+
+.singleCandyCartLabel {
+  min-width: 40px;
+}
+
+.singleCandyCartLabel,
+.singleCandyContainer,
+.singleCandyCartDisplay,
+.candySubmitBox,
+form {
+  min-width: 500px;
+}
+.candyEditContainer {
+  min-width: 500px;
+}
+
+.accepted {
+  min-width: 60px;
+}
+
+.candyEditInput {
+  min-width: 60px;
+}
+.editUser {
+  min-width: 60px;
+}
+
+.addCandySubmitBox {
+  min-width: 500px;
+}
+
+.submitNewCandy {
+  min-width: 60px;
+}
+.newCandyImageInput {
+  min-width: 60px;
+}
+
+.cartHistory {
+  min-width: 480px;
+}
+
+.singleCandyCart {
+  min-width: 420px;
+}
