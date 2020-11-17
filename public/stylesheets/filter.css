@@ -1,0 +1,29 @@
+.filterDiv {
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 15px auto auto auto;
+  width: 72%;
+}
+
+.filterDiv label {
+  margin: 5px;
+}
+
+.singleFilter {
+  display: flex;
+}
+
+select {
+  border: 2px solid white;
+  border-radius: 5px;
+  margin: 2px;
+}

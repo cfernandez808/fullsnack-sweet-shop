@@ -1,0 +1,10 @@
+.fb-share-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: auto;
+  width: 100px;
+  background: #2196f3;
+  border-radius: 20px;
+  border: 2px solid white;
+  cursor: pointer;
+}
