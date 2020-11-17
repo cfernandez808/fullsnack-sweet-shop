@@ -62,7 +62,10 @@ export class SingleProduct extends React.Component {
     const {singleCandy, user} = this.props
     let {cart} = this.props
     if (!user.id) {
-      cart = JSON.parse(localStorage.getItem('cart'))
+      cart = JSON.parse(localStorage.getItem('cart')) || []
+      if (!cart.length) {
+        localStorage.setItem('cart', JSON.stringify([]))
+      }
       if (cart.length > 1) {
         cart.sort((x, y) =>
           x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0

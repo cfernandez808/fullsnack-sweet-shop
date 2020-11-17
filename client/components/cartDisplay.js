@@ -13,6 +13,7 @@ export class CartDisplay extends React.Component {
     }
   }
 
+  // eslint-disable-next-line complexity
   render() {
     const {user, checkout} = this.props
     let {cart} = this.props
@@ -23,8 +24,10 @@ export class CartDisplay extends React.Component {
     }
 
     if (!user.id) {
-      cart = JSON.parse(localStorage.getItem('cart'))
-      cart.sort((x, y) => x.id - y.id)
+      cart = JSON.parse(localStorage.getItem('cart')) || []
+      if (cart.length > 1) {
+        cart.sort((x, y) => x.id - y.id)
+      }
     }
 
     let totalPrice
