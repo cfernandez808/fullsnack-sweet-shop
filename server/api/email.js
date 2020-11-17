@@ -3,8 +3,10 @@ module.exports = router
 
 if (process.env.NODE_ENV !== 'production') require('../../secrets')
 
-if (!Array.isArray(process.env.TEAMEMAILS)) {
-  process.env.TEAMEMAILS = process.env.TEAMEMAILS.split(',')
+let teamEmails = []
+
+if (process.env.TEAMEMAILS) {
+  teamEmails = process.env.TEAMEMAILS.split(',')
 }
 
 const mailgun = require('mailgun-js')({
@@ -25,7 +27,7 @@ router.post('/', (req, res, next) => {
 
     let email = ''
 
-    if (process.env.TEAMEMAILS.split(',').includes(req.user.email)) {
+    if (teamEmails.includes(req.user.email)) {
       email = req.user.email
     } else {
       email = process.env.DEFAULTEMAIL

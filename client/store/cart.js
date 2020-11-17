@@ -16,11 +16,6 @@ export const deletedCart = (cartId) => ({
   cartId,
 })
 
-const updateCart = (cart) => ({
-  type: UPDATE_CART,
-  cart,
-})
-
 export const getCartThunk = (id) => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/${id}`)
