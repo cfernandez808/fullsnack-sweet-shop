@@ -74,12 +74,44 @@ const createApp = () => {
     try {
       const session = await stripe.checkout.sessions.create({
         success_url: 'http://localhost:8080/confirmation',
-        cancel_url: 'https://www.google.com/',
+        cancel_url: 'http://localhost:8080/failure',
         payment_method_types: ['card'],
         mode: 'payment',
         line_items: [
           {
             price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYTDFEiVZX0xQo2qkyEEo7',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYScFEiVZX0xQoUrobRM8y',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYRsFEiVZX0xQoPPEd7unI',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYRJFEiVZX0xQoRNzG1fkA',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYQdFEiVZX0xQoPFxZWbBq',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYQ5FEiVZX0xQoNYNpDdfJ',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYPZFEiVZX0xQoX1cN33qU',
+            quantity: req.body.quantity,
+          },
+          {
+            price: 'price_1HoYOdFEiVZX0xQo8nRD4Mwo',
             quantity: req.body.quantity,
           },
         ],

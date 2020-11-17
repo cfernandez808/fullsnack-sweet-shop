@@ -4,7 +4,6 @@ import {getCartThunk, checkoutThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {SingleCandyCart} from './'
 import {me} from '../store/user'
-import Stripe from 'stripe'
 import {loadStripe} from '@stripe/stripe-js'
 const stripePromise = loadStripe(
   'pk_test_51HnybfFEiVZX0xQop0LgXy01heoTBVBfZndolDlWejdSYPeeg63R32DXL5FGH7bySutRAGmgrt2iGYEddeVHTKl700BxpaUe3v'

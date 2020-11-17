@@ -9,8 +9,7 @@
 @import './stylesheets/navbar.css';
 @import './stylesheets/singleCandyView.css';
 @import './stylesheets/socialMedia.css';
-
-
+@import './stylesheets//order.css';
 /* ::-webkit-scrollbar {
   background-color: black;
 }
