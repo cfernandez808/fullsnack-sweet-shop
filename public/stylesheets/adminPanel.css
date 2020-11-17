@@ -1,0 +1,100 @@
+.candyEditContainer {
+  width: 70%;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin: auto;
+  min-width: 700px;
+}
+
+.candyEditContainer label,
+.addCandySubmitBox label {
+  margin: 10px;
+  width: 70%;
+}
+
+.candyEditContainer input {
+  width: 90%;
+  border: 2px solid white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin: 0;
+}
+
+.candySubmitBox {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+  margin: 0;
+}
+
+.submitEditCandy,
+.submitNewCandy {
+  margin: auto;
+  width: 10%;
+  padding: 5px 0px 5px 0px;
+  background-color: #7cb838;
+  color: white;
+  border: 2px solid white;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 0px;
+}
+
+.addCandySubmitBox {
+  border: 2px solid white;
+  text-align: center;
+  color: white;
+  padding-top: 15px;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.addCandySubmit {
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 15px;
+}
+
+.addCandySubmitBox input {
+  border: 2px solid white;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.warning,
+.accepted {
+  font-size: 12px;
+  background-color: rgb(245, 67, 67);
+  color: white;
+  /* padding: 0px 5px 0px 5px; */
+  border: 1.5px solid white;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 90%;
+  margin: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.accepted {
+  background-color: #7cb838;
+}
+
+.addCandySubmit input {
+  width: 90%;
+}
+
+.singleCandyTopInfo {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

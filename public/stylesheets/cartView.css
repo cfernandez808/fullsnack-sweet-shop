@@ -1,0 +1,183 @@
+.candyButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.welcome,
+.total {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 25%;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  border: 2px solid white;
+}
+
+.totalDisplay {
+  display: flex;
+  justify-content: center;
+}
+
+.proceedToCheckout {
+  text-align: center;
+  font-size: 25px;
+  color: white;
+  margin: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  width: 15%;
+  background: cornflowerblue;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border: 2px solid white;
+  margin: 0;
+  border-left: none;
+  cursor: pointer;
+  min-width: 285px;
+}
+
+.total {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  margin: 0;
+}
+
+.singleCandyCartEdit {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #97dc47;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  cursor: pointer;
+}
+
+.sinCandyCartRemove {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #e91e63;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
+}
+
+.singleCandyCartButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleCandyCartUpdate {
+  margin: auto;
+  width: 60%;
+  background-color: #97dc47;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  margin: 0px 3px 0px 3px;
+}
+
+.singleCandyCart {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.singleCandyCart img {
+  height: 250px;
+}
+
+.singleCandyCartRemove {
+  margin: auto;
+  width: 60%;
+  background-color: #f54343;
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 5px 0px 5px 0px;
+  cursor: pointer;
+  margin: 0px 3px 0px 3px;
+}
+
+.singleCandyCartQuantity {
+  margin: 0px 10px 0px;
+}
+
+.cartHistory {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}
+
+.singleCandyCartDisplay {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  overflow-x: scroll;
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+  background: rgba(0, 0, 0, 0.6);
+  border-bottom: 2px solid white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.emptySingleCandyCart {
+  height: 258px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.emptyCartMessage {
+  margin: auto;
+  color: white;
+  text-align: center;
+}
+
+.singleCandyCartLabel {
+  font-size: 25px;
+  font-weight: 900;
+  margin: auto;
+  width: 70%;
+  background: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: white;
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+  padding-top: 10px;
+}
+
+.singleCandyCartQuantityButtons {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}

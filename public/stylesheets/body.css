@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  user-select: none;
+}
+
+body {
+  font-family: sans-serif;
+  background: url('../candyshop1.jpg');
+  background-size: cover;
+  background-blend-mode: darken;
+  background-attachment: fixed;
+}
+
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+label {
+  display: block;
+}
