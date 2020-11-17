@@ -4,7 +4,6 @@ module.exports = router
 if (process.env.NODE_ENV !== 'production') require('../../secrets')
 
 if (!Array.isArray(process.env.TEAMEMAILS)) {
-  console.log('process.env.teamemails???', process.env.TEAMEMAILS)
   process.env.TEAMEMAILS = process.env.TEAMEMAILS.split(',')
 }
 
