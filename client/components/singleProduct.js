@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleCandyThunk} from '../store/singleCandy'
-import {addCandyToCart, getCartThunk} from '../store/cart'
+import {addCandyToCart, getCartThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {EditCandyForm, SingleCandyCart} from './'
 import {me} from '../store/user'
@@ -13,71 +13,70 @@ export class SingleProduct extends React.Component {
       quantity: 1,
     }
     this.handleClick = this.handleClick.bind(this)
-    this.cartReducer = this.cartReducer.bind(this)
-    this.quantityFinder = this.quantityFinder.bind(this)
   }
 
   async componentDidMount() {
     this.props.getSingleCandy(this.props.match.params.candyId)
     await this.props.getUser()
-    this.props.getCart(this.props.user.id)
+    if (this.props.user.id) {
+      this.props.getCart(this.props.user.id)
+    }
   }
 
-  handleClick() {
-    let userId = this.props.user.id
-    let candyObj = {
-      quantity: this.state.quantity,
-      candyId: this.props.singleCandy.id,
-    }
-    this.props.addCandyToCart(userId, candyObj)
-  }
-
-  cartReducer() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const reducedCart = []
-    const idTracker = []
-    for (let i = 0; i < cart.length; i++) {
-      let currentCandy = cart[i]
-      if (!idTracker.includes(currentCandy.cart_candy.candyId)) {
-        reducedCart.push(currentCandy)
-        idTracker.push(currentCandy.cart_candy.candyId)
-      }
-    }
-    return reducedCart
-  }
-
-  quantityFinder() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const quantities = {}
-    cart.forEach((element) => {
-      if (quantities[element.cart_candy.candyId]) {
-        quantities[element.cart_candy.candyId] =
-          quantities[element.cart_candy.candyId] + element.quantity
+  handleClick(candy) {
+    if (!this.props.user.id) {
+      candy.quantity = this.state.quantity
+      let currentCart
+      if (JSON.parse(localStorage.getItem('cart')).length > 0) {
+        currentCart = JSON.parse(localStorage.getItem('cart'))
       } else {
-        quantities[element.cart_candy.candyId] = element.quantity
+        localStorage.setItem('cart', JSON.stringify([candy]))
+        this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
+        return
       }
-    })
-    return quantities
+      let notFound = true
+      for (let item of currentCart) {
+        if (item.id === candy.id) {
+          item.quantity = this.state.quantity
+          notFound = false
+        }
+      }
+      if (notFound) {
+        candy.quantity = this.state.quantity
+        currentCart.push(candy)
+      }
+      localStorage.setItem('cart', JSON.stringify(currentCart))
+      this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
+    } else {
+      let userId = this.props.user.id
+      let candyObj = {
+        quantity: this.state.quantity,
+        candyId: this.props.singleCandy.id,
+      }
+      this.props.addCandyToCart(userId, candyObj)
+    }
   }
 
+  // eslint-disable-next-line complexity
   render() {
     const {singleCandy, user} = this.props
     let {cart} = this.props
-    let reducedCart, quantities
+    if (!user.id) {
+      cart = JSON.parse(localStorage.getItem('cart')) || []
+      if (!cart.length) {
+        localStorage.setItem('cart', JSON.stringify([]))
+      }
+      if (cart.length > 1) {
+        cart.sort((x, y) =>
+          x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
+        )
+      }
+    }
     if (cart.length > 0) {
-      reducedCart = this.cartReducer()
-      quantities = this.quantityFinder()
-      reducedCart.sort((x, y) =>
+      cart.sort((x, y) =>
         x.name === singleCandy.name ? -1 : y.name === singleCandy.name ? 1 : 0
       )
     }
-
     return (
       <>
         <div className="singleCandyContainer">
@@ -143,9 +142,10 @@ export class SingleProduct extends React.Component {
               >
                 +
               </div>
-              {reducedCart &&
-              reducedCart.filter((x) => x.name === singleCandy.name).length >
-                0 ? (
+              {cart.length &&
+              cart
+                .filter((x) => x.name === singleCandy.name)
+                .filter((x) => !x.completed).length > 0 ? (
                 <div
                   className="singleCandyAddToCartButton"
                   style={{backgroundColor: 'gray'}}
@@ -155,7 +155,7 @@ export class SingleProduct extends React.Component {
               ) : (
                 <div
                   className="singleCandyAddToCartButton"
-                  onClick={this.handleClick}
+                  onClick={() => this.handleClick(singleCandy)}
                 >
                   Add to Cart
                 </div>
@@ -174,14 +174,18 @@ export class SingleProduct extends React.Component {
           )}
         <div className="singleCandyCartLabel">Cart View:</div>
         <div className="singleCandyCartDisplay">
-          {reducedCart && reducedCart.length > 0 ? (
-            reducedCart.map((candy) => (
-              <SingleCandyCart
-                key={candy.id}
-                candy={candy}
-                quantity={quantities[candy.cart_candy.candyId]}
-              />
-            ))
+          {cart.length && cart.filter((item) => !item.completed).length > 0 ? (
+            cart
+              .filter((item) => !item.completed)
+              .map((candy) => (
+                <SingleCandyCart
+                  key={candy.id}
+                  candy={candy}
+                  quantity={candy.quantity}
+                  user={user}
+                  getCart={this.props.getCart}
+                />
+              ))
           ) : (
             <div className="emptySingleCandyCart">
               <div className="welcome">Cart Empty</div>
@@ -205,6 +209,7 @@ const mapDispatch = (dispatch) => ({
   addCandyToCart: (userId, candyObj) =>
     dispatch(addCandyToCart(userId, candyObj)),
   getCart: (id) => dispatch(getCartThunk(id)),
+  notLoggedIn: (cart) => dispatch(getCart(cart)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(SingleProduct))

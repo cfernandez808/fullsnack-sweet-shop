@@ -6,7 +6,7 @@ const UPDATE_CART = 'UPDATE_CART'
 
 const defaultCart = []
 
-const getCart = (cart) => ({
+export const getCart = (cart) => ({
   type: GET_CART,
   cart,
 })
@@ -56,7 +56,6 @@ export const addCandyToCart = (userId, candyObj) => async (dispatch) => {
 export const removeCart = (cartId, userId) => {
   return async (dispatch) => {
     try {
-      console.log('IN THUNK', userId)
       await axios.delete(`/api/cart/${cartId}`)
       dispatch(getCartThunk(userId))
     } catch (err) {
@@ -68,8 +67,7 @@ export const removeCart = (cartId, userId) => {
 export const updateQuantity = (cartId, updatedCart, userId) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.put(`/api/cart/${cartId}`, updatedCart)
-      console.log('AFTER PUT', data)
+      await axios.put(`/api/cart/${cartId}`, updatedCart)
       dispatch(getCartThunk(userId))
     } catch (err) {
       console.log(err)

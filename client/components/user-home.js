@@ -1,7 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {AllProducts} from './'
+import user from '../store/user'
+import {withRouter} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,9 +12,11 @@ export const UserHome = (props) => {
 
   return (
     <div>
-      <div className="welcome">
-        <h3>Welcome, {firstName}!</h3>
-      </div>
+      {firstName && (
+        <div className="welcome">
+          <h3>Welcome, {firstName}!</h3>
+        </div>
+      )}
       <AllProducts />
     </div>
   )
@@ -28,11 +31,4 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string,
-}
+export default withRouter(connect(mapState)(UserHome))

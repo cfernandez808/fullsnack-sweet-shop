@@ -1,95 +1,37 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getCartThunk, checkoutThunk} from '../store/cart'
+import {getCartThunk, checkoutThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {SingleCandyCart} from './'
 import {me} from '../store/user'
 
 export class CartDisplay extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      quantity: {},
-      reducedCart: [],
-    }
-    this.cartReducer = this.cartReducer.bind(this)
-    this.quantityFinder = this.quantityFinder.bind(this)
-    this.increment = this.increment.bind(this)
-    this.decrement = this.decrement.bind(this)
-  }
-
   async componentDidMount() {
     await this.props.getUser()
-    await this.props.getCart(this.props.user.id)
-    this.cartReducer()
-    this.quantityFinder()
-  }
-
-  cartReducer() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const streamlinedCart = []
-    const idTracker = []
-    for (let i = 0; i < cart.length; i++) {
-      let currentCandy = cart[i]
-      if (!idTracker.includes(currentCandy.cart_candy.candyId)) {
-        streamlinedCart.push(currentCandy)
-        idTracker.push(currentCandy.cart_candy.candyId)
-      }
-    }
-    this.setState({reducedCart: streamlinedCart})
-  }
-
-  quantityFinder() {
-    let {cart} = this.props
-    if (cart.length > 0) {
-      cart = cart.filter((item) => !item.completed)
-    }
-    const quantities = {}
-    cart.forEach((element) => {
-      if (quantities[element.cart_candy.candyId]) {
-        quantities[element.cart_candy.candyId] =
-          quantities[element.cart_candy.candyId] + element.quantity
-      } else {
-        quantities[element.cart_candy.candyId] = element.quantity
-      }
-    })
-    this.setState({quantity: quantities})
-  }
-
-  increment(candyId) {
-    this.setState((prevState) => ({
-      quantity: {
-        ...prevState.quantity,
-        [candyId]: prevState.quantity[candyId] + 1,
-      },
-    }))
-  }
-
-  decrement(candyId) {
-    if (this.state.quantity[candyId] > 0) {
-      this.setState((prevState) => ({
-        quantity: {
-          ...prevState.quantity,
-          [candyId]: prevState.quantity[candyId] - 1,
-        },
-      }))
+    if (this.props.user.id) {
+      await this.props.getCart(this.props.user.id)
     }
   }
 
+  // eslint-disable-next-line complexity
   render() {
     const {user, checkout} = this.props
     let {cart} = this.props
 
     if (cart.length > 0) {
       cart = cart.filter((item) => !item.completed)
+      cart.sort((x, y) => x.id - y.id)
+    }
+
+    if (!user.id) {
+      cart = JSON.parse(localStorage.getItem('cart')) || []
+      if (cart.length > 1) {
+        cart.sort((x, y) => x.id - y.id)
+      }
     }
 
     let totalPrice
     if (cart.length > 0) {
-      console.log('CART IN TOTAL', cart)
       totalPrice = cart
         .reduce((total, singleCandy) => {
           total += singleCandy.quantity * +singleCandy.price
@@ -97,8 +39,6 @@ export class CartDisplay extends React.Component {
         }, 0)
         .toFixed(2)
     }
-
-    if (!user.id) return <div>Log in to view cart.</div>
 
     return (
       <div>
@@ -110,7 +50,11 @@ export class CartDisplay extends React.Component {
             <div
               className="proceedToCheckout"
               onClick={async () => {
-                await checkout(cart)
+                if (user.id) {
+                  await checkout(cart)
+                } else {
+                  localStorage.setItem('cart', JSON.stringify([]))
+                }
                 this.props.history.push('/confirmation')
               }}
             >
@@ -128,17 +72,13 @@ export class CartDisplay extends React.Component {
         <div className="allProductsContainer">
           {cart.length > 0 ? (
             <>
-              {this.state.reducedCart.map((candy) => (
+              {cart.map((candy) => (
                 <SingleCandyCart
                   key={candy.id}
                   candy={candy}
-                  quantity={this.state.quantity[candy.cart_candy.candyId]}
-                  increment={this.increment}
-                  decrement={this.decrement}
+                  quantity={candy.quantity}
                   user={user}
                   getCart={this.props.getCart}
-                  // handleUpdate={this.handleUpdate}
-
                 />
               ))}
             </>
@@ -172,6 +112,7 @@ const mapDispatch = (dispatch) => ({
   getCart: (id) => dispatch(getCartThunk(id)),
   getUser: () => dispatch(me()),
   checkout: (cart) => dispatch(checkoutThunk(cart)),
+  notLoggedIn: (cart) => dispatch(getCart(cart)),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(CartDisplay))

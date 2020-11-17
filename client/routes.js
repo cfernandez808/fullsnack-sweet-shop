@@ -46,6 +46,7 @@ class Routes extends Component {
             <Route path="/editUser/:id" component={EditUserForm} />
           </Switch>
         )}
+        <Route path="/home" component={UserHome} />
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
       </Switch>
