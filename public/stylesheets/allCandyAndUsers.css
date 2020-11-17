@@ -1,0 +1,82 @@
+.candyContainer,
+.userContainer {
+  background: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  overflow-wrap: break-word;
+  margin: 15px;
+  padding: 20px;
+  width: 20%;
+  border: 2px solid white;
+  border-radius: 20px;
+  color: white;
+  min-height: 400px;
+}
+
+.imageDiv {
+  height: 150px;
+  width: 150px;
+  border: 2px solid white;
+  border-radius: 15px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.candyImage {
+  height: 150px;
+  width: 150px;
+  border-radius: 15px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.candyContainer img {
+  height: 250px;
+}
+
+.candyInfo,
+.userInfo {
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.allProductsContainer {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.buyButton {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+  width: 100px;
+  background: #2196f3;
+  border-radius: 20px;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.editUser {
+  border: 2px solid white;
+  border-radius: 20px;
+  min-width: 450px;
+  padding: 10px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word;
+  color: white;
+}

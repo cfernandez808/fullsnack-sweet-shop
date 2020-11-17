@@ -1,0 +1,46 @@
+.loginForm {
+  width: 20%;
+  margin: auto;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid white;
+  margin-top: 150px;
+}
+
+.loginForm a {
+  color: white;
+}
+
+.loginForm button {
+  background: white;
+  border-radius: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm input {
+  border-radius: 5px;
+}
+
+.loginForm label {
+  font-size: 20px;
+}
+
+.centerSubmit {
+  width: 70vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
