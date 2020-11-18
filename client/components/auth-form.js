@@ -6,49 +6,51 @@ import {auth} from '../store'
 /**
  * COMPONENT
  */
-const AuthForm = props => {
+const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
   return (
-    <div className="loginForm">
-      <form onSubmit={handleSubmit} name={name}>
-        {displayName === 'Sign Up' && (
-          <>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name:</small>
-              </label>
-              <input name="firstName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name:</small>
-              </label>
-              <input name="lastName" type="text" />
-            </div>
-          </>
-        )}
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-      <br />
-      <a href={displayName === 'Sign Up' ? '/login' : '/signup'}>
-        <small>{displayName === 'Sign Up' ? 'Log In' : 'Sign Up'}</small>
-      </a>
+    <div className="main">
+      <div className="loginForm">
+        <form onSubmit={handleSubmit} name={name}>
+          {displayName === 'Sign Up' && (
+            <>
+              <div>
+                <label htmlFor="firstName">
+                  <small>First Name:</small>
+                </label>
+                <input name="firstName" type="text" />
+              </div>
+              <div>
+                <label htmlFor="lastName">
+                  <small>Last Name:</small>
+                </label>
+                <input name="lastName" type="text" />
+              </div>
+            </>
+          )}
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href="/auth/google">{displayName} with Google</a>
+        <br />
+        <a href={displayName === 'Sign Up' ? '/login' : '/signup'}>
+          <small>{displayName === 'Sign Up' ? 'Log In' : 'Sign Up'}</small>
+        </a>
+      </div>
     </div>
   )
 }
@@ -60,23 +62,23 @@ const AuthForm = props => {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-const mapLogin = state => {
+const mapLogin = (state) => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.user.error,
   }
 }
 
-const mapSignup = state => {
+const mapSignup = (state) => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.user.error,
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -89,8 +91,13 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       if (formName === 'login') dispatch(auth(email, password, formName))
-      else dispatch(auth(email, password, formName, firstName, lastName))
-    }
+      if (formName === 'signup' && (!firstName || !lastName)) {
+        // eslint-disable-next-line no-alert
+        alert('Please input information for all fields!')
+      } else {
+        dispatch(auth(email, password, formName, firstName, lastName))
+      }
+    },
   }
 }
 
@@ -104,5 +111,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
 }

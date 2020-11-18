@@ -4,6 +4,10 @@ import {getCartThunk, checkoutThunk, getCart} from '../store/cart'
 import {withRouter} from 'react-router-dom'
 import {SingleCandyCart} from './'
 import {me} from '../store/user'
+import {loadStripe} from '@stripe/stripe-js'
+const stripePromise = loadStripe(
+  'pk_test_51HnybfFEiVZX0xQop0LgXy01heoTBVBfZndolDlWejdSYPeeg63R32DXL5FGH7bySutRAGmgrt2iGYEddeVHTKl700BxpaUe3v'
+)
 
 export class CartDisplay extends React.Component {
   async componentDidMount() {
@@ -39,9 +43,8 @@ export class CartDisplay extends React.Component {
         }, 0)
         .toFixed(2)
     }
-
     return (
-      <div>
+      <div className="main">
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
@@ -55,18 +58,32 @@ export class CartDisplay extends React.Component {
                 } else {
                   localStorage.setItem('cart', JSON.stringify([]))
                 }
-                this.props.history.push('/confirmation')
+                const stripe = await stripePromise
+                fetch('/create-checkout-session', {
+                  method: 'POST',
+                  headers: {
+                    'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    quantity: cart[0].quantity,
+                  }),
+                })
+                  .then((response) => response.json())
+                  .then(async (session) => {
+                    const result = await stripe.redirectToCheckout({
+                      sessionId: session.id,
+                    })
+                  })
+                  .catch((error) => {
+                    console.error('Error', error)
+                  })
+                // this.props.history.push('/confirmation')
               }}
             >
               Proceed To Checkout
             </div>
           ) : (
-            <div
-              className="proceedToCheckout"
-              style={{background: 'gray', cursor: 'default'}}
-            >
-              Cart Empty
-            </div>
+            <div className="proceedToCheckoutBlocked">Cart Empty</div>
           )}
         </div>
         <div className="allProductsContainer">
@@ -83,19 +100,7 @@ export class CartDisplay extends React.Component {
               ))}
             </>
           ) : (
-            <div
-              style={{
-                background: 'rgba(0,0,0,0.6)',
-                fontSize: '30px',
-                color: 'white',
-                padding: '20px',
-                marginTop: '100px',
-                borderRadius: '40px',
-                border: '2px solid white',
-              }}
-            >
-              View Selection on Home Page!
-            </div>
+            <div className="viewOnHome">View Selection on Home Page!</div>
           )}
         </div>
       </div>

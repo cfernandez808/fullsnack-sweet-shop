@@ -34,7 +34,8 @@
 
 .singleCandyMinusButton,
 .singleCandyPlusButton,
-.singleCandyAddToCartButton {
+.singleCandyAddToCartButton,
+.singleCandyAddToCartButtonBlocked {
   text-align: center;
   margin: auto;
   background-color: #2196f3;

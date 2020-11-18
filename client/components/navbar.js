@@ -12,82 +12,55 @@ const Navbar = ({handleClick, isLoggedIn, admin, userId, history}) => (
       </div>
       {isLoggedIn ? (
         <div className="navInfo">
-          {/* The navbar will show these links after you log in */}
-          <div
-            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
-          >
-            <div className="buttonNav" onClick={() => history.push('/home')}>
+          <div className="buttonsLeft">
+            <div className="homeButton" onClick={() => history.push('/home')}>
               <Link to="/home">Home</Link>
             </div>
-            <div className="buttonNav">
-              <Link to={`/history/${userId}`}>My Order History</Link>
-            </div>
-            <div className="buttonNav">
+            <div
+              className="orderHistoryButton"
+              onClick={() => history.push(`/editUser/${userId}`)}
+            >
               <Link to={`/editUser/${userId}`}>Edit Profile</Link>
             </div>
-
             {admin && (
               <div className="buttonNav" onClick={() => history.push('/admin')}>
                 <Link to="/admin">Admin</Link>
               </div>
             )}
           </div>
-          {/* <div
-            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
-          /> */}
-          <div
-            style={{width: '50%', display: 'flex', justifyContent: 'center'}}
-          >
+          <div className="buttonsRight">
             <div className="buttonNav" onClick={handleClick}>
               <a href="#">Logout</a>
             </div>
-            <div className="buttonNav" onClick={() => history.push('/cart')}>
+            <div
+              className="orderHistoryButton"
+              onClick={() => history.push(`/history/${userId}`)}
+            >
+              <Link to={`/history/${userId}`}>Order History</Link>
+            </div>
+            <div className="cartButton" onClick={() => history.push('/cart')}>
               <Link to="/cart">Cart</Link>
             </div>
           </div>
         </div>
       ) : (
         <div className="navInfo">
-          {/* The navbar will show these links before you log in */}
-
-          <div
-            className="buttonLeft"
-            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-          >
-            <div
-              style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-            >
-              <div className="buttonNav" onClick={() => history.push('/home')}>
-                <Link to="/">Home</Link>
-              </div>
+          <div className="buttonLeft">
+            <div className="homeButton" onClick={() => history.push('/home')}>
+              <Link to="/">Home</Link>
             </div>
-
             <div
-              style={{width: '35%', display: 'flex', justifyContent: 'center'}}
+              className="signUpButton"
+              onClick={() => history.push('/signup')}
             >
-              <div
-                className="buttonNav"
-                onClick={() => history.push('/signup')}
-              >
-                <Link to="/signup">Sign Up</Link>
-              </div>
+              <Link to="/signup">Sign Up</Link>
             </div>
           </div>
-
-          <div
-            style={{width: '30%', display: 'flex', justifyContent: 'center'}}
-          />
-
-          <div
-            className="buttonsRight"
-            style={{width: '35%', display: 'flex', justifyContent: 'center'}}
-          >
-            <div className="buttonNav">
-              <Link to="/login" onClick={() => history.push('/login')}>
-                Login
-              </Link>
+          <div className="buttonsRight">
+            <div className="buttonNav" onClick={() => history.push('/login')}>
+              <Link to="/login">Login</Link>
             </div>
-            <div className="buttonNav" onClick={() => history.push('/cart')}>
+            <div className="cartButton" onClick={() => history.push('/cart')}>
               <Link to="/cart">Cart</Link>
             </div>
           </div>

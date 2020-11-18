@@ -12,7 +12,7 @@ nav a {
 }
 
 nav {
-  width: 70vw;
+  width: 100vw;
   margin: auto;
   display: block;
   color: white;
@@ -33,7 +33,11 @@ nav {
   justify-content: space-between;
 }
 
-.buttonNav {
+.buttonNav,
+.orderHistoryButton,
+.signUpButton,
+.cartButton,
+.homeButton {
   text-decoration: none;
   text-align: center;
   background-color: black;
@@ -53,21 +57,33 @@ nav {
   top: -11px;
   margin-left: 13px;
   margin-right: 13px;
-  min-width: 90px;
+  min-width: 50px;
 }
 
-.buttonNav:hover {
+.buttonNav:hover,
+.orderHistoryButton:hover,
+.signUpButton:hover,
+.cartButton:hover,
+.homeButton:hover {
   background-color: white;
   cursor: pointer;
   transition: ease 0.4s;
 }
 
-.buttonNav:hover a {
+.buttonNav:hover a,
+.orderHistoryButton:hover a,
+.signUpButton:hover a,
+.cartButton:hover a,
+.homeButton:hover a {
   color: cornflowerblue;
   transition: ease 0.4s;
 }
 
-.buttonNav a {
+.buttonNav a,
+.orderHistoryButton a,
+.signUpButton a,
+.cartButton a,
+.homeButton a {
   color: white;
   margin-left: 10px;
   margin-right: 10px;
@@ -76,5 +92,9 @@ nav {
 }
 
 .buttonsRight {
+  display: flex;
+}
+
+.buttonLeft {
   display: flex;
 }

@@ -48,13 +48,13 @@ export class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify(currentCart))
       this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
     } else {
-      let userId = this.props.user.id
       let candyObj = {
         quantity: this.state.quantity,
         candyId: this.props.singleCandy.id,
       }
-      this.props.addCandyToCart(userId, candyObj)
+      this.props.addCandyToCart(candyObj)
     }
+    this.setState({quantity: 1})
   }
 
   // eslint-disable-next-line complexity
@@ -79,118 +79,133 @@ export class SingleProduct extends React.Component {
     }
     return (
       <>
-        <div className="singleCandyContainer">
-          <div className="singleCandyImg">
-            <img src={singleCandy.image} />
-          </div>
-          <div className="singleCandyRight">
-            <div className="singleCandyTopInfo">
-              <div>
-                <h1>{singleCandy.name}</h1>
-              </div>
+        <div className="main">
+          <div className="singleCandyContainer">
+            <div className="singleCandyImg">
+              <img src={singleCandy.image} />
+            </div>
+            <div className="singleCandyRight">
+              <div className="singleCandyTopInfo">
+                <div>
+                  <h1>{singleCandy.name}</h1>
+                </div>
 
-              <div>
-                <div
-                  className="fb-share-button"
-                  data-href={`https://fullsnack-sweet-shop.herokuapp.com/candy/${this.props.match.params.candyId}`}
-                  data-layout="button_count"
-                  data-size="large"
-                >
-                  <a
-                    target="_blank"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffullsnack-sweet-shop.herokuapp.com%2Fcandy%2F${this.props.match.params.candyId}&amp;src=sdkpreparse`}
-                    className="fb-xfbml-parse-ignore"
+                <div>
+                  <div
+                    className="fb-share-button"
+                    data-href={`https://fullsnack-sweet-shop.herokuapp.com/candy/${this.props.match.params.candyId}`}
+                    data-layout="button_count"
+                    data-size="large"
                   >
-                    Share
-                  </a>
+                    <a
+                      target="_blank"
+                      href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffullsnack-sweet-shop.herokuapp.com%2Fcandy%2F${this.props.match.params.candyId}&amp;src=sdkpreparse`}
+                      className="fb-xfbml-parse-ignore"
+                    >
+                      Share
+                    </a>
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <h3>Description:</h3>
+                  <p>{singleCandy.description}</p>
+                  <br />
+                  <small>In Stock: {singleCandy.quantity}</small>
+                </div>
+                <hr />
+                <div>
+                  <h4>Price:</h4>
+                  <h4>{String(singleCandy.price / 100)}</h4>
                 </div>
               </div>
-              <hr />
-              <div>
-                <h3>Description:</h3>
-                <p>{singleCandy.description}</p>
-              </div>
-              <hr />
-              <div>
-                <h4>Price:</h4>
-                <h4>{String(singleCandy.price / 100)}</h4>
-              </div>
-            </div>
-            <div className="singleCandyButtons">
-              <div
-                className="singleCandyMinusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity - 1,
-                  }))
-                }
-              >
-                -
-              </div>
-              <div>
-                Quantity
-                <br />
-                {this.state.quantity}
-              </div>
-              <div
-                className="singleCandyPlusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity + 1,
-                  }))
-                }
-              >
-                +
-              </div>
-              {cart.length &&
-              cart
-                .filter((x) => x.name === singleCandy.name)
-                .filter((x) => !x.completed).length > 0 ? (
+              <div className="singleCandyButtons">
                 <div
-                  className="singleCandyAddToCartButton"
-                  style={{backgroundColor: 'gray'}}
+                  className="singleCandyMinusButton"
+                  onClick={() => {
+                    if (this.state.quantity > 1) {
+                      this.setState((prevState) => ({
+                        quantity: prevState.quantity - 1,
+                      }))
+                    }
+                  }}
                 >
-                  Item in cart
+                  -
                 </div>
-              ) : (
-                <div
-                  className="singleCandyAddToCartButton"
-                  onClick={() => this.handleClick(singleCandy)}
-                >
-                  Add to Cart
+                <div>
+                  Quantity
+                  <br />
+                  {this.state.quantity}
                 </div>
-              )}
+                {this.state.quantity < singleCandy.quantity ? (
+                  <div
+                    className="singleCandyPlusButton"
+                    onClick={() =>
+                      this.setState((prevState) => ({
+                        quantity: prevState.quantity + 1,
+                      }))
+                    }
+                  >
+                    +
+                  </div>
+                ) : (
+                  <div
+                    className="singleCandyPlusButton"
+                    style={{backgroundColor: 'gray'}}
+                  >
+                    +
+                  </div>
+                )}
+                {(cart.length &&
+                  cart
+                    .filter((x) => x.name === singleCandy.name)
+                    .filter((x) => !x.completed).length > 0) ||
+                !singleCandy.quantity ? (
+                  <div className="singleCandyAddToCartButtonBlocked">
+                    {!singleCandy.quantity ? 'Out of stock' : 'Item in cart'}
+                  </div>
+                ) : (
+                  <div
+                    className="singleCandyAddToCartButton"
+                    onClick={() => this.handleClick(singleCandy)}
+                  >
+                    Add to Cart
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        {user.admin &&
-          singleCandy.id ===
-            +this.props.location.pathname.split('/')[
-              this.props.location.pathname.split('/').length - 1
-            ] && (
-            <div className="candyEditContainer">
-              <EditCandyForm singleCandy={singleCandy} />
-            </div>
-          )}
-        <div className="singleCandyCartLabel">Cart View:</div>
-        <div className="singleCandyCartDisplay">
-          {cart.length && cart.filter((item) => !item.completed).length > 0 ? (
-            cart
-              .filter((item) => !item.completed)
-              .map((candy) => (
-                <SingleCandyCart
-                  key={candy.id}
-                  candy={candy}
-                  quantity={candy.quantity}
-                  user={user}
-                  getCart={this.props.getCart}
-                />
-              ))
-          ) : (
-            <div className="emptySingleCandyCart">
-              <div className="welcome">Cart Empty</div>
-            </div>
-          )}
+          {user.admin &&
+            singleCandy.id ===
+              +this.props.location.pathname.split('/')[
+                this.props.location.pathname.split('/').length - 1
+              ] && (
+              <div className="candyEditContainer">
+                <EditCandyForm singleCandy={singleCandy} />
+              </div>
+            )}
+          <div className="singleCandyCartLabel">Cart View:</div>
+          <div className="singleCandyCartDisplay">
+            {cart.length &&
+            cart.filter((item) => !item.completed).length > 0 ? (
+              cart
+                .filter((item) => !item.completed)
+                .map((candy) => (
+                  <SingleCandyCart
+                    key={candy.id}
+                    candy={candy}
+                    quantity={candy.quantity}
+                    user={user}
+                    getCart={this.props.getCart}
+                    candyId={candy.candyId}
+                  />
+                ))
+            ) : (
+              <div className="emptySingleCandyCart">
+                <div className="welcome">Cart Empty</div>
+              </div>
+            )}
+          </div>
         </div>
       </>
     )
@@ -206,8 +221,7 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   getSingleCandy: (id) => dispatch(getSingleCandyThunk(id)),
   getUser: () => dispatch(me()),
-  addCandyToCart: (userId, candyObj) =>
-    dispatch(addCandyToCart(userId, candyObj)),
+  addCandyToCart: (candyObj) => dispatch(addCandyToCart(candyObj)),
   getCart: (id) => dispatch(getCartThunk(id)),
   notLoggedIn: (cart) => dispatch(getCart(cart)),
 })
