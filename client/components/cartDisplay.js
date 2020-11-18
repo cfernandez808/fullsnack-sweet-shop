@@ -43,8 +43,38 @@ export class CartDisplay extends React.Component {
         }, 0)
         .toFixed(2)
     }
+    let curr = 'usd'
     return (
       <div>
+        <div className="couponLang">
+          <button
+            className="couponLangbtn"
+            type="button"
+            onClick={() => {
+              curr = 'usd'
+            }}
+          >
+            USA
+          </button>
+          <button
+            className="couponLangbtn"
+            type="button"
+            onClick={() => {
+              curr = 'jpy'
+            }}
+          >
+            JAPAN
+          </button>
+          <button
+            className="couponLangbtn"
+            type="button"
+            onClick={() => {
+              curr = 'aud'
+            }}
+          >
+            AUSTRALIA
+          </button>
+        </div>
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
@@ -66,6 +96,7 @@ export class CartDisplay extends React.Component {
                   },
                   body: JSON.stringify({
                     cart: cart,
+                    currency: curr,
                   }),
                 })
                   .then((response) => response.json())
@@ -77,7 +108,6 @@ export class CartDisplay extends React.Component {
                   .catch((error) => {
                     console.error('Error', error)
                   })
-                // this.props.history.push('/confirmation')
               }}
             >
               Proceed To Checkout

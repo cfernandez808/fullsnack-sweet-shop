@@ -2,14 +2,14 @@
   text-align: center;
   color: white;
 }
-.coupon {
+.couponLang {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
 
-.couponbtn {
+.couponLangbtn {
   background-color: green;
   color: white;
   font-weight: bolder;

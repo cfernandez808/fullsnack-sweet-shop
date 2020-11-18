@@ -27,9 +27,9 @@ export class AllProducts extends React.Component {
     const {candy, admin} = this.props
     return (
       <>
-        <div className="coupon">
+        <div className="couponLang">
           <button
-            className="couponbtn"
+            className="couponLangbtn"
             type="button"
             onClick={() => {
               alert(

@@ -84,44 +84,65 @@ const createApp = () => {
     const datas = {
       'Gummy Worms': {
         price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
+        product: 'prod_IPNEDwPto75LxO',
+        unit_amount_decimal: 199,
       },
       'Fruit Chews': {
         price: 'price_1HoYTDFEiVZX0xQo2qkyEEo7',
+        product: 'prod_IPND54VBHRGs4Q',
+        unit_amount_decimal: 299,
       },
       Lollipop: {
         price: 'price_1HoYScFEiVZX0xQoUrobRM8y',
+        product: 'prod_IPNDV1wVdp6aS1',
+        unit_amount_decimal: 299,
       },
       'Sweet Hearts': {
         price: 'price_1HoYRsFEiVZX0xQoPPEd7unI',
+        product: 'prod_IPNCYTNPUw1XFF',
+        unit_amount_decimal: 499,
       },
       'Hard Candies': {
         price: 'price_1HoYRJFEiVZX0xQoRNzG1fkA',
+        product: 'prod_IPNBG7qDLgRMa3',
+        unit_amount_decimal: 199,
       },
       'Fruit Crunches': {
         price: 'price_1HoYQdFEiVZX0xQoPFxZWbBq',
+        product: 'prod_IPNAFiYdyIGPWo',
+        unit_amount_decimal: 99,
       },
       'Candy Canes': {
         price: 'price_1HoYQ5FEiVZX0xQoNYNpDdfJ',
+        product: 'prod_IPNAQ8yQieb8LD',
+        unit_amount_decimal: 299,
       },
       'Gummy Bears': {
         price: 'price_1HoYPZFEiVZX0xQoX1cN33qU',
+        product: 'prod_IPN9EMoZPgesLo',
+        unit_amount_decimal: 99,
       },
       'Jelly Beans': {
         price: 'price_1HoYOdFEiVZX0xQo8nRD4Mwo',
+        product: 'prod_IPN8f4vH9871nA',
+        unit_amount_decimal: 199,
       },
     }
     try {
       const cart = req.body.cart
       const order = cart.map((el) => ({
-        price: datas[el.name].price,
         quantity: el.quantity,
+        price_data: {
+          currency: req.body.currency,
+          product: datas[el.name].product,
+          unit_amount_decimal: datas[el.name].unit_amount_decimal,
+        },
       }))
       const session = await stripe.checkout.sessions.create({
         success_url: 'http://localhost:8080/confirmation',
         cancel_url: 'http://localhost:8080/failure',
         payment_method_types: ['card'],
         mode: 'payment',
-        //THERES A COUPON HERE... TOGGLE IT
         discounts: [
           {
             coupon: 'coFKkQAN',
@@ -129,6 +150,8 @@ const createApp = () => {
         ],
         line_items: order,
       })
+      session.currency = req.body.currency
+      console.log(session)
       res.json({id: session.id})
     } catch (err) {
       next(err)
