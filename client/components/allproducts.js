@@ -24,7 +24,9 @@ export class AllProducts extends React.Component {
     this.setState({price: event.target.value})
   }
   render() {
-    const {candy, admin} = this.props
+    const {admin} = this.props
+    let {candy} = this.props
+    candy.sort((x, y) => x.id - y.id)
     return (
       <>
         <div className="main">

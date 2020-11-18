@@ -54,6 +54,7 @@ export class SingleProduct extends React.Component {
       }
       this.props.addCandyToCart(candyObj)
     }
+    this.setState({quantity: 1})
   }
 
   // eslint-disable-next-line complexity
@@ -109,6 +110,8 @@ export class SingleProduct extends React.Component {
                 <div>
                   <h3>Description:</h3>
                   <p>{singleCandy.description}</p>
+                  <br />
+                  <small>In Stock: {singleCandy.quantity}</small>
                 </div>
                 <hr />
                 <div>
@@ -119,11 +122,13 @@ export class SingleProduct extends React.Component {
               <div className="singleCandyButtons">
                 <div
                   className="singleCandyMinusButton"
-                  onClick={() =>
-                    this.setState((prevState) => ({
-                      quantity: prevState.quantity - 1,
-                    }))
-                  }
+                  onClick={() => {
+                    if (this.state.quantity > 1) {
+                      this.setState((prevState) => ({
+                        quantity: prevState.quantity - 1,
+                      }))
+                    }
+                  }}
                 >
                   -
                 </div>
@@ -132,22 +137,32 @@ export class SingleProduct extends React.Component {
                   <br />
                   {this.state.quantity}
                 </div>
-                <div
-                  className="singleCandyPlusButton"
-                  onClick={() =>
-                    this.setState((prevState) => ({
-                      quantity: prevState.quantity + 1,
-                    }))
-                  }
-                >
-                  +
-                </div>
-                {cart.length &&
-                cart
-                  .filter((x) => x.name === singleCandy.name)
-                  .filter((x) => !x.completed).length > 0 ? (
+                {this.state.quantity < singleCandy.quantity ? (
+                  <div
+                    className="singleCandyPlusButton"
+                    onClick={() =>
+                      this.setState((prevState) => ({
+                        quantity: prevState.quantity + 1,
+                      }))
+                    }
+                  >
+                    +
+                  </div>
+                ) : (
+                  <div
+                    className="singleCandyPlusButton"
+                    style={{backgroundColor: 'gray'}}
+                  >
+                    +
+                  </div>
+                )}
+                {(cart.length &&
+                  cart
+                    .filter((x) => x.name === singleCandy.name)
+                    .filter((x) => !x.completed).length > 0) ||
+                !singleCandy.quantity ? (
                   <div className="singleCandyAddToCartButtonBlocked">
-                    Item in cart
+                    {!singleCandy.quantity ? 'Out of stock' : 'Item in cart'}
                   </div>
                 ) : (
                   <div
@@ -182,6 +197,7 @@ export class SingleProduct extends React.Component {
                     quantity={candy.quantity}
                     user={user}
                     getCart={this.props.getCart}
+                    candyId={candy.candyId}
                   />
                 ))
             ) : (
