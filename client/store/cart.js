@@ -17,6 +17,7 @@ export const deletedCart = (cartId) => ({
   cartId,
 })
 
+
 export const getCartThunk = () => async (dispatch) => {
   try {
     let {data} = await axios.get(`/api/cart/`)
@@ -37,6 +38,7 @@ export const getCartThunk = () => async (dispatch) => {
 export const checkoutThunk = (cartArr) => async (dispatch) => {
   try {
     await axios.put('/api/cart/checkout', {cart: cartArr})
+    await axios.post('/api/email', {cart: cartArr})
     dispatch(getCart({}))
   } catch (err) {
     console.error(err)
