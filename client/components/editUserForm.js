@@ -30,49 +30,51 @@ class UserEditForm extends React.Component {
   }
   render() {
     return (
-      <div className="editUser">
-        <form onSubmit={this.handleSubmit} autoComplete="off">
-          <div className="userSubmitBox">
-            <label htmlFor="firstName">
-              First Name: <br />
-              <input
-                className="userEditInput"
-                type="text"
-                name="firstName"
-                placeholder="User First Name"
-                value={this.state.firstName}
-                onChange={this.handleChange}
-              />
-            </label>
-            <label htmlFor="lastName">
-              Last Name: <br />
-              <input
-                className="userEditInput"
-                type="text"
-                name="lastName"
-                placeholder="User Last Name"
-                value={this.state.lastName}
-                onChange={this.handleChange}
-              />
-            </label>
-            <label htmlFor="category">
-              Email: <br />
-              <input
-                className="candyEditInput"
-                type="text"
-                name="email"
-                placeholder="Email Category"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </label>
-          </div>
-          <div className="centerSubmit">
-            <button type="submit" className="submitEditUser">
-              Submit Edit
-            </button>
-          </div>
-        </form>
+      <div className="main">
+        <div className="editUser">
+          <form onSubmit={this.handleSubmit} autoComplete="off">
+            <div className="userSubmitBox">
+              <label htmlFor="firstName">
+                First Name: <br />
+                <input
+                  className="userEditInput"
+                  type="text"
+                  name="firstName"
+                  placeholder="User First Name"
+                  value={this.state.firstName}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <label htmlFor="lastName">
+                Last Name: <br />
+                <input
+                  className="userEditInput"
+                  type="text"
+                  name="lastName"
+                  placeholder="User Last Name"
+                  value={this.state.lastName}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <label htmlFor="category">
+                Email: <br />
+                <input
+                  className="candyEditInput"
+                  type="text"
+                  name="email"
+                  placeholder="Email Category"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <div className="centerSubmit">
+              <button type="submit" className="submitEditUser">
+                Submit Edit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }

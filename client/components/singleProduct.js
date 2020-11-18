@@ -48,7 +48,6 @@ export class SingleProduct extends React.Component {
       localStorage.setItem('cart', JSON.stringify(currentCart))
       this.props.notLoggedIn(JSON.parse(localStorage.getItem('cart')))
     } else {
-      let userId = this.props.user.id
       let candyObj = {
         quantity: this.state.quantity,
         candyId: this.props.singleCandy.id,
@@ -79,115 +78,118 @@ export class SingleProduct extends React.Component {
     }
     return (
       <>
-        <div className="singleCandyContainer">
-          <div className="singleCandyImg">
-            <img src={singleCandy.image} />
-          </div>
-          <div className="singleCandyRight">
-            <div className="singleCandyTopInfo">
-              <div>
-                <h1>{singleCandy.name}</h1>
-              </div>
+        <div className="main">
+          <div className="singleCandyContainer">
+            <div className="singleCandyImg">
+              <img src={singleCandy.image} />
+            </div>
+            <div className="singleCandyRight">
+              <div className="singleCandyTopInfo">
+                <div>
+                  <h1>{singleCandy.name}</h1>
+                </div>
 
-              <div>
-                <div
-                  className="fb-share-button"
-                  data-href={`https://fullsnack-sweet-shop.herokuapp.com/candy/${this.props.match.params.candyId}`}
-                  data-layout="button_count"
-                  data-size="large"
-                >
-                  <a
-                    target="_blank"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffullsnack-sweet-shop.herokuapp.com%2Fcandy%2F${this.props.match.params.candyId}&amp;src=sdkpreparse`}
-                    className="fb-xfbml-parse-ignore"
+                <div>
+                  <div
+                    className="fb-share-button"
+                    data-href={`https://fullsnack-sweet-shop.herokuapp.com/candy/${this.props.match.params.candyId}`}
+                    data-layout="button_count"
+                    data-size="large"
                   >
-                    Share
-                  </a>
+                    <a
+                      target="_blank"
+                      href={`https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ffullsnack-sweet-shop.herokuapp.com%2Fcandy%2F${this.props.match.params.candyId}&amp;src=sdkpreparse`}
+                      className="fb-xfbml-parse-ignore"
+                    >
+                      Share
+                    </a>
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <h3>Description:</h3>
+                  <p>{singleCandy.description}</p>
+                </div>
+                <hr />
+                <div>
+                  <h4>Price:</h4>
+                  <h4>{String(singleCandy.price / 100)}</h4>
                 </div>
               </div>
-              <hr />
-              <div>
-                <h3>Description:</h3>
-                <p>{singleCandy.description}</p>
-              </div>
-              <hr />
-              <div>
-                <h4>Price:</h4>
-                <h4>{String(singleCandy.price / 100)}</h4>
-              </div>
-            </div>
-            <div className="singleCandyButtons">
-              <div
-                className="singleCandyMinusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity - 1,
-                  }))
-                }
-              >
-                -
-              </div>
-              <div>
-                Quantity
-                <br />
-                {this.state.quantity}
-              </div>
-              <div
-                className="singleCandyPlusButton"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    quantity: prevState.quantity + 1,
-                  }))
-                }
-              >
-                +
-              </div>
-              {cart.length &&
-              cart
-                .filter((x) => x.name === singleCandy.name)
-                .filter((x) => !x.completed).length > 0 ? (
-                <div className="singleCandyAddToCartButtonBlocked">
-                  Item in cart
-                </div>
-              ) : (
+              <div className="singleCandyButtons">
                 <div
-                  className="singleCandyAddToCartButton"
-                  onClick={() => this.handleClick(singleCandy)}
+                  className="singleCandyMinusButton"
+                  onClick={() =>
+                    this.setState((prevState) => ({
+                      quantity: prevState.quantity - 1,
+                    }))
+                  }
                 >
-                  Add to Cart
+                  -
                 </div>
-              )}
+                <div>
+                  Quantity
+                  <br />
+                  {this.state.quantity}
+                </div>
+                <div
+                  className="singleCandyPlusButton"
+                  onClick={() =>
+                    this.setState((prevState) => ({
+                      quantity: prevState.quantity + 1,
+                    }))
+                  }
+                >
+                  +
+                </div>
+                {cart.length &&
+                cart
+                  .filter((x) => x.name === singleCandy.name)
+                  .filter((x) => !x.completed).length > 0 ? (
+                  <div className="singleCandyAddToCartButtonBlocked">
+                    Item in cart
+                  </div>
+                ) : (
+                  <div
+                    className="singleCandyAddToCartButton"
+                    onClick={() => this.handleClick(singleCandy)}
+                  >
+                    Add to Cart
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        {user.admin &&
-          singleCandy.id ===
-            +this.props.location.pathname.split('/')[
-              this.props.location.pathname.split('/').length - 1
-            ] && (
-            <div className="candyEditContainer">
-              <EditCandyForm singleCandy={singleCandy} />
-            </div>
-          )}
-        <div className="singleCandyCartLabel">Cart View:</div>
-        <div className="singleCandyCartDisplay">
-          {cart.length && cart.filter((item) => !item.completed).length > 0 ? (
-            cart
-              .filter((item) => !item.completed)
-              .map((candy) => (
-                <SingleCandyCart
-                  key={candy.id}
-                  candy={candy}
-                  quantity={candy.quantity}
-                  user={user}
-                  getCart={this.props.getCart}
-                />
-              ))
-          ) : (
-            <div className="emptySingleCandyCart">
-              <div className="welcome">Cart Empty</div>
-            </div>
-          )}
+          {user.admin &&
+            singleCandy.id ===
+              +this.props.location.pathname.split('/')[
+                this.props.location.pathname.split('/').length - 1
+              ] && (
+              <div className="candyEditContainer">
+                <EditCandyForm singleCandy={singleCandy} />
+              </div>
+            )}
+          <div className="singleCandyCartLabel">Cart View:</div>
+          <div className="singleCandyCartDisplay">
+            {cart.length &&
+            cart.filter((item) => !item.completed).length > 0 ? (
+              cart
+                .filter((item) => !item.completed)
+                .map((candy) => (
+                  <SingleCandyCart
+                    key={candy.id}
+                    candy={candy}
+                    quantity={candy.quantity}
+                    user={user}
+                    getCart={this.props.getCart}
+                  />
+                ))
+            ) : (
+              <div className="emptySingleCandyCart">
+                <div className="welcome">Cart Empty</div>
+              </div>
+            )}
+          </div>
         </div>
       </>
     )
