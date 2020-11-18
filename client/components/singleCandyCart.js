@@ -25,7 +25,7 @@ class SingleCandyCart extends React.Component {
   }
 
   increment(inStock) {
-    if (this.state.difference < inStock) {
+    if (this.state.difference < inStock || !this.props.user.id) {
       this.setState((prevState) => ({
         quantity: prevState.quantity + 1,
         difference: prevState.difference + 1,
