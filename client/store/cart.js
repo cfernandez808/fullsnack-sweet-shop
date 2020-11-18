@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {updateCandy} from './singleCandy'
 
 const GET_CART = 'GET_CART'
 const DELETED_CART = 'DELETED_CART'
@@ -22,6 +23,7 @@ export const getCartThunk = () => async (dispatch) => {
     data = data.carts.filter((x) => x.candies.length)
     data = data.map((candy) => {
       candy.candies[0].quantity = candy.quantity
+      candy.candies[0].candyId = candy.candies[0].id
       candy.candies[0].id = candy.id
       candy.candies[0].completed = candy.completed
       return candy.candies[0]
@@ -43,6 +45,10 @@ export const checkoutThunk = (cartArr) => async (dispatch) => {
 export const addCandyToCart = (candyObj) => async (dispatch) => {
   try {
     await axios.post(`/api/cart`, candyObj)
+    let {data} = await axios.put(`/api/candy/quantity/${candyObj.candyId}`, {
+      quantity: candyObj.quantity,
+    })
+    dispatch(updateCandy(data))
     dispatch(getCartThunk())
   } catch (err) {
     console.log(err)
@@ -51,7 +57,8 @@ export const addCandyToCart = (candyObj) => async (dispatch) => {
 export const removeCart = (cartId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/api/cart/${cartId}`)
+      const {data} = await axios.delete(`/api/cart/${cartId}`)
+      dispatch(updateCandy(data))
       dispatch(getCartThunk())
     } catch (err) {
       console.log(err)
@@ -59,10 +66,14 @@ export const removeCart = (cartId) => {
   }
 }
 
-export const updateQuantity = (cartId, updatedCart) => {
+export const updateQuantity = (cartId, updatedCart, candyId, difference) => {
   return async (dispatch) => {
     try {
       await axios.put(`/api/cart/${cartId}`, updatedCart)
+      let {data} = await axios.put(`/api/candy/quantity/${candyId}`, {
+        quantity: difference,
+      })
+      dispatch(updateCandy(data))
       dispatch(getCartThunk())
     } catch (err) {
       console.log(err)

@@ -44,7 +44,7 @@ export class CartDisplay extends React.Component {
         .toFixed(2)
     }
     return (
-      <div>
+      <div className="main">
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}

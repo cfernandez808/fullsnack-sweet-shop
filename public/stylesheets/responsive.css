@@ -1,0 +1,270 @@
+.nav {
+  min-width: 400px;
+}
+
+.candyContainer {
+  min-width: 240px;
+}
+
+.buttonNav,
+.orderHistoryButton,
+.signUpButton,
+.cartButton,
+.homeButton {
+  min-width: 50px;
+  box-shadow: 0 7px 14px purple, 0 3px 6px rgb(14, 223, 94);
+  text-shadow: 2px 2px 2px rgb(221, 20, 211);
+}
+
+.loginForm {
+  min-width: 400px;
+}
+
+.buttonNav {
+  min-width: 70px;
+}
+
+.filterDiv {
+  min-width: 300px;
+}
+
+.welcome {
+  min-width: 200px;
+}
+
+.singleCandyDisplay {
+  min-width: 400px;
+}
+
+.singleCandyCartLabel {
+  min-width: 40px;
+}
+
+.singleCandyCartLabel,
+.singleCandyContainer,
+.singleCandyCartDisplay,
+.candySubmitBox {
+  min-width: 500px;
+}
+.candyEditContainer {
+  min-width: 500px;
+}
+
+.accepted {
+  min-width: 60px;
+}
+
+.candyEditInput {
+  min-width: 60px;
+}
+.editUser {
+  text-align: center;
+  min-width: 60px;
+}
+
+.submitNewCandy {
+  min-width: 60px;
+}
+.newCandyImageInput {
+  min-width: 60px;
+}
+
+.cartHistory {
+  min-width: 480px;
+}
+
+.singleCandyCart {
+  min-width: 420px;
+}
+
+.emptySingleCandyCart {
+  max-height: 218px;
+}
+
+.cartHistory {
+  width: 75%;
+  text-align: center;
+  margin: auto;
+}
+
+.filterDiv {
+  width: 35%;
+  border-radius: 45px;
+}
+
+.filterDiv select {
+  width: 150px;
+}
+
+.singleFilter {
+  display: flex;
+  flex-direction: column;
+}
+
+.submitNewCandyGray {
+  background: gray;
+  font-size: 13.4px;
+  cursor: default;
+}
+
+.buyButtonAdmin {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.proceedToCheckoutBlocked {
+  background: gray;
+  cursor: default;
+}
+
+.viewOnHome {
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 30px;
+  color: white;
+  padding: 20px;
+  margin-top: 100px;
+  border-radius: 40px;
+  border: 2px solid white;
+}
+
+.buttonsLeft,
+.buttonsRight {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonsLeft {
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.buttonsRight {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.singleCandyAddToCartButtonBlocked {
+  background-color: gray;
+}
+
+.singleCandyCartRemove {
+  margin: auto;
+}
+
+nav {
+  width: 90%;
+  min-width: 830px;
+}
+
+.orderHistoryButton {
+  min-width: 134px;
+}
+
+.allProductsContainer {
+  margin: auto;
+}
+
+.main {
+  width: 100vw;
+  min-width: 830px;
+}
+
+.filterDiv {
+  min-width: 450px;
+}
+
+.welcome {
+  min-width: 320px;
+}
+
+.singleCandyContainer,
+.singleCandyCartLabel,
+.singleCandyCartDisplay {
+  min-width: 647px;
+}
+
+.fb-share-button.fb_iframe_widget {
+  background-color: #1877f2;
+}
+
+.total {
+  min-width: 257px;
+}
+
+.singleCandyCart {
+  min-width: 390px;
+}
+
+.singleCandyCart .imageDiv {
+  margin-left: 10px;
+}
+
+.candyRight {
+  width: 60%;
+}
+
+.userSubmitBox {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.userSubmitBox input {
+  width: 90%;
+}
+
+.signUpButton {
+  min-width: 90px;
+}
+
+.loginForm {
+  width: 25%;
+}
+
+.loginForm label {
+  padding: 0;
+  margin: 0;
+}
+
+.submitNewCandy,
+.submitNewCandyGray {
+  min-width: 72px;
+}
+
+.addCandySubmitBox label {
+  min-width: 106px;
+  margin: 2px;
+}
+
+.addCandySubmitBox {
+  min-width: 660px;
+}
+
+.candyEditContainer {
+  min-width: 647px;
+}
+
+.candyEditContainer label {
+  margin: 2px;
+}
+
+.submitEditCandy {
+  margin-top: 5px;
+  min-width: 78px;
+}
+
+.userContainer {
+  min-width: 270px;
+}
+
+.cartButton {
+  margin-right: 50px;
+}
+
+.homeButton {
+  margin-left: 50px;
+}
