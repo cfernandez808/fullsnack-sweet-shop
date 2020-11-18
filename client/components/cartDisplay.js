@@ -45,6 +45,9 @@ export class CartDisplay extends React.Component {
     }
     return (
       <div>
+        {alert(
+          'Our 40% off Winter Sale ends on 11/21! Enjoy some post-Halloween goodies on us by checking out today 🎃 🦃'
+        )}
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
