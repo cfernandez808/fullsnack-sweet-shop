@@ -199,3 +199,7 @@ form {
 .singleCandyCartRemove {
   margin: auto;
 }
+
+.kpi {
+  justify-self: center;
+}

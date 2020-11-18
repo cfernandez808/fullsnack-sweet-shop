@@ -14,6 +14,7 @@ import {
   CartHistory,
   EditUserForm,
   OrderFailure,
+  kpiDash,
 } from './components'
 import {me} from './store'
 
@@ -38,6 +39,7 @@ class Routes extends Component {
         <Route path="/cart" component={CartDisplay} />
         <Route exact path="/confirmation" component={OrderConfirm} />
         <Route exact path="/failure" component={OrderFailure} />
+        <Route exact path="/testing" component={kpiDash} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
