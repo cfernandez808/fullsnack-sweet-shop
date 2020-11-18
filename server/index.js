@@ -86,6 +86,12 @@ const createApp = () => {
         cancel_url: 'http://localhost:8080/failure',
         payment_method_types: ['card'],
         mode: 'payment',
+        //THERES A COUPON HERE... TOGGLE IT
+        discounts: [
+          {
+            coupon: 'coFKkQAN',
+          },
+        ],
         line_items: [
           {
             price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
