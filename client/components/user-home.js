@@ -13,8 +13,10 @@ export const UserHome = (props) => {
   return (
     <div>
       {firstName && (
-        <div className="welcome">
-          <h3>Welcome, {firstName}!</h3>
+        <div className="main">
+          <div className="welcome">
+            <h3>Welcome, {firstName}!</h3>
+          </div>
         </div>
       )}
       <AllProducts />

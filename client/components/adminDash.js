@@ -14,22 +14,24 @@ export class AdminDash extends React.Component {
       return <div>{history.push('/')}</div>
     }
     return (
-      <div className="allProductsContainer">
-        {users.map(singleUser => (
-          <UserDisplay key={singleUser.id} user={singleUser} />
-        ))}
+      <div className="main">
+        <div className="allProductsContainer">
+          {users.map((singleUser) => (
+            <UserDisplay key={singleUser.id} user={singleUser} />
+          ))}
+        </div>
       </div>
     )
   }
 }
 
-const mapState = state => ({
+const mapState = (state) => ({
   user: state.user,
-  users: state.users
+  users: state.users,
 })
 
-const mapDispatch = dispatch => ({
-  setUsers: () => dispatch(getUsersThunk())
+const mapDispatch = (dispatch) => ({
+  setUsers: () => dispatch(getUsersThunk()),
 })
 
 export default withRouter(connect(mapState, mapDispatch)(AdminDash))

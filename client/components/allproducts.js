@@ -24,10 +24,14 @@ export class AllProducts extends React.Component {
     this.setState({price: event.target.value})
   }
   render() {
-    const {candy, admin} = this.props
+    const {admin} = this.props
+    let {candy} = this.props
+    candy.sort((x, y) => x.id - y.id)
     return (
       <>
-        <div className="couponLang">
+
+        <div className="main">
+           <div className="couponLang">
           <button
             className="couponLangbtn"
             type="button"
@@ -40,38 +44,39 @@ export class AllProducts extends React.Component {
             Click Me To Save Money!
           </button>
         </div>
+          <Filter
+            handleChangeCategory={this.handleChangeCategory}
+            handleChangePrice={this.handleChangePrice}
+            currentCategory={this.state.category}
+            currentPrice={this.state.category}
+          />
+          {admin && <AddCandyForm />}
+          <div className="allProductsContainer">
+            {candy ? (
+              candy
+                .filter((y) => {
+                  if (
+                    this.state.category !== 'All' &&
+                    this.state.price !== 'All'
+                  ) {
+                    return (
+                      y.category === this.state.category &&
+                      y.price === +this.state.price
+                    )
+                  } else if (this.state.category !== 'All') {
+                    return y.category === this.state.category
+                  } else if (this.state.price !== 'All') {
+                    return y.price === +this.state.price
+                  } else {
+                    return y
+                  }
+                })
+                .map((x) => <CandyDisplay key={x.id} candy={x} />)
+            ) : (
+              <>'Loading!'</>
+            )}
+          </div>
 
-        <Filter
-          handleChangeCategory={this.handleChangeCategory}
-          handleChangePrice={this.handleChangePrice}
-          currentCategory={this.state.category}
-          currentPrice={this.state.category}
-        />
-        {admin && <AddCandyForm />}
-        <div className="allProductsContainer">
-          {candy ? (
-            candy
-              .filter((y) => {
-                if (
-                  this.state.category !== 'All' &&
-                  this.state.price !== 'All'
-                ) {
-                  return (
-                    y.category === this.state.category &&
-                    y.price === +this.state.price
-                  )
-                } else if (this.state.category !== 'All') {
-                  return y.category === this.state.category
-                } else if (this.state.price !== 'All') {
-                  return y.price === +this.state.price
-                } else {
-                  return y
-                }
-              })
-              .map((x) => <CandyDisplay key={x.id} candy={x} />)
-          ) : (
-            <>'Loading!'</>
-          )}
         </div>
       </>
     )

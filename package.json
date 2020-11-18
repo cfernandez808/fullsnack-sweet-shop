@@ -49,6 +49,7 @@
     "express-session": "^1.15.1",
     "faker": "^5.1.0",
     "history": "^4.9.0",
+    "mailgun-js": "^0.22.0",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",

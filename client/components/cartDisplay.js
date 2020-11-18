@@ -45,8 +45,9 @@ export class CartDisplay extends React.Component {
     }
     let curr = 'usd'
     return (
-      <div>
-        <div className="couponLang">
+
+      <div className="main">
+         <div className="couponLang">
           <button
             className="couponLangbtn"
             type="button"

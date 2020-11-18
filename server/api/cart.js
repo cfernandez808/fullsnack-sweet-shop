@@ -85,10 +85,14 @@ router.delete('/:cartId', async (req, res, next) => {
       where: {
         id: req.params.cartId,
       },
+      include: {model: Candy},
     })
     if (toDestroy.dataValues.userId === req.user.dataValues.id) {
+      const candy = await Candy.findByPk(toDestroy.dataValues.candies[0].id)
+      candy.quantity = candy.quantity + toDestroy.dataValues.quantity
+      candy.save()
       await toDestroy.destroy()
-      res.sendStatus(204)
+      res.json(candy)
     } else {
       res.send('Must be logged in to remove from this cart.')
     }

@@ -48,6 +48,7 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
 router.put('/:id', async (req, res, next) => {
   try {
     if (req.admin) {
@@ -55,6 +56,17 @@ router.put('/:id', async (req, res, next) => {
       const updatedCandy = await candy.update(req.body)
       res.json(updatedCandy)
     } else res.send('Admin access only.')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/quantity/:id', async (req, res, next) => {
+  try {
+    const candy = await Candy.findByPk(req.params.id)
+    candy.quantity = candy.quantity - req.body.quantity
+    candy.save()
+    res.json(candy)
   } catch (err) {
     next(err)
   }
