@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const emailGenerator = require('./emailGenerator')
 module.exports = router
 
 if (process.env.NODE_ENV !== 'production') require('../../secrets')
@@ -21,7 +22,29 @@ router.post('/', (req, res, next) => {
     const cart = req.body.cart
       .map((item) => {
         totalPrice += (item.price * item.quantity) / 100
-        return `(${item.quantity}) ${item.name}, $${item.price / 100}`
+        return `<tr>
+        <td class="em_grey" align="left" valign="top" style="font-family: Arial, sans-serif; font-size: 18px; line-height: 22px; color:#434343; font-weight:bold;">${
+          item.name
+        }</td>
+      </tr>
+      <tr>
+        <td height="13" style="height:13px; font-size:1px; line-height:1px;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="em_grey" align="left" valign="top" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; color:#434343;">Quantity: <span style="color:#da885b; font-weight:bold;">${
+          item.quantity
+        }</span></td>
+      </tr>
+      <tr>
+        <td height="13" style="height:13px; font-size:1px; line-height:1px;">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="em_grey" align="left" valign="top" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 20px; color:#434343;">Amount: <span style="color:#da885b; font-weight:bold;">$${
+          item.price / 100
+        }</span></td>
+      </tr>
+      <br />
+`
       })
       .join('\n')
 
@@ -33,15 +56,7 @@ router.post('/', (req, res, next) => {
       email = process.env.DEFAULTEMAIL
     }
 
-    const data = {
-      from: `Fullsnack Sweet Shop <me@${process.env.DOMAIN}>`,
-      /* the to: line should reference the buyer's email but that
-      required my credit card information :( so sending to only one
-      email address for free to verify functionality */
-      to: `${email}`,
-      subject: `Thanks for shopping with us! Here's your order confirmation.`,
-      text: `Confirming your order of: \n${cart} \nTotal: $${totalPrice}`,
-    }
+    const data = emailGenerator(email, req.user, cart, totalPrice)
 
     mailgun.messages().send(data, function (error, body) {
       if (error) {
