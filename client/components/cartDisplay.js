@@ -45,9 +45,6 @@ export class CartDisplay extends React.Component {
     }
     return (
       <div>
-        {alert(
-          'Our 40% off Winter Sale ends on 11/21! Enjoy some post-Halloween goodies on us by checking out today 🎃 🦃'
-        )}
         <div className="totalDisplay">
           <div className="total">
             Cart Total: ${cart.length > 0 ? String(totalPrice / 100) : '0'}
@@ -56,19 +53,19 @@ export class CartDisplay extends React.Component {
             <div
               className="proceedToCheckout"
               onClick={async () => {
+                const stripe = await stripePromise
                 if (user.id) {
                   await checkout(cart)
                 } else {
                   localStorage.setItem('cart', JSON.stringify([]))
                 }
-                const stripe = await stripePromise
                 fetch('/create-checkout-session', {
                   method: 'POST',
                   headers: {
                     'Content-type': 'application/json',
                   },
                   body: JSON.stringify({
-                    quantity: cart[0].quantity,
+                    cart: cart,
                   }),
                 })
                   .then((response) => response.json())

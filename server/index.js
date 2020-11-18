@@ -79,8 +79,43 @@ const createApp = () => {
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
+  // eslint-disable-next-line complexity
   app.post('/create-checkout-session', async (req, res, next) => {
+    const datas = {
+      'Gummy Worms': {
+        price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
+      },
+      'Fruit Chews': {
+        price: 'price_1HoYTDFEiVZX0xQo2qkyEEo7',
+      },
+      Lollipop: {
+        price: 'price_1HoYScFEiVZX0xQoUrobRM8y',
+      },
+      'Sweet Hearts': {
+        price: 'price_1HoYRsFEiVZX0xQoPPEd7unI',
+      },
+      'Hard Candies': {
+        price: 'price_1HoYRJFEiVZX0xQoRNzG1fkA',
+      },
+      'Fruit Crunches': {
+        price: 'price_1HoYQdFEiVZX0xQoPFxZWbBq',
+      },
+      'Candy Canes': {
+        price: 'price_1HoYQ5FEiVZX0xQoNYNpDdfJ',
+      },
+      'Gummy Bears': {
+        price: 'price_1HoYPZFEiVZX0xQoX1cN33qU',
+      },
+      'Jelly Beans': {
+        price: 'price_1HoYOdFEiVZX0xQo8nRD4Mwo',
+      },
+    }
     try {
+      const cart = req.body.cart
+      const order = cart.map((el) => ({
+        price: datas[el.name].price,
+        quantity: el.quantity,
+      }))
       const session = await stripe.checkout.sessions.create({
         success_url: 'http://localhost:8080/confirmation',
         cancel_url: 'http://localhost:8080/failure',
@@ -92,46 +127,9 @@ const createApp = () => {
             coupon: 'coFKkQAN',
           },
         ],
-        line_items: [
-          {
-            price: 'price_1HoYTaFEiVZX0xQoK3qhAsoL',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYTDFEiVZX0xQo2qkyEEo7',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYScFEiVZX0xQoUrobRM8y',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYRsFEiVZX0xQoPPEd7unI',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYRJFEiVZX0xQoRNzG1fkA',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYQdFEiVZX0xQoPFxZWbBq',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYQ5FEiVZX0xQoNYNpDdfJ',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYPZFEiVZX0xQoX1cN33qU',
-            quantity: req.body.quantity,
-          },
-          {
-            price: 'price_1HoYOdFEiVZX0xQo8nRD4Mwo',
-            quantity: req.body.quantity,
-          },
-        ],
+        line_items: order,
       })
-      res.send({id: session.id})
+      res.json({id: session.id})
     } catch (err) {
       next(err)
     }

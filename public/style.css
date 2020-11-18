@@ -29,7 +29,6 @@
   width: 100px;
 } */
 
-
 .nav {
   min-width: 400px;
 }
@@ -37,7 +36,6 @@
 .candyContainer {
   min-width: 240px;
 }
-
 
 .buttonNav {
   min-width: 50px;
@@ -108,6 +106,7 @@ form {
 
 .singleCandyCart {
   min-width: 420px;
+}
 
 .emptySingleCandyCart {
   max-height: 218px;
