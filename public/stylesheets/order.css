@@ -2,3 +2,17 @@
   text-align: center;
   color: white;
 }
+.couponLang {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.couponLangbtn {
+  background-color: green;
+  color: white;
+  font-weight: bolder;
+  padding: 10px;
+  border-radius: 10px 10px 10px 10px;
+}

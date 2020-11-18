@@ -29,7 +29,21 @@ export class AllProducts extends React.Component {
     candy.sort((x, y) => x.id - y.id)
     return (
       <>
+
         <div className="main">
+           <div className="couponLang">
+          <button
+            className="couponLangbtn"
+            type="button"
+            onClick={() => {
+              alert(
+                'Our 40% off Winter Sale ends on 11/21! Enjoy some post-Halloween goodies on us by checking out today 🎃 🦃'
+              )
+            }}
+          >
+            Click Me To Save Money!
+          </button>
+        </div>
           <Filter
             handleChangeCategory={this.handleChangeCategory}
             handleChangePrice={this.handleChangePrice}
@@ -62,6 +76,7 @@ export class AllProducts extends React.Component {
               <>'Loading!'</>
             )}
           </div>
+
         </div>
       </>
     )
